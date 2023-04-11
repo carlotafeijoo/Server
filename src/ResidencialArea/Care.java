@@ -1,3 +1,4 @@
+
 package ResidencialArea;
 
 public class Care {
