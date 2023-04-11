@@ -7,13 +7,7 @@ public class Contact {
 	String email;
 	int family_id;
 	int elderly_id;
-<<<<<<< HEAD
-	
-	
-=======
 
-
->>>>>>> branch 'master' of https://github.com/mariagomezpalla/ResidencialArea.git
 	public Contact() {
 		super();
 	}
@@ -53,14 +47,5 @@ public class Contact {
 	public void setElderly_id(int elderly_id) {
 		this.elderly_id = elderly_id;
 	}
-<<<<<<< HEAD
-	
-	
-
-	
-	
-=======
->>>>>>> branch 'master' of https://github.com/mariagomezpalla/ResidencialArea.git
-
 }
 
