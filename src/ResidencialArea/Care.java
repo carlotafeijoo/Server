@@ -11,11 +11,13 @@ public class Care {
 		super();
 	}
 	
+	
 	public Care(int elderly_id, int staff_id) {
 		super();
 		this.elderly_id = elderly_id;
 		this.staff_id = staff_id;
 	}
+
 	
 	public int getElderly_id() {
 		return elderly_id;

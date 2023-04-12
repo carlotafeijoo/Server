@@ -1,6 +1,7 @@
 package ResidencialArea;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Staff {
 
@@ -15,6 +16,17 @@ public class Staff {
 	public Staff() {
 		super();
 	}
+	
+	public Staff(int staff_id, String name, Date dob, String address, int phone, boolean field) {
+		super();
+		this.staff_id = staff_id;
+		this.name = name;
+		this.dob = dob;
+		this.address = address;
+		this.phone = phone;
+		this.field = field;
+	}
+
 	public int getStaff_id() {
 		return staff_id;
 	}
@@ -51,5 +63,30 @@ public class Staff {
 	public void setField(boolean field) {
 		this.field = field;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(address, dob, field, name, phone, staff_id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Staff other = (Staff) obj;
+		return Objects.equals(address, other.address) && Objects.equals(dob, other.dob) && field == other.field
+				&& Objects.equals(name, other.name) && phone == other.phone && staff_id == other.staff_id;
+	}
+
+	@Override
+	public String toString() {
+		return "Staff [staff_id=" + staff_id + ", name=" + name + ", dob=" + dob + ", address=" + address + ", phone="
+				+ phone + ", field=" + field + "]";
+	}
+	
 }
 
