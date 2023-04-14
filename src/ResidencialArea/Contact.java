@@ -1,5 +1,7 @@
 package ResidencialArea;
 
+import java.util.Objects;
+
 public class Contact {
 	String name;
 	String address;
@@ -10,6 +12,15 @@ public class Contact {
 
 	public Contact() {
 		super();
+	}
+	public Contact(String name, String address, int phone, String email, int family_id, int elderly_id) {
+		super();
+		this.name = name;
+		this.address = address;
+		this.phone = phone;
+		this.email = email;
+		this.family_id = family_id;
+		this.elderly_id = elderly_id;
 	}
 	public String getName() {
 		return name;
@@ -47,5 +58,29 @@ public class Contact {
 	public void setElderly_id(int elderly_id) {
 		this.elderly_id = elderly_id;
 	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(address, elderly_id, email, family_id, name, phone);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Contact other = (Contact) obj;
+		return Objects.equals(address, other.address) && elderly_id == other.elderly_id
+				&& Objects.equals(email, other.email) && family_id == other.family_id
+				&& Objects.equals(name, other.name) && phone == other.phone;
+	}
+	@Override
+	public String toString() {
+		return "Contact [name=" + name + ", address=" + address + ", phone=" + phone + ", email=" + email
+				+ ", family_id=" + family_id + ", elderly_id=" + elderly_id + "]";
+	}
+	
+	
 }
 

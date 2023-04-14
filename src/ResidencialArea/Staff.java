@@ -1,6 +1,7 @@
 package ResidencialArea;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Staff {
 	//Atributes of Staff class
@@ -19,6 +20,7 @@ public class Staff {
 		tasks = new ArrayList<Task>();
 		elderlies= new ArrayList<Elderly>();
 	}
+<<<<<<< HEAD
 
 	//Constructor with all the class Task´s attributes as parameters
 	public Staff (String name, String field, Integer phone, Date dob, String adress) {
@@ -28,6 +30,21 @@ public class Staff {
 		this.phone=phone;
 		this.dob=dob;
 		this.address;
+=======
+	
+	public Staff(int staff_id, String name, Date dob, String address, int phone, boolean field) {
+		super();
+		this.staff_id = staff_id;
+		this.name = name;
+		this.dob = dob;
+		this.address = address;
+		this.phone = phone;
+		this.field = field;
+	}
+
+	public int getStaff_id() {
+		return staff_id;
+>>>>>>> 5f5a6c150889ea388125986443f7f02d9f09cedc
 	}
 
 	// Has an equals (uses only name)
@@ -87,6 +104,7 @@ public class Staff {
 		this.field = field;
 	}
 
+<<<<<<< HEAD
 	public Integer getPhone() {
 		return phone;
 	}
@@ -110,6 +128,32 @@ public class Staff {
 	public void setElderlies(List<Elderly> elderlies) {
 		this.elderlies = elderlies;
 	}
+=======
+	@Override
+	public int hashCode() {
+		return Objects.hash(address, dob, field, name, phone, staff_id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Staff other = (Staff) obj;
+		return Objects.equals(address, other.address) && Objects.equals(dob, other.dob) && field == other.field
+				&& Objects.equals(name, other.name) && phone == other.phone && staff_id == other.staff_id;
+	}
+
+	@Override
+	public String toString() {
+		return "Staff [staff_id=" + staff_id + ", name=" + name + ", dob=" + dob + ", address=" + address + ", phone="
+				+ phone + ", field=" + field + "]";
+	}
+	
+>>>>>>> 5f5a6c150889ea388125986443f7f02d9f09cedc
 }
 
 
