@@ -1,15 +1,21 @@
 package ResidencialArea;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Elderly{
 	private int elderly_id;
 	private String name;
 	private int age;
+	private List<Staff> staffmembers;
+	
 	
 	public Elderly() {
 		super();
+		setStaffmembers(new ArrayList<Staff>());
 	}
+	
 	public Elderly(int elderly_id, String name, int age) {
 		super();
 		this.elderly_id = elderly_id;
@@ -53,6 +59,14 @@ public class Elderly{
 			return false;
 		Elderly other = (Elderly) obj;
 		return age == other.age && elderly_id == other.elderly_id && Objects.equals(name, other.name);
+	}
+
+	public List<Staff> getStaffmembers() {
+		return staffmembers;
+	}
+
+	public void setStaffmembers(List<Staff> staffmembers) {
+		this.staffmembers = staffmembers;
 	}
 	
 

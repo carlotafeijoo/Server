@@ -13,14 +13,12 @@ public class Staff {
 	private Integer phone;
 	private Date dob;
 	private String address;
-	private List<Task> tasks; // Many to one relationship
 	private List<Elderly> elderlies; // Many to many relationship
 
 
 	//Empty constructor
 	public Staff() {
 		super();
-		tasks = new ArrayList<Task>();
 		elderlies= new ArrayList<Elderly>();
 	}
 

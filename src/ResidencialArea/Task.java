@@ -6,18 +6,20 @@ import java.util.Objects;;
 public class Task {
     //Atributes of Task class
     private String description;
-    private List<Staff> staffmembers; // Many to one relationship
+    private int task_id;
+    
+
 
     //Empty constructor
     public Task() {
             super();
-            staffmembers = new ArrayList<Staff>();
     }
 
     //Constructor with all the class Task´s attributes as parameters
-    public Task (String description) {
+    public Task (String description, int task_id) {
             super();
             this.description = description;
+            this.task_id=task_id;
     }
 
     // Has an equals (uses only description)
@@ -40,7 +42,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task [description=" + description + ", performs=" + staffmembers +"]";
+        return "Task [description=" + description ;
     }
 
     //Getters and setters for the attributes
@@ -52,12 +54,13 @@ public class Task {
         this.description = description;
     }
 
-    public List<Staff> getStaffmembers() {
-        return staffmembers;
-    }
 
-    public void setStaffmembers(List<Staff> staffmembers) {
-        this.staffmembers = staffmembers;
-    }
+	public int getStaff_id() {
+		return task_id;
+	}
+
+	public void setStaff_id(int staff_id) {
+		this.task_id = task_id;
+	}
 }
 

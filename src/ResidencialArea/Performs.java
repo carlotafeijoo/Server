@@ -6,16 +6,29 @@ public class Performs {
 	int staff_id;
 	int task_id;
 	int performs_id;
+	Shift shift;
+	Day day;
+	
 	
 	public Performs() {
 		super();
 	}
 	
-	public Performs(int staff_id, int task_id, int performs_id) {
+	public Performs(int staff_id, int task_id, int performs_id, Shift shift, Day day) {
 		super();
 		this.staff_id = staff_id;
 		this.task_id = task_id;
 		this.performs_id = performs_id;
+		this.shift= shift;
+		this.day=day;
+	}
+	
+	public Shift getShift() {
+		return shift;
+	}
+
+	public void setShift(Shift shift) {
+		this.shift = shift;
 	}
 
 	public int getStaff_id() {
