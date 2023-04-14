@@ -1,10 +1,8 @@
 package ResidencialArea;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;;
 public class Task {
-    //Atributes of Task class
+    //Attributes of Task class
     private String description;
     private int task_id;
     
@@ -55,11 +53,11 @@ public class Task {
     }
 
 
-	public int getStaff_id() {
+	public int getTask_id() {
 		return task_id;
 	}
 
-	public void setStaff_id(int staff_id) {
+	public void setTask_id(int task_id) {
 		this.task_id = task_id;
 	}
 }

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Staff {
-	//Atributes of Staff class
+	//Attributes of Staff class
 	private String name;
 	private int staff_id;
 	private String field;
@@ -31,7 +31,7 @@ public class Staff {
 	}
 
 
-	public Staff(String name, int staff_id, String field, Integer phone, Date dob, String address, List<Task> tasks,
+	public Staff(String name, int staff_id, String field, Integer phone, Date dob, String address, 
 			List<Elderly> elderlies) {
 		super();
 		this.name = name;
@@ -40,7 +40,6 @@ public class Staff {
 		this.phone = phone;
 		this.dob = dob;
 		this.address = address;
-		this.tasks = tasks;
 		this.elderlies = elderlies;
 	}
 
@@ -66,8 +65,8 @@ public class Staff {
 	@Override
 	public String toString() {
 		return "Staff [name= " + name + " whose date of birth=" + dob +
-				" ,address=" +address +" ,phone=" +phone +" in the field= " +field +" ,performs "
-				+tasks +"and takes care of " + elderlies +"]";
+				" ,address=" +address +" ,phone=" +phone +" in the field= " +field 
+				+"and takes care of " + elderlies +"]";
 	}
 
 	//Getters and setters for the attributes
