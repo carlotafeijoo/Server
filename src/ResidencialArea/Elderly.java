@@ -2,15 +2,10 @@ package ResidencialArea;
 
 import java.util.Objects;
 
-public class Elderly {
-<<<<<<< HEAD
-   
-    
-=======
-
-	int elderly_id;
-	String name;
-	int age;
+public class Elderly{
+	private int elderly_id;
+	private String name;
+	private int age;
 	
 	public Elderly() {
 		super();
@@ -60,6 +55,6 @@ public class Elderly {
 		return age == other.age && elderly_id == other.elderly_id && Objects.equals(name, other.name);
 	}
 	
->>>>>>> 5f5a6c150889ea388125986443f7f02d9f09cedc
+
 }
 

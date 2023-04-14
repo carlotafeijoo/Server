@@ -1,11 +1,14 @@
 package ResidencialArea;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class Staff {
 	//Atributes of Staff class
 	private String name;
+	private int staff_id;
 	private String field;
 	private Integer phone;
 	private Date dob;
@@ -20,32 +23,29 @@ public class Staff {
 		tasks = new ArrayList<Task>();
 		elderlies= new ArrayList<Elderly>();
 	}
-<<<<<<< HEAD
+
 
 	//Constructor with all the class Task´s attributes as parameters
-	public Staff (String name, String field, Integer phone, Date dob, String adress) {
-		super();
-		this.name = name;
-		this.field=field;
-		this.phone=phone;
-		this.dob=dob;
-		this.address;
-=======
 	
-	public Staff(int staff_id, String name, Date dob, String address, int phone, boolean field) {
-		super();
-		this.staff_id = staff_id;
-		this.name = name;
-		this.dob = dob;
-		this.address = address;
-		this.phone = phone;
-		this.field = field;
-	}
 
 	public int getStaff_id() {
 		return staff_id;
->>>>>>> 5f5a6c150889ea388125986443f7f02d9f09cedc
 	}
+
+
+	public Staff(String name, int staff_id, String field, Integer phone, Date dob, String address, List<Task> tasks,
+			List<Elderly> elderlies) {
+		super();
+		this.name = name;
+		this.staff_id = staff_id;
+		this.field = field;
+		this.phone = phone;
+		this.dob = dob;
+		this.address = address;
+		this.tasks = tasks;
+		this.elderlies = elderlies;
+	}
+
 
 	// Has an equals (uses only name)
 	@Override
@@ -81,7 +81,7 @@ public class Staff {
 		this.name = name;
 	}
 
-	public String getDob() {
+	public Date getDob() {
 		return dob;
 	}
 	public void setDob (Date dob) {
@@ -103,57 +103,5 @@ public class Staff {
 	public void setField (String field) {
 		this.field = field;
 	}
-
-<<<<<<< HEAD
-	public Integer getPhone() {
-		return phone;
-	}
-
-	public void setPhone (Integer phone) {
-		this.phone = phone;
-	}
-
-	public List<Task> getTasks() {
-		return tasks;
-	}
-
-	public void setTasks(List<Task> tasks) {
-		this.tasks = tasks;
-	}
-
-	public List<Elderly> getElderlies() {
-		return elderlies;
-	}
-
-	public void setElderlies(List<Elderly> elderlies) {
-		this.elderlies = elderlies;
-	}
-=======
-	@Override
-	public int hashCode() {
-		return Objects.hash(address, dob, field, name, phone, staff_id);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Staff other = (Staff) obj;
-		return Objects.equals(address, other.address) && Objects.equals(dob, other.dob) && field == other.field
-				&& Objects.equals(name, other.name) && phone == other.phone && staff_id == other.staff_id;
-	}
-
-	@Override
-	public String toString() {
-		return "Staff [staff_id=" + staff_id + ", name=" + name + ", dob=" + dob + ", address=" + address + ", phone="
-				+ phone + ", field=" + field + "]";
-	}
-	
->>>>>>> 5f5a6c150889ea388125986443f7f02d9f09cedc
 }
-
 
