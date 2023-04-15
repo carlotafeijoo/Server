@@ -24,13 +24,6 @@ public class Staff {
 
 
 	//Constructor with all the class Task´s attributes as parameters
-	
-
-	public int getStaff_id() {
-		return staff_id;
-	}
-
-
 	public Staff(String name, int staff_id, String field, Integer phone, Date dob, String address, 
 			List<Elderly> elderlies) {
 		super();
@@ -42,31 +35,10 @@ public class Staff {
 		this.address = address;
 		this.elderlies = elderlies;
 	}
-
-
-	// Has an equals (uses only name)
-	@Override
-	public int hashCode() {
-		return Objects.hash(name);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Staff other = (Staff) obj;
-		return Objects.equals(name, other.name);
-	}
-
-	@Override
-	public String toString() {
-		return "Staff [name= " + name + " whose date of birth=" + dob +
-				" ,address=" +address +" ,phone=" +phone +" in the field= " +field 
-				+"and takes care of " + elderlies +"]";
+	
+	
+	public int getStaff_id() {
+		return staff_id;
 	}
 
 	//Getters and setters for the attributes
@@ -100,5 +72,31 @@ public class Staff {
 	public void setField (String field) {
 		this.field = field;
 	}
+	
+	// Has an equals (uses only name)
+	@Override
+	public int hashCode() {
+		return Objects.hash(name);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Staff other = (Staff) obj;
+		return Objects.equals(name, other.name);
+	}
+	
+	@Override
+	public String toString() {
+		return "Staff [name= " + name + " whose date of birth=" + dob +
+				" ,address=" +address +" ,phone=" +phone +" in the field= " +field 
+				+"and takes care of " + elderlies +"]";
+	}
+	
 }
 

@@ -3,11 +3,11 @@ package ResidencialArea;
 import java.util.Objects;
 
 public class Performs {
-	int staff_id;
-	int task_id;
-	int performs_id;
-	Shift shift;
-	Day day;
+	private int staff_id;
+	private int task_id;
+	private int performs_id;
+	private Shift shift;
+	private Day day;
 	
 	
 	public Performs() {
@@ -53,6 +53,14 @@ public class Performs {
 	
 	public void setPerforms_id(int performs_id) {
 		this.performs_id = performs_id;
+	}
+
+	public Day getDay() {
+		return day;
+	}
+
+	public void setDay(Day day) {
+		this.day = day;
 	}
 
 	@Override

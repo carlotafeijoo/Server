@@ -45,6 +45,15 @@ public class Elderly{
 	public String toString() {
 		return "Elderly [elderly_id=" + elderly_id + ", name=" + name + ", age=" + age + "]";
 	}
+	
+	public List<Staff> getStaffmembers() {
+		return staffmembers;
+	}
+
+	public void setStaffmembers(List<Staff> staffmembers) {
+		this.staffmembers = staffmembers;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(age, elderly_id, name);
@@ -59,16 +68,7 @@ public class Elderly{
 			return false;
 		Elderly other = (Elderly) obj;
 		return age == other.age && elderly_id == other.elderly_id && Objects.equals(name, other.name);
-	}
-
-	public List<Staff> getStaffmembers() {
-		return staffmembers;
-	}
-
-	public void setStaffmembers(List<Staff> staffmembers) {
-		this.staffmembers = staffmembers;
-	}
-	
+	}	
 
 }
 

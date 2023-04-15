@@ -6,8 +6,6 @@ public class Task {
     private String description;
     private int task_id;
     
-
-
     //Empty constructor
     public Task() {
             super();
@@ -20,7 +18,25 @@ public class Task {
             this.task_id=task_id;
     }
 
-    // Has an equals (uses only description)
+    //Getters and setters for the attributes
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription (String description) {
+        this.description = description;
+    }
+
+
+	public int getTask_id() {
+		return task_id;
+	}
+
+	public void setTask_id(int task_id) {
+		this.task_id = task_id;
+	}
+	
+	// Has an equals (uses only description)
     @Override
     public int hashCode() {
         return Objects.hash(description);
@@ -42,23 +58,6 @@ public class Task {
     public String toString() {
         return "Task [description=" + description ;
     }
-
-    //Getters and setters for the attributes
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription (String description) {
-        this.description = description;
-    }
-
-
-	public int getTask_id() {
-		return task_id;
-	}
-
-	public void setTask_id(int task_id) {
-		this.task_id = task_id;
-	}
+    
 }
 

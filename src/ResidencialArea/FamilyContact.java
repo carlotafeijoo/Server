@@ -2,7 +2,7 @@ package ResidencialArea;
 
 import java.util.Objects;
 
-public class Contact {
+public class FamilyContact {
 	String name;
 	String address;
 	int phone;
@@ -10,10 +10,10 @@ public class Contact {
 	int family_id;
 	int elderly_id;
 
-	public Contact() {
+	public FamilyContact() {
 		super();
 	}
-	public Contact(String name, String address, int phone, String email, int family_id, int elderly_id) {
+	public FamilyContact(String name, String address, int phone, String email, int family_id, int elderly_id) {
 		super();
 		this.name = name;
 		this.address = address;
@@ -70,7 +70,7 @@ public class Contact {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Contact other = (Contact) obj;
+		FamilyContact other = (FamilyContact) obj;
 		return Objects.equals(address, other.address) && elderly_id == other.elderly_id
 				&& Objects.equals(email, other.email) && family_id == other.family_id
 				&& Objects.equals(name, other.name) && phone == other.phone;
