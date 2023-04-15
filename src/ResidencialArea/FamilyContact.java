@@ -3,12 +3,12 @@ package ResidencialArea;
 import java.util.Objects;
 
 public class FamilyContact {
-	String name;
-	String address;
-	int phone;
-	String email;
-	int family_id;
-	int elderly_id;
+	private String name;
+	private String address;
+	private int phone;
+	private String email;
+	private int family_id;
+	private int elderly_id;
 
 	public FamilyContact() {
 		super();
