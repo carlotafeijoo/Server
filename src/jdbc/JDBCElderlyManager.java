@@ -5,6 +5,7 @@ import POJOS.Elderly;
 import java.sql.PreparedStatement;
 import java.util.List;
 
+
 import Interfaces.ElderlyManager;
 
 public class JDBCElderlyManager implements ElderlyManager{
@@ -17,24 +18,22 @@ public class JDBCElderlyManager implements ElderlyManager{
 	
 
 	@Override
-	public void addElderly(Elderly d) {
+	public void addElderly(Elderly e) {
 		try {
-			String sql = "INSERT INTO elderly (name, age, staffmember) VALUES (?,?,?)";
+			String sql = "INSERT INTO elderly (name, id, age) VALUES (?,?,?)";
 			// use preparedStmt so nothing damages the database
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setString(1, p.getName());
-			prep.setString(2, p.getMedstat());
-			prep.setString(3, p.getEmail());
-			prep.setDate(4, p.getDob());
-			prep.setString(5, p.getSex());
+			prep.setString(1, e.getName());
+			prep.setString(2, e.getElderly_id()); //setInteger???
+			prep.setString(3, e.getAge());
 			prep.executeUpdate();
 			prep.close();
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception exception) {
+			exception.printStackTrace();
 		}
 	}
 		
-	}
+	
 
 	@Override
 	public List<Elderly> getListOfElderlies() {
