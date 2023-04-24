@@ -3,12 +3,14 @@ package jdbc;
 import POJOS.Elderly;
 
 public interface JDBCElderlyManager {
+	JDBCManager manager;
 	
-     
-	public void addElderly(Elderly e) {
-		
+	public JDBCElderlytManager(JDBCManager m) {
+		this.manager = m;
 	}
-	//delete an elderly
+   //add a patient to a database
+	
+	
 	
 	
 }

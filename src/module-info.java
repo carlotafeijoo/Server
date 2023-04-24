@@ -6,4 +6,5 @@
  *
  */
 module ResidencialArea {
+	requires java.management;
 }
