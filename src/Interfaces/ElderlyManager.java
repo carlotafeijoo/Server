@@ -18,5 +18,8 @@ public interface ElderlyManager {
 		//Update info from elderly
 		public void updateInfo(Elderly e);
 		
+		//count number of elderlies
+		
+		
 
 }
