@@ -24,8 +24,8 @@ public class JDBCElderlyManager implements ElderlyManager{
 			// use preparedStmt so nothing damages the database
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setString(1, e.getName());
-			prep.setString(2, e.getElderly_id()); //setInteger???
-			prep.setString(3, e.getAge());
+			prep.setInt(2, e.getElderly_id()); 
+			prep.setInt(3, e.getAge());
 			prep.executeUpdate();
 			prep.close();
 		} catch (Exception exception) {

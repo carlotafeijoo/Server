@@ -1,5 +1,5 @@
 package Interfaces;
 
-public class TaskManager {
+public interface TaskManager {
 
 }

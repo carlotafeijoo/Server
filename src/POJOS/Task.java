@@ -1,21 +1,22 @@
 package POJOS;
 
-import java.util.Objects;;
+import java.util.Objects;
+
 public class Task {
     //Attributes of Task class
-    private String description;
     private int task_id;
-    
+    private String description;
+
     //Empty constructor
     public Task() {
-            super();
+        super();
     }
 
     //Constructor with all the class Task´s attributes as parameters
-    public Task (String description, int task_id) {
-            super();
-            this.description = description;
-            this.task_id=task_id;
+    public Task (int task_id, String description) {
+    	super();
+    	this.task_id= task_id;
+        this.description = description;   
     }
 
     //Getters and setters for the attributes

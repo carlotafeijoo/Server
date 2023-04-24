@@ -1,5 +1,5 @@
 package Interfaces;
 
-public class StaffManager {
+public interface StaffManager {
 
 }
