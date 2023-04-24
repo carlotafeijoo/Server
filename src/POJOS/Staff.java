@@ -1,4 +1,4 @@
-package ResidencialArea;
+package POJOS;
 
 import java.util.ArrayList;
 import java.util.Date;

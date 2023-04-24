@@ -1,10 +1,13 @@
 package jdbc;
 
-import ResidencialArea.Elderly;
+import POJOS.Elderly;
 
 public interface JDBCElderlyManager {
-     //add a new elderly
-	public void addElderly(Elderly e);
+	
+     
+	public void addElderly(Elderly e) {
+		
+	}
 	//delete an elderly
 	
 	

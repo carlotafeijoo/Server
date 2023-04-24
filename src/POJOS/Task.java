@@ -1,4 +1,4 @@
-package ResidencialArea;
+package POJOS;
 
 import java.util.Objects;;
 public class Task {
