@@ -1,5 +1,6 @@
 package POJOS;
 
+import java.sql.Date;
 import java.util.Objects;
 
 public class FamilyContact {
@@ -21,6 +22,9 @@ public class FamilyContact {
 		this.email = email;
 		this.family_id = family_id;
 		this.elderly_id = elderly_id;
+	}
+	public FamilyContact(int id, String name2, String email2, Date dob, String address2, int elderly_id2) {
+		// TODO Auto-generated constructor stub
 	}
 	public String getName() {
 		return name;
