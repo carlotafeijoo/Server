@@ -1,7 +1,6 @@
 package Interfaces;
 
 import java.util.List;
-
 import POJOS.*;
 
 public interface StaffManager {

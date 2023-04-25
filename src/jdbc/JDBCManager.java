@@ -8,27 +8,22 @@ import java.sql.Statement;
 
 public class JDBCManager {
 	
-	
 	private Connection c = null;
 
-	public JDBCManager() {
-		
-		try 
-		{			
+	public JDBCManager(){
+		try {			
 			// Open the DB connection
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:./db/hospital.db");
+			c = DriverManager.getConnection("jdbc:sqlite:./db/ResidentialArea.db");
 			System.out.println("Database connection opened.");
 			
 			//create tables
 			this.createTables();
 		}
-		catch (SQLException e)
-		{
+		catch (SQLException e){
 			e.printStackTrace();
 		}
-		catch (ClassNotFoundException e)
-		{
+		catch (ClassNotFoundException e){
 			System.out.print("Libraries not loaded");
 		}
 	}
@@ -37,36 +32,40 @@ public class JDBCManager {
 		// Create Tables
 		try {
 		Statement stmt = c.createStatement();
-		String sql = "CREATE TABLE owners ("
-		+ "	id	    INTEGER PRIMARY KEY AUTOINCREMENT,"
-		+ "	name	TEXT NOT NULL,"
-		+ "	phone	INTEGER NOT NULL,"
-		+ "	email	TEXT NOT NULL,"
-		+ "	cardNumber	INTEGER NOT NULL"
+		String sql = "CREATE TABLE Elderly ("
+		+ "	elderly_id	    INTEGER PRIMARY KEY AUTOINCREMENT,"
+		+ "	name			TEXT NOT NULL,"
+		+ "	age				INTEGER NOT NULL,"
 		+ ");";
 		stmt.executeUpdate(sql);
-		sql = "CREATE TABLE dogs ("
-		+ "	id	    INTEGER PRIMARY KEY AUTOINCREMENT,"
-		+ "	name	TEXT NOT NULL,"
-		+ "	breed	TEXT NOT NULL,"
-		+ "	coat	TEXT,"
-		+ "	dob	    DATE,"
-		+ "	cured	BOOLEAN,"
-		+ "	ownerId	INTEGER NOT NULL REFERENCES owners(id) ON DELETE RESTRICT"
+		sql = "CREATE TABLE Family_contact ("
+		+ "	family_id	INTEGER PRIMARY KEY AUTOINCREMENT,"
+		+ "	elderly_id	INTEGER FOREING KEY AUTOINCREMENT,"
+		+ "	name		TEXT NOT NULL,"
+		+ "	adress		TEXT NOT NULL,"
+		+ "	phone		INTEGER NOT NULL,"
+		+ "	email		TEXT NOT NULL,"
+		+ "	elderly_id	INTEGER NOT NULL REFERENCES Elderly(elderly_id) ON DELETE RESTRICT"
 		+ ");";
 		stmt.executeUpdate(sql);
-		sql = "CREATE TABLE vets ("
-		+ "	id	    INTEGER PRIMARY KEY AUTOINCREMENT,"
-		+ "	name	TEXT NOT NULL,"
-		+ "	speciality	TEXT"
+		sql = "CREATE TABLE Staff ("
+		+ "	staff_id	INTEGER PRIMARY KEY AUTOINCREMENT,"
+		+ "	name		TEXT NOT NULL,"
+		+ "	DOB 		DATE,"
+		+ "	adress		TEXT NOT NULL,"
+		+ "	phone		INTEGER NOT NULL,"
 		+ ");";
 		stmt.executeUpdate(sql);
-		sql = "CREATE TABLE examines ("
-		+ "	dogId	INTEGER,"
-		+ "	vetId	INTEGER,"
-		+ "	FOREIGN KEY(dogId) REFERENCES dogs(id) ON DELETE CASCADE,"
-		+ "	FOREIGN KEY(vetId) REFERENCES vets(id) ON DELETE CASCADE,"
-		+ "	PRIMARY KEY(dogId,vetId)\r\n"
+		sql = "CREATE TABLE Tasks ("
+		+ "	task_id			INTEGER PRIMARY KEY AUTOINCREMENT,"
+		+ "	description		TEXT NOT NULL,"
+		+ ");";
+		sql = "CREATE TABLE Performs ("
+		+ "	performs_id		INTEGER PRIMARY KEY AUTOINCREMENT,"
+		+ "	task_id			INTEGER AUTOINCREMENT,"
+		+ "	staff_id	 	INTEGER AUTOINCREMENT,"
+		+ "	staff_id		INTEGER NOT NULL REFERENCES Staff(staff_id) ON DELETE RESTRICT\""
+		+ " task_id			INTEGER NOT NULL REFERENCES Tasks(task_id) ON DELETE RESTRICT\""
 		+ ");";
 		stmt.executeUpdate(sql);
 		} catch (SQLException e) {
@@ -78,17 +77,14 @@ public class JDBCManager {
 	}
 	
 	public Connection getConnection() {
-		
 		return c;
 	}
 	
-	public void disconnect()
-	{		
+	public void disconnect(){		
 		try {
 			c.close();
 		}
-		catch(SQLException e)
-		{
+		catch(SQLException e){
 			e.printStackTrace();			
 		}
 	}
