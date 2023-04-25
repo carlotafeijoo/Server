@@ -40,7 +40,7 @@ public class JDBCManager {
 		stmt.executeUpdate(sql);
 		sql = "CREATE TABLE Family_contact ("
 		+ "	family_id	INTEGER PRIMARY KEY AUTOINCREMENT,"
-		+ "	elderly_id	INTEGER FOREING KEY AUTOINCREMENT,"
+		+ "	elderly_id	INTEGER FOREIGN KEY AUTOINCREMENT,"
 		+ "	name		TEXT NOT NULL,"
 		+ "	adress		TEXT NOT NULL,"
 		+ "	phone		INTEGER NOT NULL,"
