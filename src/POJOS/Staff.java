@@ -14,6 +14,7 @@ public class Staff {
 	private Date dob;
 	private String address;
 	private List<Elderly> elderlies; // Many to many relationship
+	public int getPhone;
 
 
 	//Empty constructor
@@ -37,6 +38,16 @@ public class Staff {
 	}
 	
 	
+	public Staff(Integer id, String field2, Integer phone2, java.sql.Date dob2) {
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public Staff(int id, String name2, String field2, int phone2, java.sql.Date dob2, String address2) {
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public int getStaff_id() {
 		return staff_id;
 	}
@@ -96,6 +107,18 @@ public class Staff {
 		return "Staff [name= " + name + " whose date of birth=" + dob +
 				" ,address=" +address +" ,phone=" +phone +" in the field= " +field 
 				+"and takes care of " + elderlies +"]";
+	}
+
+
+	public Object getPhone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public int getId() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }
