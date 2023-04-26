@@ -19,7 +19,7 @@ public interface ElderlyManager {
 		public void updateInfo(Elderly e);
 		
 		//count number of elderlies
-		
+		public int counElderlies (List<Elderly> elderlies);
 		
 
 }
