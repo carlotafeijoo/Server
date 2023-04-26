@@ -43,19 +43,53 @@ public class JDBCElderlyManager implements ElderlyManager{
 
 	@Override
 	public void assign(int staff_ID, int elderly_ID) {
-		// TODO Auto-generated method stub
+		try{
+			String sql = "INSERT INTO examines (staffID,elderlyID) VALUES (?,?)";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setInt(1, staff_ID);
+			prep.setInt(2, elderly_ID);		
+			
+			prep.executeUpdate();			
+					
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
-
-	@Override
-	public void deleteElderly(Elderly d) {
-		// TODO Auto-generated method stub
 		
-	}
+	
 
 	@Override
 	public void updateInfo(Elderly e) {
+		try {
+			String sql = "UPDATE patient SET name = ?, age = ? WHERE id = ?";
+			PreparedStatement pr = manager.getConnection().prepareStatement(sql);
+
+			pr.setString(1, e.getName());
+			pr.setInt(2, e.getAge());
+			pr.setInt(3, e.getElderly_id());
+			
+			pr.executeUpdate();
+			pr.close();
+		} catch (Exception p) {
+			p.printStackTrace();
+
+		}
+	}
+
+
+	@Override
+	public void deleteElderly(Elderly e) {
 		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public int counElderlies(List<Elderly> elderlies) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 		
 	}
 
@@ -64,4 +98,4 @@ public class JDBCElderlyManager implements ElderlyManager{
 
 	
 	
-}
+	
