@@ -59,6 +59,13 @@ public class JDBCElderlyManager implements ElderlyManager{
 		
 	}
 
+
+	@Override
+	public int counElderlies(List<Elderly> elderlies) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	
 	
 
