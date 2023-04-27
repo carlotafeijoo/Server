@@ -12,7 +12,7 @@ public interface ElderlyManager {
 		//Delete an elderly
 		public void addElderly(Elderly e);
 		
-		//Assign a dog to a staff member to a elderly
+		//Assign a elderly to a staff member to a elderly
 		public void assign(int staff_ID, int elderly_ID);
 		
 		//Update info from elderly
