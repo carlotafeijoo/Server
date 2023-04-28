@@ -76,7 +76,7 @@ public class JDBCElderlyManager implements ElderlyManager{
 
 		}
 	}
-	}
+	
 
 
 	@Override
