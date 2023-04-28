@@ -5,9 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import Interfaces.FamilyContactManager;
 import POJOS.*;
 
-public class JDBCFamilyContactManager {
+public class JDBCFamilyContactManager implements FamilyContactManager{
 	
 	private JDBCFamilyContactManager familyContactManager;
 	private int getPhone;
