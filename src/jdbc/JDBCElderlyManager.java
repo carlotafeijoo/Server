@@ -11,8 +11,7 @@ import Interfaces.ElderlyManager;
 public class JDBCElderlyManager implements ElderlyManager{
 	private JDBCManager manager;
 	
-	public JDBCElderlyManager(JDBCManager m)
-	{
+	public JDBCElderlyManager(JDBCManager m){
 		this.manager = m;
 	}
 	

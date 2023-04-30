@@ -60,6 +60,7 @@ public class JDBCManager {
 		+ "	task_id			INTEGER PRIMARY KEY AUTOINCREMENT,"
 		+ "	description		TEXT NOT NULL,"
 		+ ");";
+		stmt.executeUpdate(sql);
 		sql = "CREATE TABLE Performs ("
 		+ "	performs_id		INTEGER PRIMARY KEY AUTOINCREMENT,"
 		+ "	task_id			INTEGER AUTOINCREMENT,"
