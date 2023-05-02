@@ -12,6 +12,7 @@ public class JDBCFamilyContactManager implements FamilyContactManager{
 	
 	private JDBCFamilyContactManager familyContactManager;
 	private int getPhone;
+	private FamilyContact familycontact;
 
 
 	//add a family contact 
@@ -32,9 +33,8 @@ public class JDBCFamilyContactManager implements FamilyContactManager{
 
 	//show info of a family contact before updating 
 	public FamilyContact showFamilyContactInfo(int id) {
-	    FamilyContact familycontact= null;
-	    try {
-	        java.sql.Statement statement = ((java.sql.Statement) familycontact).getConnection().createStatement();
+	    familycontact = null;
+	    try (java.sql.Statement statement = ((java.sql.Statement) familycontact).getConnection().createStatement()) {
 	        String sql = "SELECT * FROM familyContact WHERE id = " + id;
 	        ResultSet rs = statement.executeQuery(sql);
 	        while (rs.next()) {

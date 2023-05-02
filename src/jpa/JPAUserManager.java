@@ -84,7 +84,7 @@ public class JPAUserManager implements UserManager{
 
 	@Override
 	public User checkPassword(String email, String passwd) {
-User u = null;
+		User u = null;
 		
 		Query q = em.createNativeQuery("Select * from users where email =? AND password = ?", User.class);
 		q.setParameter(1, email);
