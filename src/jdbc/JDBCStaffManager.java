@@ -210,17 +210,14 @@ public abstract class JDBCStaffManager implements StaffManager {
 
 	
 	public List<POJOS.Staff> StaffMembersFromElderlyList(Elderly elderly_id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public POJOS.Staff ShowStaffInfo(POJOS.Staff staff_id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public int CounterStaffMembers(String staff_field) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 	

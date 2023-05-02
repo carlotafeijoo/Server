@@ -1,7 +1,6 @@
 package Interfaces;
 
 import POJOS.FamilyContact;
-import POJOS.Staff;
 
 public interface FamilyContactManager {
 	

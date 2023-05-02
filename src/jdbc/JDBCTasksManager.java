@@ -7,11 +7,6 @@ import Interfaces.TaskManager;
 import POJOS.Task;
 
 public class JDBCTasksManager implements TaskManager{
-	
-	//askManager; add a new task, 
-	//delete a task, list the tasks of a staff member, 
-	//assign a task to a staff member, unassign a task from a staff member, 
-	//get info (description) of a task by taskid
 
 	private JDBCManager manager;
 	
@@ -19,6 +14,7 @@ public class JDBCTasksManager implements TaskManager{
 		this.manager = m;
 	}
 	
+	//add a new task
 	public void addTask(Task t) {
 		try {
 			String sql = "INSERT INTO task (task_id, description) VALUES (?,?)";
@@ -32,6 +28,7 @@ public class JDBCTasksManager implements TaskManager{
 		}
 	}
 	
+	//delete a task
 	public void deleteTask(Task t) {
 		try {
 			String sql = "DELETE FROM t.task (task_id, description) VALUES (?,?)";
@@ -45,10 +42,12 @@ public class JDBCTasksManager implements TaskManager{
 		}
 	}
 
+	//list the tasks of a staff member
 	public List<Task> getListOfTasks(){
 		return null;
 	}
 	
+	//assign a task to a staff
 	public void assign(int task_id, int staff_id){
 		try{
 			String sql = "INSERT INTO task (task_id,staff_id) VALUES (?,?)";
@@ -61,6 +60,7 @@ public class JDBCTasksManager implements TaskManager{
 		}	
 	}
 	
+	//unassign a task from a staff member
 	public void unassign(int task_id, int staff_id){
 		try{
 			String sql = "DELETE FROM t.task (task_id, description) VALUES (?,?)";
@@ -73,6 +73,7 @@ public class JDBCTasksManager implements TaskManager{
 		}	
 	}
 	
+	//get info (description) of a task by taskid
 	public Task getTask (int task_id) {
 		Task t = null;
 		String description = "";

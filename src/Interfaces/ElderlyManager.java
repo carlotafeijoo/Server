@@ -1,7 +1,8 @@
 package Interfaces;
+
 import java.util.List;
 import POJOS.Elderly;
-import POJOS.Staff;
+
 
 public interface ElderlyManager {
 	    //Adding a new elderly
