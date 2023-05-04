@@ -40,6 +40,9 @@ import java.io.Serializable;
 			this.password = password;
 			this.role = role;
 		}
+		public User(String email2, byte[] digest) {
+			// TODO Auto-generated constructor stub
+		}
 		public Integer getId() {
 			return id;
 		}
@@ -83,6 +86,10 @@ import java.io.Serializable;
 			User other = (User) obj;
 			return Objects.equals(email, other.email) && Objects.equals(id, other.id)
 					&& Arrays.equals(password, other.password) && Objects.equals(role, other.role);
+		}
+		public void setRole(POJOS.Role role2) {
+			// TODO Auto-generated method stub
+			
 		}
 
 		

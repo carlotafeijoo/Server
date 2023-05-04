@@ -23,6 +23,10 @@ public class Elderly{
 		this.age = age;
 	}   
 	
+	public Elderly(String name2, int age2) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getElderly_id() {
 		return elderly_id;
 	}

@@ -11,7 +11,7 @@ public class FamilyContact {
 	private int family_id;
 	private int elderly_id;
 
-	public FamilyContact() {
+	public FamilyContact(String name2, int age) {
 		super();
 	}
 	public FamilyContact(String name, String address, int phone, String email, int family_id, int elderly_id) {
@@ -24,6 +24,12 @@ public class FamilyContact {
 		this.elderly_id = elderly_id;
 	}
 	public FamilyContact(int id, String name2, String email2, Date dob, String address2, int elderly_id2) {
+		// TODO Auto-generated constructor stub
+	}
+	public FamilyContact(String name2, int phone2, String email2, String address2, int elderly_id2) {
+		// TODO Auto-generated constructor stub
+	}
+	public FamilyContact(int id, String name2, String email2, int phone2, String address2) {
 		// TODO Auto-generated constructor stub
 	}
 	public String getName() {

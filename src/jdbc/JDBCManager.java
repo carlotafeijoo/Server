@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class JDBCManager {
 	
-	private Connection c = null;
+	private static Connection c = null;
 
 	public JDBCManager(){
 		try {			
@@ -81,7 +81,7 @@ public class JDBCManager {
 		return c;
 	}
 	
-	public void disconnect(){		
+	public static void disconnect(){		
 		try {
 			c.close();
 		}

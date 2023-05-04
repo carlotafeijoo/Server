@@ -1,8 +1,12 @@
 package jdbc;
 
 import POJOS.Elderly;
+import POJOS.FamilyContact;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -15,8 +19,6 @@ public class JDBCElderlyManager implements ElderlyManager{
 		this.manager = m;
 	}
 	
-
-	@Override
 	public void addElderly(Elderly e) {
 		try {
 			String sql = "INSERT INTO elderly (name, id, age) VALUES (?,?,?)";
@@ -32,8 +34,48 @@ public class JDBCElderlyManager implements ElderlyManager{
 		}
 	}
 		
-	
+	public Elderly showElderlyInfo (int id) {
+	    Elderly elderly = null;
+	    try (java.sql.Statement statement = ((java.sql.Statement) elderly).getConnection().createStatement()) {
+	        String sql = "SELECT * FROM elderly WHERE id = " + id;
+	        ResultSet rs = statement.executeQuery(sql);
+	        while (rs.next()) {
+	            String name = rs.getString("name");
+	            int phone = rs.getInt("phone");
 
+	            elderly = new Elderly(id, name, phone);
+	        }
+	        rs.close();
+	        statement.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return elderly;
+	}
+	
+	
+	@Override
+	public Elderly searchElderlyById( int id) {
+		Elderly elderly = null;
+		try {
+			java.sql.Statement stmt = ((java.sql.Statement) elderly).getConnection().createStatement();
+			String sql = "SELECT name,age FROM elderly WHERE id = " + id;
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				String name = rs.getString("name");
+				int age = rs.getInt("age");
+
+				elderly = new Elderly(id,name, age);
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return elderly;
+	}
+	
 	@Override
 	public List<Elderly> getListOfElderlies() {
 		// TODO Auto-generated method stub

@@ -16,9 +16,11 @@ import POJOS.Staff;
 public abstract class JDBCStaffManager implements StaffManager {
 	
 	
-	private JDBCStaffManager staffmanager;
+	private JDBCManager staffmanager;
 	
-	
+	public JDBCStaffManager(JDBCManager jdbcManager) {
+		this.staffmanager = jdbcManager;
+	}
 
 	//Add a staff member
 	@Override

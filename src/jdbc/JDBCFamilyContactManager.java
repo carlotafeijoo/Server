@@ -1,5 +1,6 @@
 package jdbc;
 
+import java.beans.Statement;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +15,10 @@ public class JDBCFamilyContactManager implements FamilyContactManager{
 	private int getPhone;
 	private FamilyContact familycontact;
 
+
+	public JDBCFamilyContactManager(JDBCManager jdbcManager) {
+		// TODO Auto-generated constructor stub
+	}
 
 	//add a family contact 
 	public void addFamilyContact (FamilyContact familycontact) {
@@ -75,6 +80,31 @@ public class JDBCFamilyContactManager implements FamilyContactManager{
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
+	}
+	
+	
+	@Override
+	public FamilyContact searchFamilyContactbyId ( int id) {
+		FamilyContact fc = null;
+		try {
+			java.sql.Statement stmt = ((java.sql.Statement) familyContactManager).getConnection().createStatement();
+			String sql = "SELECT name,email,phone,address FROM familyContact WHERE id = " + id;
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				String name = rs.getString("name");
+				String email = rs.getString("email");
+				String address = rs.getString("address");
+				int phone = rs.getInt("phone");
+
+				fc = new FamilyContact(id,name, email, phone, address);
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return fc;
 	}
 	
 	

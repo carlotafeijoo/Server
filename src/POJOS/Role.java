@@ -95,6 +95,13 @@
 			Role other = (Role) obj;
 			return Objects.equals(id, other.id) && Objects.equals(name, other.name);
 		}
+
+
+
+		public void addUser(User user) {
+			// TODO Auto-generated method stub
+			
+		}
 	
 		
 }
