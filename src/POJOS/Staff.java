@@ -1,5 +1,6 @@
 package POJOS;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,6 +45,17 @@ public class Staff {
 
 
 	public Staff(int id, String name2, String field2, int phone2, java.sql.Date dob2, String address2) {
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public Staff(String name2, int phone2, String field2, String dob2, String address2, List<Elderly> elderlies2) {
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public Staff(String name2, int phone2, String field2, LocalDate dobDate, String address2,
+			List<Elderly> elderlies2) {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -119,6 +131,12 @@ public class Staff {
 	public int getId() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+
+	public void setPhone(int phone2) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

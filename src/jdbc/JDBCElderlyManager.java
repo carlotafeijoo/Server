@@ -1,12 +1,13 @@
 package jdbc;
 
 import POJOS.Elderly;
-import POJOS.FamilyContact;
 
-import java.sql.Date;
+import java.beans.Statement;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -76,11 +77,31 @@ public class JDBCElderlyManager implements ElderlyManager{
 		return elderly;
 	}
 	
+	
 	@Override
 	public List<Elderly> getListOfElderlies() {
-		// TODO Auto-generated method stub
-		return null;
+	    List<Elderly> elderlies = new ArrayList<Elderly>();
+	    elderlies=null;
+	    try {
+	        Connection connection = ((java.sql.Statement) elderlies).getConnection();
+	        Statement stmt = (Statement) connection.createStatement();
+	        String sql = "SELECT * FROM elderly";
+	        ResultSet rs = ((java.sql.Statement) stmt).executeQuery(sql);
+	        while (rs.next()) {
+	            Integer id = rs.getInt("id");
+	            String name = rs.getString("name");
+	            Integer age = rs.getInt("age");
+	            Elderly elderly = new Elderly(id, name, age);
+	            elderlies.add(elderly);
+	        }
+	        rs.close();
+	        ((Connection) stmt).close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return elderlies;
 	}
+	
 
 	@Override
 	public void assign(int staff_ID, int elderly_ID) {
@@ -117,24 +138,9 @@ public class JDBCElderlyManager implements ElderlyManager{
 
 		}
 	}
+
 	
-	
-
-
-	@Override
-	public void deleteElderly(Elderly e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public int counElderlies(List<Elderly> elderlies) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-		
-	}
+}
 
 	
 	

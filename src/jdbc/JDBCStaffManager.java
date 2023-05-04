@@ -13,7 +13,7 @@ import POJOS.Elderly;
 import POJOS.Staff;
 
 
-public abstract class JDBCStaffManager implements StaffManager {
+public class JDBCStaffManager implements StaffManager {
 	
 	
 	private JDBCManager staffmanager;
@@ -82,7 +82,6 @@ public abstract class JDBCStaffManager implements StaffManager {
 
 
 	//Search in all the staff members list a member with a specific id
-	@Override
 	public Staff searchStaffmemberByID (int id){
 	    Staff staffmember = null;
 	    try {
@@ -141,7 +140,6 @@ public abstract class JDBCStaffManager implements StaffManager {
 	}
 	
 	//show info of a staff member before updating 
-	@Override
 	public Staff showStaffInfo(int id) {
 	    Staff staffMember = null;
 	    try {
@@ -221,6 +219,12 @@ public abstract class JDBCStaffManager implements StaffManager {
 
 	public int CounterStaffMembers(String staff_field) {
 		return 0;
+	}
+
+	@Override
+	public Staff searchStaffmemberBYField(String field) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

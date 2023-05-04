@@ -22,7 +22,4 @@ public interface FamilyContactManager {
 	public FamilyContact searchFamilyContactbyId ( int id);
 	
 	
-	
-	
-	
 }

@@ -11,22 +11,24 @@ public class JDBCManager {
 	private static Connection c = null;
 
 	public JDBCManager(){
-		try {			
-			// Open the DB connection
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:./db/ResidentialArea.db");
-			System.out.println("Database connection opened.");
-			
-			//create tables
-			this.createTables();
-		}
-		catch (SQLException e){
-			e.printStackTrace();
-		}
-		catch (ClassNotFoundException e){
-			System.out.print("Libraries not loaded");
-		}
+	    try {            
+	        // Open the DB connection
+	        Class.forName("org.sqlite.JDBC");
+	        String dbPath = System.getProperty("user.dir") ;
+	        c = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
+	        System.out.println("Database connection opened.");
+
+	        //create tables
+	        this.createTables();
+	    }
+	    catch (SQLException e){
+	        e.printStackTrace();
+	    }
+	    catch (ClassNotFoundException e){
+	        System.out.print("Libraries not loaded");
+	    }
 	}
+
 	
 	private void createTables() {
 		// Create Tables
@@ -70,7 +72,7 @@ public class JDBCManager {
 		+ ");";
 		stmt.executeUpdate(sql);
 		} catch (SQLException e) {
-			// Do not complain if tables already exist
+			// Do not compile if tables already exist
 			if (!e.getMessage().contains("already exists")) {
 				e.printStackTrace();
 			}
