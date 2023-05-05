@@ -1,4 +1,4 @@
-package menu;
+package ui;
 
 import java.io.*;
 import java.security.MessageDigest;
