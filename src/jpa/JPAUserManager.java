@@ -27,6 +27,8 @@ public class JPAUserManager implements UserManager{
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
+		
+		
 		List<Role> existingRoles = this.getRoles();
 		if(existingRoles.size() < 2 || existingRoles.isEmpty()) {
 			Role elderly = new Role("elderly");

@@ -2,7 +2,7 @@ package POJOS;
 import java.io.Serializable;
 	import java.util.Arrays;
 	import java.util.Objects;
-    import javax.management.relation.Role;
+
     import javax.persistence.Entity;
 	import javax.persistence.GeneratedValue;
 	import javax.persistence.Id;
@@ -12,12 +12,20 @@ import java.io.Serializable;
 	import javax.persistence.Table;
 	import javax.persistence.TableGenerator;
 
+	import POJOS.Role;
+	
 	@Entity
 	@Table (name = "users")
 
 	public class User implements Serializable {
 	
-		private static final long serialVersionUID = -8236513013305065850L;
+			
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 2078397574496562875L;
+		
+		
 		@Id
 		@GeneratedValue( generator = "users")
 		@TableGenerator (name = "users" , table = "sqlite_sequence", pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "users" )
@@ -25,8 +33,9 @@ import java.io.Serializable;
 		private String email;
 		@Lob
 		private byte[] password;
-		@ManyToOne
-		@JoinColumn (name = "role_id")
+		//@ManyToOne
+		//@JoinColumn (name = "role_id")
+		
 		private Role role;
 		
 		
@@ -87,11 +96,7 @@ import java.io.Serializable;
 			return Objects.equals(email, other.email) && Objects.equals(id, other.id)
 					&& Arrays.equals(password, other.password) && Objects.equals(role, other.role);
 		}
-		public void setRole(POJOS.Role role2) {
-			// TODO Auto-generated method stub
-			
-		}
-
+		
 		
 	}
 

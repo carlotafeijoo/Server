@@ -16,8 +16,11 @@
 	@Table(name = "roles")
 	public class Role implements Serializable{
 	
-		private static final long serialVersionUID = 3234067083846134737L;
 		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -5726931783696626202L;
 		@Id
 		@GeneratedValue(generator = "roles")
 		@TableGenerator(name = "roles", table = "sqlite_sequence", pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "roles")
