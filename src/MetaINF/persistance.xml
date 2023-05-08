@@ -6,18 +6,17 @@
 	<!-- Persistence Provider -->
 	<!-- RESOURCE-LOCAL: Application-managed transactions -->
 	<!-- JTA: Container-managed transactions -->
-	<persistence-unit name="ResidencialArea" transaction-type="RESOURCE_LOCAL"> <!-- ESTA BIEN RESORCE LOCAL? -->
+	<persistence-unit name="zooDemo-provider" transaction-type="RESOURCE_LOCAL">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
  
 		<!-- Entity Class -->
-		<class>POJOS.User</class>
-		<class>POJOS.Role</class>
+		<class>zooDemoPOJO.User</class>
+		<class>zooDemoPOJO.Role</class>
 		
- 
 		<properties>	
 			<!-- Connection properties -->
 			<property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
-		    <property name="javax.persistence.jdbc.url"	value="jdbc:sqlite:./db/Hospital.db" /><!-- QUÉ CAMBIAR?-->
+		    <property name="javax.persistence.jdbc.url"	value="jdbc:sqlite:./db/hospital.db" />
 			<!-- Fill if we need user and password -->
 			<property name="javax.persistence.jdbc.user" value="" />
 			<property name="javax.persistence.jdbc.password" value="" />
