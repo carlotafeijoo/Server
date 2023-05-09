@@ -45,12 +45,17 @@ public class MenuResidencialArea {
 		tasksManager = new JDBCTasksManager(jdbcManager);
 		// initialize database JPA
 		userManager = new JPAUserManager();
+		
 
 		mainMenu();
 	}
 	
 	public static void mainMenu() {
 		try {
+			userManager.connect();
+			
+		userManager.disconnect();
+		
 			int option;
 			do {
 				System.out.println("MAIN MENU ");
@@ -91,6 +96,7 @@ public class MenuResidencialArea {
 	}
 	
 	private static void familyContactMenu() {
+		
 		try {
 			int choice;
 			do {
@@ -144,10 +150,13 @@ public class MenuResidencialArea {
 
 		// CREATE PATIENT AND ADD TO JPA
 		User user = new User(email, digest);
+		userManager.connect();
+
 		Role role = userManager.getRole("familyContact");
 		user.setRole(role);
 		role.addUser(user);
 		userManager.newUser(user);
+		userManager.disconnect();
 
 		FamilyContactManager.addFamilyContact(familyContact);
 
@@ -243,13 +252,17 @@ public class MenuResidencialArea {
 
 		Elderly elderly = new Elderly(name, age);
 
+
 		// Create elderly and add it to JPA  
 		User user = new User(name, digest);
-		Role role = userManager.getRole("elderly");
-		user.setRole(role);
-		role.addUser(user);
-		userManager.newUser(user);
+		userManager.connect();
 
+		Role role = userManager.getRole("elderly");
+
+		user.setRole(role);
+		System.out.println("aaaaa"+user.toString());
+		userManager.newUser(user);
+		userManager.disconnect();
 		elderlyManager.addElderly(elderly);
 		ElderlyMenu();
 
@@ -356,10 +369,14 @@ public class MenuResidencialArea {
 		Staff staff = new Staff(name, phone, field, dobDate, address, elderlies);
 		// Create elderly and add it to JPA  
 		User user = new User(name, digest);
+		userManager.connect();
+
 		Role role = userManager.getRole("staff");
+
 		user.setRole(role);
 		role.addUser(user);
 		userManager.newUser(user);
+		userManager.disconnect();
 
 		staffManager.addStaffMember(staff);
 		ElderlyMenu();

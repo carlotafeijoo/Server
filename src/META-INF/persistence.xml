@@ -12,6 +12,11 @@
 		<!-- Entity Class -->
 		<class>POJOS.Role</class>
 		<class>POJOS.User</class>
+		<class>POJOS.Elderly</class>
+		<class>POJOS.FamilyContact</class>
+		<class>POJOS.Performs</class>
+		<class>POJOS.Staff</class>
+		<class>POJOS.Task</class>
 		
 		<properties>	
 			<!-- Connection properties -->

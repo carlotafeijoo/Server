@@ -78,9 +78,9 @@ public class JPAUserManager implements UserManager{
 	}
 
 	@Override
-	public Role getRole(String email) { 
-		Query q = em.createNativeQuery("SELECT * FROM roles WHERE email = ?", Role.class);
-		q.setParameter(1, email);
+	public Role getRole(String name) { 
+		Query q = em.createNativeQuery("SELECT * FROM roles WHERE name = ?", Role.class);
+		q.setParameter(1, name);
 		return (Role) q.getSingleResult();
 	}
 

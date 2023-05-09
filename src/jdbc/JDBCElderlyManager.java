@@ -22,12 +22,12 @@ public class JDBCElderlyManager implements ElderlyManager{
 	
 	public void addElderly(Elderly e) {
 		try {
-			String sql = "INSERT INTO elderly (name, id, age) VALUES (?,?,?)";
+			System.out.println("paciente"+e.toString());
+			String sql = "INSERT INTO elderly (name, age) VALUES (?,?)";
 			// use preparedStmt so nothing damages the database
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setString(1, e.getName());
-			prep.setInt(2, e.getElderly_id()); 
-			prep.setInt(3, e.getAge());
+			prep.setInt(2, e.getAge());
 			prep.executeUpdate();
 			prep.close();
 		} catch (Exception exception) {

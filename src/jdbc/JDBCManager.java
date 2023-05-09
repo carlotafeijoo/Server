@@ -47,7 +47,7 @@ public class JDBCManager {
 		+ "	adress		TEXT NOT NULL,"
 		+ "	phone		INTEGER NOT NULL,"
 		+ "	email		TEXT NOT NULL,"
-		+ "	FOREIGN KEY(elderly_id) REFERENCES Elderly(id) ON DELETE RESTRICT,"
+		+ "	FOREIGN KEY(elderly_id) REFERENCES Elderly(id) ON DELETE RESTRICT"
 		+ ");";
 		stmt.executeUpdate(sql);
 		sql = "CREATE TABLE staff ("
@@ -65,8 +65,6 @@ public class JDBCManager {
 		stmt.executeUpdate(sql);
 		sql = "CREATE TABLE performs ("
 		+ "	performs_id		INTEGER PRIMARY KEY AUTOINCREMENT,"
-		+ "	task_id			INTEGER AUTOINCREMENT,"
-		+ "	staff_id	 	INTEGER AUTOINCREMENT,"
 		+ "	staff_id		INTEGER NOT NULL REFERENCES Staff(staff_id) ON DELETE RESTRICT,"
 		+ " task_id			INTEGER NOT NULL REFERENCES Tasks(task_id) ON DELETE RESTRICT"
 		+ ");";
