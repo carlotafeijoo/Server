@@ -218,6 +218,12 @@ public class MenuResidencialArea {
 					break;
 				case 2:
 					int id=InputException.getInt("Introduce the id of the elderly that is going to be updated:" );
+					Elderly elderlyToUpdate=elderlyManager.searchElderlyById(id);
+					if(elderlyToUpdate!=null) {
+						updateInfo(id);
+					} else {
+						System.out.println("Elderly not found with the provided id.");
+					}
 					updateInfo(id);
 					break;
 				case 3:
@@ -269,26 +275,36 @@ public class MenuResidencialArea {
 	}
 	
 	private static void updateInfo(int id) throws IOException {
+	    try {
+	        // Show the elderly's information
+	        Elderly elderly = ElderlyManager.showElderlyInfo(id);
+	        System.out.println(elderly.toString());
 
-		//Show the elderly´s information
-		Elderly elderly = ElderlyManager.showElderlyInfo(id);
-		System.out.println(elderly.toString());
-		
-		//Search the elderly by its id
-		Elderly e = elderlyManager.searchElderlyById(id);
+	        // Search the elderly by its id
+	        Elderly e = elderlyManager.searchElderlyById(id);
 
-		System.out.println("Update your information: ");
-		// Ask for info, if empty keeps the one existing before
-		System.out.println("Elderly new age: ");
-		String ageString = read.readLine();
-		int age = Integer.parseInt(ageString);
-		if (age!=0) {
-			e.setAge(age);
-		}
-		
-		elderlyManager.updateInfo(e);
-		ElderlyMenu();
+	        if (e != null) {
+	            System.out.println("Update your information:");
+	            // Ask for info, if empty keeps the one existing before
+	            System.out.println("Elderly new age:");
+	            String ageString = read.readLine();
+	            int age = Integer.parseInt(ageString);
+	            if (age != 0) {
+	                e.setAge(age);
+	            }
+
+	            elderlyManager.updateInfo(e);
+	        } else {
+	            System.out.println("Elderly not found with the provided id.");
+	        }
+
+	        ElderlyMenu();
+	    } catch (NullPointerException e) {
+	        System.out.println("Error: Unable to update elderly information. Please try again.");
+	        e.printStackTrace();
+	    }
 	}
+
 	
 	private static void getListOfElderlies() throws IOException {
 		
