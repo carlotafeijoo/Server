@@ -123,21 +123,27 @@ public class JDBCElderlyManager implements ElderlyManager{
 
 	@Override
 	public void updateInfo(Elderly e) {
-		try {
-			String sql = "UPDATE patient SET name = ?, age = ? WHERE id = ?";
-			PreparedStatement pr = manager.getConnection().prepareStatement(sql);
+	    try {
+	        if (e != null) {
+	            System.out.println("patient" + e.toString());
+	            String sql = "UPDATE patient SET name = ?, age = ? WHERE id = ?";
+	            PreparedStatement pr = manager.getConnection().prepareStatement(sql);
 
-			pr.setString(1, e.getName());
-			pr.setInt(2, e.getAge());
-			pr.setInt(3, e.getElderly_id());
-			
-			pr.executeUpdate();
-			pr.close();
-		} catch (Exception p) {
-			p.printStackTrace();
+	            pr.setString(1, e.getName());
+	            pr.setInt(2, e.getAge());
+	            pr.setInt(3, e.getElderly_id());
 
-		}
+	            pr.executeUpdate();
+	            pr.close();
+	        } else {
+	            System.out.println("Elderly object is null.");
+	            // Handle the case when the elderly object is null
+	        }
+	    } catch (Exception p) {
+	        p.printStackTrace();
+	    }
 	}
+
 
 	
 }

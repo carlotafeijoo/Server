@@ -48,6 +48,8 @@ public class Elderly{
 	public void setAge(int age) {
 		this.age = age;
 	}
+	
+	
 	@Override
 	public String toString() {
 		return "Elderly [elderly_id=" + elderly_id + ", name=" + name + ", age=" + age + "]";
