@@ -18,17 +18,7 @@ public class Task {
     	this.task_id= task_id;
         this.description = description;   
     }
-
-    //Getters and setters for the attributes
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription (String description) {
-        this.description = description;
-    }
-
-
+	
 	public int getTask_id() {
 		return task_id;
 	}
@@ -36,7 +26,15 @@ public class Task {
 	public void setTask_id(int task_id) {
 		this.task_id = task_id;
 	}
-	
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	// Has an equals (uses only description)
     @Override
     public int hashCode() {

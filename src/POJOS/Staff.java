@@ -67,7 +67,56 @@ public class Staff {
 	
 	
 	
-	
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public int getStaff_id() {
+		return staff_id;
+	}
+
+
+	public void setStaff_id(int staff_id) {
+		this.staff_id = staff_id;
+	}
+
+
+	public String getField() {
+		return field;
+	}
+
+
+	public void setField(String field) {
+		this.field = field;
+	}
+
+
+	public Date getDob() {
+		return dob;
+	}
+
+
+	public void setDob(Date dob) {
+		this.dob = dob;
+	}
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
 	public List<Elderly> getElderlies() {
 		return elderlies;
 	}
@@ -78,52 +127,11 @@ public class Staff {
 	}
 
 
-	public void setStaff_id(int staff_id) {
-		this.staff_id = staff_id;
-	}
-
-
 	public void setPhone(Integer phone) {
 		this.phone = phone;
 	}
 
 
-	public int getStaff_id() {
-		return staff_id;
-	}
-
-	//Getters and setters for the attributes
-	public String getName() {
-		return name;
-	}
-
-	public void setName (String name) {
-		this.name = name;
-	}
-
-	public Date getDob() {
-		return dob;
-	}
-	public void setDob (Date dob) {
-		this.dob = dob;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress (String address) {
-		this.address = address;
-	}
-
-	public String getField() {
-		return field;
-	}
-
-	public void setField (String field) {
-		this.field = field;
-	}
-	
 	// Has an equals (uses only name)
 	@Override
 	public int hashCode() {

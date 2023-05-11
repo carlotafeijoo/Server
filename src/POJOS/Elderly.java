@@ -48,39 +48,45 @@ public class Elderly implements Serializable{
 		this.age = age;
 	}   
 	
-
-
 	public int getElderly_id() {
 		return elderly_id;
 	}
+
 	public void setElderly_id(int elderly_id) {
 		this.elderly_id = elderly_id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public int getAge() {
 		return age;
 	}
+
 	public void setAge(int age) {
 		this.age = age;
 	}
-	
-	
-	@Override
-	public String toString() {
-		return "Elderly [elderly_id=" + elderly_id + ", name=" + name + ", age=" + age + "]";
-	}
-	
+
 	public List<Staff> getStaffmembers() {
 		return staffmembers;
 	}
 
 	public void setStaffmembers(List<Staff> staffmembers) {
 		this.staffmembers = staffmembers;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	@Override
+	public String toString() {
+		return "Elderly [elderly_id=" + elderly_id + ", name=" + name + ", age=" + age + "]";
 	}
 	
 	@Override

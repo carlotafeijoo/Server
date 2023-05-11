@@ -50,6 +50,7 @@ import java.io.Serializable;
 		public User(String email2, byte[] digest) {
 			// TODO Auto-generated constructor stub
 		}
+		
 		public Integer getId() {
 			return id;
 		}
@@ -73,6 +74,9 @@ import java.io.Serializable;
 		}
 		public void setRole(Role role) {
 			this.role = role;
+		}
+		public static long getSerialversionuid() {
+			return serialVersionUID;
 		}
 		@Override
 		public int hashCode() {
