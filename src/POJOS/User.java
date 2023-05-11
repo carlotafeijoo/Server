@@ -33,9 +33,8 @@ import java.io.Serializable;
 		private String email;
 		@Lob
 		private byte[] password;
-		//@ManyToOne
-		//@JoinColumn (name = "role_id")
-		
+		@ManyToOne
+	    @JoinColumn (name = "role_id")
 		private Role role;
 		
 		
