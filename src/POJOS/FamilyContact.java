@@ -24,6 +24,9 @@ public class FamilyContact {
 		this.elderly_id = elderly_id;
 	}	
 	
+	public FamilyContact(int id, String name2, String email2, Date dob, String address2, int elderly_id2) {
+		// TODO Auto-generated constructor stub
+	}
 	public String getName() {
 		return name;
 	}
