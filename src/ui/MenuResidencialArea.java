@@ -150,7 +150,7 @@ public class MenuResidencialArea {
 		md.update(password.getBytes());
 		byte[] digest = md.digest();
 
-		FamilyContact familyContact = new FamilyContact(name, phone, email, address, elderly_id);
+		FamilyContact familyContact = new FamilyContact(name, phone);
 
 		// CREATE PATIENT AND ADD TO JPA
 		User user = new User(email, digest);
