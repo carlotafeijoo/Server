@@ -56,16 +56,32 @@ public class Staff {
 		this.address = address;
 		this.elderlies = elderlies;
 	}
-	public Staff(String name, Integer phone,Date dob,String address) {
+	
+	public Staff(String name, Integer phone,Date dob,String address, String field) {
 		super();
 		this.name = name;
 		this.phone = phone;
 		this.dob = dob;
 		this.address = address;
-		
+		this.field = field;
 	}
 	
-	
+	public Staff(int staff_id, String name, Integer phone,Date dob,String address) {
+		super();
+		this.staff_id = staff_id;
+		this.name = name;
+		this.phone = phone;
+		this.dob = dob;
+		this.address = address;
+	}
+
+	public Staff(int staff_id, String field, Integer phone, Date dob) {
+		super();
+		this.staff_id = staff_id;
+		this.field = field;
+		this.phone = phone;
+		this.dob = dob;
+	}
 	
 	public String getName() {
 		return name;

@@ -1,6 +1,5 @@
 package jdbc;
 
-import java.beans.Statement;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -45,11 +44,12 @@ public class JDBCFamilyContactManager implements FamilyContactManager{
 	        while (rs.next()) {
 	            String name = rs.getString("name");
 	            String email= rs.getString("email"); 
-	            Date dob = rs.getDate("phone");
 	            String address = rs.getString("address");
+	            int phone = rs.getInt("phone");
+	            int family_id = rs.getInt("family_id");
 	            int elderly_id = rs.getInt("elderly_id"); 
 
-	            familycontact = new FamilyContact(id, name, email, dob, address, elderly_id);
+	            familycontact = new FamilyContact(name, address, phone, email, family_id, elderly_id);
 	        }
 	        rs.close();
 	        statement.close();

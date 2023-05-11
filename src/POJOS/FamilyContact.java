@@ -1,6 +1,5 @@
 package POJOS;
 
-import java.sql.Date;
 import java.util.Objects;
 
 public class FamilyContact {
@@ -14,6 +13,7 @@ public class FamilyContact {
 	public FamilyContact(String name2, int age) {
 		super();
 	}
+	
 	public FamilyContact(String name, String address, int phone, String email, int family_id, int elderly_id) {
 		super();
 		this.name = name;
@@ -24,45 +24,66 @@ public class FamilyContact {
 		this.elderly_id = elderly_id;
 	}	
 	
-	public FamilyContact(int id, String name2, String email2, Date dob, String address2, int elderly_id2) {
-		// TODO Auto-generated constructor stub
+	//id,name, email, phone, address
+	
+	public FamilyContact(int family_id, String name, String email, int phone, String address) {
+		super();
+		this.family_id = family_id;
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+		this.address = address;
+		
 	}
+	
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 	public int getPhone() {
 		return phone;
 	}
+
 	public void setPhone(int phone) {
 		this.phone = phone;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public int getFamily_id() {
 		return family_id;
 	}
+
 	public void setFamily_id(int family_id) {
 		this.family_id = family_id;
 	}
+
 	public int getElderly_id() {
 		return elderly_id;
 	}
+
 	public void setElderly_id(int elderly_id) {
 		this.elderly_id = elderly_id;
 	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(address, elderly_id, email, family_id, name, phone);

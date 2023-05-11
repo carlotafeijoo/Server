@@ -96,7 +96,7 @@ public class JDBCStaffManager implements StaffManager {
 	            Date dob = rs.getDate("dob");
 	            String address = rs.getString("address");
 
-	            staffmember = new Staff(id, name, field, phone, dob, address);
+	            staffmember = new Staff(name, phone, dob, address, field);
 	        }
 	        rs.close();
 	        stmt.close();
@@ -126,7 +126,7 @@ public class JDBCStaffManager implements StaffManager {
 	            int phone = rs.getInt("phone");
 	            Date dob = rs.getDate("dob");
 	            String address = rs.getString("address");
-
+	            
 	            Staff staffMember = new Staff(id, name, phone, dob, address);
 	            staffMembers.add(staffMember);
 	        }
@@ -151,11 +151,8 @@ public class JDBCStaffManager implements StaffManager {
 	            int phone = rs.getInt("phone"); 
 	            Date dob = rs.getDate("dob"); 
 	            String address = rs.getString("address"); 
-	            //el constructor tiene que ser asi:
-	            //String name, int staff_id, String field, Integer phone, Date dob, String address, 
-				//List<Elderly> elderlies
 
-	            staffMember = new Staff(id, name, field, phone, dob, address);
+	            staffMember = new Staff(name, phone, dob, address, field);
 	        }
 	        rs.close();
 	        statement.close();
