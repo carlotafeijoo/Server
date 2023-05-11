@@ -12,7 +12,6 @@ import java.io.Serializable;
 	import javax.persistence.Table;
 	import javax.persistence.TableGenerator;
 
-	import POJOS.Role;
 	
 	@Entity
 	@Table (name = "users")

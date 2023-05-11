@@ -1,13 +1,33 @@
 package POJOS;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Elderly{
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name="Elderly")
+
+public class Elderly implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8265618237491167237L;
+	
+	@XmlTransient
 	private int elderly_id;
+	@XmlAttribute
 	private String name;
+	@XmlElement
 	private int age;
+	@XmlTransient
 	private List<Staff> staffmembers;
 	
 	

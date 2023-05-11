@@ -11,6 +11,7 @@ import exceptions.InputException;
 import jdbc.*;
 import jpa.JPAUserManager;
 import POJOS.*;
+import ResidencialAreaXML.XMLManagerImpl;
 
 public class MenuResidencialArea {
 
@@ -27,6 +28,8 @@ public class MenuResidencialArea {
 	private static UserManager userManager;
 	
 	private static TaskManager tasksManager;
+	
+	private static XMLManager xmlmanager;
 	
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	
@@ -45,6 +48,7 @@ public class MenuResidencialArea {
 		tasksManager = new JDBCTasksManager(jdbcManager);
 		// initialize database JPA
 		userManager = new JPAUserManager();
+		xmlmanager= new XMLManagerImpl();
 		
 
 		mainMenu();
@@ -68,7 +72,7 @@ public class MenuResidencialArea {
 				switch (option) {
 
 				case 1:
-					ElderlyMenu();
+					//ElderlyMenu(); ARREGLAR
 					break;
 					
 				case 2:
@@ -193,12 +197,12 @@ public class MenuResidencialArea {
 		}
 		
 		familyContactManager.updateFamilyContactInfo(fc);
-		ElderlyMenu();
+		ElderlyMenu(id);
 	}
 	
 	
 	
-	private static void ElderlyMenu() {
+	private static void ElderlyMenu(Integer id) {
 		
 		try {
 			int choice;
@@ -208,6 +212,8 @@ public class MenuResidencialArea {
 				System.out.println("2.Update the information of an elderly. ");
 				System.out.println("3.Get the list of elderlies. ");
 				System.out.println("4. Exit");
+				System.out.println("5. Print me");
+				
 
 				choice = InputException.getInt("Introduce your choice: ");
 
@@ -217,7 +223,7 @@ public class MenuResidencialArea {
 					addElderly();
 					break;
 				case 2:
-					int id=InputException.getInt("Introduce the id of the elderly that is going to be updated:" );
+					 id=InputException.getInt("Introduce the id of the elderly that is going to be updated:" );
 					Elderly elderlyToUpdate=elderlyManager.searchElderlyById(id);
 					if(elderlyToUpdate!=null) {
 						updateInfo(id);
@@ -233,6 +239,8 @@ public class MenuResidencialArea {
 					mainMenu();
 				default:
 					break;
+				case 5:
+					printMe(id); //xml
 					
 				}
 			} while (true);
@@ -243,6 +251,11 @@ public class MenuResidencialArea {
 	}
 	
 	
+	private static void printMe(Integer id) {
+		xmlmanager.staff2xml(id);
+		
+	}
+
 	public static void addElderly() throws Exception {
 
 		System.out.println("Input the information of the new elderly: ");
@@ -270,7 +283,7 @@ public class MenuResidencialArea {
 		userManager.newUser(user);
 		userManager.disconnect();
 		elderlyManager.addElderly(elderly);
-		ElderlyMenu();
+		//ElderlyMenu(); ARREGLAR
 
 	}
 	
@@ -298,7 +311,7 @@ public class MenuResidencialArea {
 	            System.out.println("Elderly not found with the provided id.");
 	        }
 
-	        ElderlyMenu();
+	        //ElderlyMenu();
 	    } catch (NullPointerException e) {
 	        System.out.println("Error: Unable to update elderly information. Please try again.");
 	        e.printStackTrace();
@@ -310,7 +323,7 @@ public class MenuResidencialArea {
 		
 		System.out.println("The list of elderlies is: ");
 		elderlyManager.getListOfElderlies();
-		ElderlyMenu();
+		//ElderlyMenu();
 		
 	}
 	
@@ -382,7 +395,7 @@ public class MenuResidencialArea {
 		md.update(password.getBytes());
 		byte[] digest = md.digest();
 
-		Staff staff = new Staff(name, phone, field, dobDate, address, elderlies);
+		Staff staff = new Staff();
 		// Create elderly and add it to JPA  
 		User user = new User(name, digest);
 		userManager.connect();
@@ -395,7 +408,7 @@ public class MenuResidencialArea {
 		userManager.disconnect();
 
 		staffManager.addStaffMember(staff);
-		ElderlyMenu();
+		//ElderlyMenu();
 
 	}
     

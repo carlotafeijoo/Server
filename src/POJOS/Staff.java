@@ -6,16 +6,35 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name="Staff")
+@XmlType(propOrder= {"name","phone", "dob", "address","elderlies"})
 public class Staff {
-	//Attributes of Staff class
+	
+	
+	@XmlAttribute
 	private String name;
+	@XmlTransient //this means i dont want the id to be shown in xml
 	private int staff_id;
+	@XmlTransient
 	private String field;
+	@XmlElement
 	private Integer phone;
+	@XmlElement
 	private Date dob;
+	@XmlElement
 	private String address;
+	@XmlElement
+	@XmlElementWrapper(name="elderlies") 
 	private List<Elderly> elderlies; // Many to many relationship
-	public int getPhone;
 
 
 	//Empty constructor
@@ -37,26 +56,35 @@ public class Staff {
 		this.address = address;
 		this.elderlies = elderlies;
 	}
+	public Staff(String name, Integer phone,Date dob,String address) {
+		super();
+		this.name = name;
+		this.phone = phone;
+		this.dob = dob;
+		this.address = address;
+		
+	}
 	
 	
-	public Staff(Integer id, String field2, Integer phone2, java.sql.Date dob2) {
-		// TODO Auto-generated constructor stub
+	
+	
+	public List<Elderly> getElderlies() {
+		return elderlies;
 	}
 
 
-	public Staff(int id, String name2, String field2, int phone2, java.sql.Date dob2, String address2) {
-		// TODO Auto-generated constructor stub
+	public void setElderlies(List<Elderly> elderlies) {
+		this.elderlies = elderlies;
 	}
 
 
-	public Staff(String name2, int phone2, String field2, String dob2, String address2, List<Elderly> elderlies2) {
-		// TODO Auto-generated constructor stub
+	public void setStaff_id(int staff_id) {
+		this.staff_id = staff_id;
 	}
 
 
-	public Staff(String name2, int phone2, String field2, LocalDate dobDate, String address2,
-			List<Elderly> elderlies2) {
-		// TODO Auto-generated constructor stub
+	public void setPhone(Integer phone) {
+		this.phone = phone;
 	}
 
 
@@ -122,9 +150,9 @@ public class Staff {
 	}
 
 
-	public Object getPhone() {
+	public int getPhone() {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 
 

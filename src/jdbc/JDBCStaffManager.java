@@ -30,7 +30,7 @@ public class JDBCStaffManager implements StaffManager {
 			PreparedStatement prep= ((java.sql.Statement) staffmanager).getConnection().prepareStatement(sql);
 			prep.setString(1, staffmember.getName());
 			prep.setString(2, staffmember.getField());
-			prep.setInt(3, staffmember.getPhone);
+			prep.setInt(3, staffmember.getPhone());
 			prep.setDate(4, (Date) staffmember.getDob());
 			prep.setString(5, staffmember.getAddress());
 			prep.executeUpdate();
@@ -123,12 +123,11 @@ public class JDBCStaffManager implements StaffManager {
 	        while (rs.next()) {
 	            int id = rs.getInt("id");
 	            String name = rs.getString("name");
-	            String field = rs.getString("field");
 	            int phone = rs.getInt("phone");
 	            Date dob = rs.getDate("dob");
 	            String address = rs.getString("address");
 
-	            Staff staffMember = new Staff(id, name, field, phone, dob, address);
+	            Staff staffMember = new Staff(id, name, phone, dob, address);
 	            staffMembers.add(staffMember);
 	        }
 	        rs.close();
@@ -171,7 +170,7 @@ public class JDBCStaffManager implements StaffManager {
 	        String sql = "UPDATE staff SET phone = ?, address = ? WHERE id = ?";
 	        PreparedStatement pr = ((java.sql.Statement) staffmanager).getConnection().prepareStatement(sql);
 
-	        if (staffmember.getPhone() != null) {
+	        if (staffmember.getPhone() != 0) {
 	            pr.setInt(1, (int) staffmember.getPhone());
 	        }
 	        if (staffmember.getAddress() != null) {
