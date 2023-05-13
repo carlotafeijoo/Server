@@ -1,0 +1,18 @@
+<!--
+The type of the attribute "id" of Employee needs
+to be CDATA instead of ID, since DTD doesn't allow
+IDs that start with a number
+-->
+<!DOCTYPE Staff [
+	<!ELEMENT Staff (phone, dob ,address, elderlies)> 
+   <!ATTLIST Staff name CDATA #REQUIRED> <!-- AS name is an attribute-->
+   <!ELEMENT phone (#PCDATA)>
+   <!ELEMENT dob (#PCDATA)>
+   <!ELEMENT address (#PCDATA)>
+   <!ELEMENT elderlies  (elderly++)> <!--It is a list-->
+   <!ELEMENT Elderly (age)>
+   <!ATTLIST Elderly name CDATA #REQUIRED
+   <!ELEMENT age (#PCDATA)>
+                  	  
+   
+]>

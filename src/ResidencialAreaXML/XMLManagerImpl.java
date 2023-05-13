@@ -24,12 +24,11 @@ public class XMLManagerImpl implements XMLManager{
 		
 		try {
 			//DO A SQL QUERY TO GET THE OWNER BY THE ID
-			Statement stmt= manager.getConnection().createStatement(); //ERROR
+			Statement stmt= manager.getConnection().createStatement(); 
 			String sql= "Select * from owners where id ="+id;
-			ResultSet rs= stmt.executeQuery(sql); //ERROR
+			ResultSet rs= stmt.executeQuery(sql); 
 			String name= rs.getString("name");
 			Integer phone= rs.getInt("phone");
-			//DATE OF BIRTH
 			Date dob = rs.getDate("dob");
 			String address= rs.getString("email");
 			s= new Staff(name,phone,dob,address);
@@ -72,7 +71,7 @@ public class XMLManagerImpl implements XMLManager{
 			JAXBContext jaxbContext= JAXBContext.newInstance(Elderly.class);
 			Unmarshaller unmarshaller= jaxbContext.createUnmarshaller();
 			el= (Elderly) unmarshaller.unmarshal(xml);
-			
+			//JDBC code to insert elderly to table elderlies
 			
 		}catch(Exception e) {
 			e.printStackTrace();

@@ -63,9 +63,9 @@ public class MenuResidencialArea {
 			int option;
 			do {
 				System.out.println("MAIN MENU ");
-				System.out.println("\n 1. Elderly ");
-				System.out.println("2. Family Contact ");
-				System.out.println("3. Staff ");
+				System.out.println("\n 1. Elderlies info");
+				System.out.println("2. Family Contacts info ");
+				System.out.println("3. Staff info ");
 				System.out.println("4. Exit ");
 				option = InputException.getInt("Introduce your choice:  ");
 
@@ -80,7 +80,8 @@ public class MenuResidencialArea {
 					break;
 					
 				case 3:
-					StaffMenu();
+					int id= InputException.getInt("Introduce the id of the elderly you want to modify or see");
+					StaffMenu(id);
 					break;
 					
 				case 4:
@@ -152,7 +153,6 @@ public class MenuResidencialArea {
 
 		FamilyContact familyContact = new FamilyContact(name, phone);
 
-		// CREATE PATIENT AND ADD TO JPA
 		User user = new User(email, digest);
 		userManager.connect();
 
@@ -211,8 +211,9 @@ public class MenuResidencialArea {
 				System.out.println("\n1. Add an elderly to the data base.  ");
 				System.out.println("2.Update the information of an elderly. ");
 				System.out.println("3.Get the list of elderlies. ");
-				System.out.println("4. Exit");
+				System.out.println("4.Load new elderlies. ");
 				System.out.println("5. Print me");
+				System.out.println("6. Exit");
 				
 
 				choice = InputException.getInt("Introduce your choice: ");
@@ -233,14 +234,17 @@ public class MenuResidencialArea {
 					updateInfo(id);
 					break;
 				case 3:
-					getListOfElderlies();
+					getListOfElderlies(id);
 					break;	
-				case 4:
+				case 4: 
+					loadElderly(); //xml
+				
+				case 5:
+					printMe(id); //xml
+				case 6:
 					mainMenu();
 				default:
 					break;
-				case 5:
-					printMe(id); //xml
 					
 				}
 			} while (true);
@@ -251,6 +255,12 @@ public class MenuResidencialArea {
 	}
 	
 	
+	private static void loadElderly() {
+		File file = new File("./xmls/External-Elderly.xml");
+		System.out.println(xmlmanager.xml2Elderly(file));
+		
+	}
+
 	private static void printMe(Integer id) {
 		xmlmanager.staff2xml(id);
 		
@@ -259,7 +269,8 @@ public class MenuResidencialArea {
 	public static void addElderly() throws Exception {
 
 		System.out.println("Input the information of the new elderly: ");
-
+		int id=InputException.getInt("\n ID: ");
+ 
 		String name = InputException.getString("\n Name: ");
 		
 		int age=InputException.getInt("Age:  ");
@@ -270,9 +281,7 @@ public class MenuResidencialArea {
 		byte[] digest = md.digest();
 
 		Elderly elderly = new Elderly(name, age);
-
-
-		// Create elderly and add it to JPA  
+ 
 		User user = new User(name, digest);
 		userManager.connect();
 
@@ -283,7 +292,7 @@ public class MenuResidencialArea {
 		userManager.newUser(user);
 		userManager.disconnect();
 		elderlyManager.addElderly(elderly);
-		//ElderlyMenu(); ARREGLAR
+		ElderlyMenu(id);
 
 	}
 	
@@ -311,7 +320,7 @@ public class MenuResidencialArea {
 	            System.out.println("Elderly not found with the provided id.");
 	        }
 
-	        //ElderlyMenu();
+	        ElderlyMenu(id);
 	    } catch (NullPointerException e) {
 	        System.out.println("Error: Unable to update elderly information. Please try again.");
 	        e.printStackTrace();
@@ -319,16 +328,16 @@ public class MenuResidencialArea {
 	}
 
 	
-	private static void getListOfElderlies() throws IOException {
+	private static void getListOfElderlies(int id) throws IOException {
 		
 		System.out.println("The list of elderlies is: ");
 		elderlyManager.getListOfElderlies();
-		//ElderlyMenu();
+		ElderlyMenu(id);
 		
 	}
 	
 	
-    private static void StaffMenu() {
+    private static void StaffMenu( Integer id) {
 		
 		try {
 			int choice;
@@ -337,7 +346,9 @@ public class MenuResidencialArea {
 				System.out.println("\n1. Add a staff member.  ");
 				System.out.println("2.List all the staff members. ");
 				System.out.println("3.Update the information of a staff member. ");
-				System.out.println("4.Exit  ");
+				System.out.println("4.Print me  ");
+				System.out.println("5.Load new staff members ");
+				System.out.println("6.Exit  ");
 			
 
 				choice = InputException.getInt("Introduce your choice: ");
@@ -345,19 +356,23 @@ public class MenuResidencialArea {
 				switch (choice) {
 
 				case 1:
-					addStaff();
+					addStaff(id);
 					break;
 					
 				case 2:
-					getlistOfStaff();
+					getlistOfStaff(id);
 					break;
 					
 				case 3:
-					int id=InputException.getInt("Introduce the id of the staff member that is going to be updated:" );
+					 id=InputException.getInt("Introduce the id of the staff member that is going to be updated:" );
 					updateInfoStaff(id);
 					break;
+				case 4: printMe(id);
+				break;
+				case 5:
+					loadStaff();
 					
-				case 4:
+				case 6:
 					mainMenu();
 					
 				default:
@@ -371,7 +386,13 @@ public class MenuResidencialArea {
 		}
 	}
 	
-    public static void addStaff() throws Exception {
+    private static void loadStaff() {
+    	File file = new File("./xmls/External-Staff.xml");
+		System.out.println(xmlmanager.xml2Staff(file));
+		
+	}
+
+	public static void addStaff(int id) throws Exception {
 
 		System.out.println("Input the information of the new staff member: ");
 
@@ -408,15 +429,15 @@ public class MenuResidencialArea {
 		userManager.disconnect();
 
 		staffManager.addStaffMember(staff);
-		//ElderlyMenu();
+		StaffMenu(id);
 
 	}
     
-    private static void getlistOfStaff() throws IOException {
+    private static void getlistOfStaff(int id) throws IOException {
 		
 		System.out.println("The list of staff member is: ");
 		staffManager.listStaffMembers();
-		StaffMenu();
+		StaffMenu(id );
 		
 	}
     
@@ -445,7 +466,7 @@ public class MenuResidencialArea {
 		}
 		
 		staffManager.updateStaffMemberInfo(s);
-		StaffMenu();
+		StaffMenu(id);
 	}
     
     
