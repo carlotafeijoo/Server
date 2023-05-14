@@ -91,6 +91,16 @@ public class Staff {
 		this.dob = dob;
 	}
 	
+	public Staff(String field, String address, String name, Integer phone, Date dob) {
+		super();
+		this.field=field;
+		this.address=address;
+		this.name=name;
+		this.phone=phone;
+		this.dob=dob;
+	}
+
+
 	public String getName() {
 		return name;
 	}

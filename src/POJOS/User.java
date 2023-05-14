@@ -3,7 +3,8 @@ import java.io.Serializable;
 	import java.util.Arrays;
 	import java.util.Objects;
 
-    import javax.persistence.Entity;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 	import javax.persistence.GeneratedValue;
 	import javax.persistence.Id;
 	import javax.persistence.JoinColumn;
@@ -14,7 +15,7 @@ import java.io.Serializable;
 
 	
 	@Entity
-	@Table (name = "users")
+	@Table (name = "User")
 
 	public class User implements Serializable {
 	
@@ -26,10 +27,10 @@ import java.io.Serializable;
 		
 		
 		@Id
-		@GeneratedValue( generator = "users")
-		@TableGenerator (name = "users" , table = "sqlite_sequence", pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "users" )
+		@GeneratedValue( generator = "User")
+		@TableGenerator (name = "User" , table = "sqlite_sequence", pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "User" )
 		private Integer id;
-		private String email;
+		private String username;
 		@Lob
 		private byte[] password;
 		@ManyToOne
@@ -40,15 +41,18 @@ import java.io.Serializable;
 		public User() {
 			super();
 		}
-		public User(Integer id, String email, byte[] password, Role role) {
+		public User(Integer id, String username, byte[] password, Role role) {
 			super();
 			this.id = id;
-			this.email = email;
+			this.username = username;
 			this.password = password;
 			this.role = role;
 		}
-		public User(String email2, byte[] digest) {
-			// TODO Auto-generated constructor stub
+		
+		public User(String username, byte[] password) {
+			super();
+			this.username = username;
+			this.password = password;
 		}
 		
 		public Integer getId() {
@@ -57,12 +61,13 @@ import java.io.Serializable;
 		public void setId(Integer id) {
 			this.id = id;
 		}
-		public String getEmail() {
-			return email;
+		public String getUsername() {
+			return username;
 		}
-		public void setEmail(String email) {
-			this.email = email;
+		public void setUsername(String username) {
+		    this.username = username;
 		}
+
 		public byte[] getPassword() {
 			return password;
 		}
@@ -83,7 +88,7 @@ import java.io.Serializable;
 			final int prime = 31;
 			int result = 1;
 			result = prime * result + Arrays.hashCode(password);
-			result = prime * result + Objects.hash(email, id, role);
+			result = prime * result + Objects.hash(username, id, role);
 			return result;
 		}
 		@Override
@@ -95,7 +100,7 @@ import java.io.Serializable;
 			if (getClass() != obj.getClass())
 				return false;
 			User other = (User) obj;
-			return Objects.equals(email, other.email) && Objects.equals(id, other.id)
+			return Objects.equals(username, other.username) && Objects.equals(id, other.id)
 					&& Arrays.equals(password, other.password) && Objects.equals(role, other.role);
 		}
 		

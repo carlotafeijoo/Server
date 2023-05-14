@@ -13,7 +13,7 @@ public interface StaffManager {
 	public void deleteStaffMember(int id);
 	
 	//list all the staff members
-	public List<Staff> listStaffMembers();
+	public List<Staff> listStaffMembers(int id);
 	
 	//Get the list of staff members by field
 	public Staff searchStaffmemberBYField (String field);
@@ -38,6 +38,10 @@ public interface StaffManager {
 	//Count the staff members 
 	public int CountStaffMembers (String staff_field);
 		
+	
+	public int searchStaffIdfromUId(int id);
+	
+	public Staff searchStaffbyId ( int id);
 	
 
 }

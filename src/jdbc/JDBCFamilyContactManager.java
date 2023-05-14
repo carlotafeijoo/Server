@@ -1,80 +1,53 @@
 package jdbc;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import Interfaces.FamilyContactManager;
 import POJOS.*;
 
 public class JDBCFamilyContactManager implements FamilyContactManager{
 	
-	private JDBCFamilyContactManager familyContactManager;
-	private int getPhone;
-	private FamilyContact familycontact;
+	private JDBCManager familyContactManager;
+	
 
 
 	public JDBCFamilyContactManager(JDBCManager jdbcManager) {
-		// TODO Auto-generated constructor stub
+		this.familyContactManager=jdbcManager;
 	}
 
 	//add a family contact 
-	public void addFamilyContact (FamilyContact familycontact) {
+	public void addFamilyContact (FamilyContact familycontact) throws SQLException {
 		try {
-			String sql="INSERT INTO FamilyContact (name, address, phone, email) VALUES (?,?,?,?,?) ";
-			PreparedStatement prep= ((java.sql.Statement) familyContactManager).getConnection().prepareStatement(sql);
-			prep.setString(1, familyContactManager.getName());
-			prep.setString(2, familyContactManager.getAddress());
-			prep.setInt(3, familyContactManager.getPhone);
-			prep.setDate(4, (Date) familyContactManager.getEmail());
+			String sql="INSERT INTO FamilyContact (name, address, phone, email) VALUES (?,?,?,?) ";
+			PreparedStatement prep= familyContactManager.getConnection().prepareStatement(sql);
+			prep.setString(1, familycontact.getName());
+			prep.setString(2, familycontact.getAddress());
+			prep.setInt(3, familycontact.getPhone());
+			prep.setString(4, familycontact.getEmail());
 			prep.executeUpdate();
 			prep.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 	}
 
-	//show info of a family contact before updating 
-	public FamilyContact showFamilyContactInfo(int id) {
-	    familycontact = null;
-	    try (java.sql.Statement statement = ((java.sql.Statement) familycontact).getConnection().createStatement()) {
-	        String sql = "SELECT * FROM familyContact WHERE id = " + id;
-	        ResultSet rs = statement.executeQuery(sql);
-	        while (rs.next()) {
-	            String name = rs.getString("name");
-	            String email= rs.getString("email"); 
-	            String address = rs.getString("address");
-	            int phone = rs.getInt("phone");
-	            int family_id = rs.getInt("family_id");
-	            int elderly_id = rs.getInt("elderly_id"); 
-
-	            familycontact = new FamilyContact(name, address, phone, email, family_id, elderly_id);
-	        }
-	        rs.close();
-	        statement.close();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return familycontact;
-	}
 	
 	//update the info of a family contact
 	public void updateFamilyContactInfo(FamilyContact familycontact) {
 	    try {
-	        String sql = "UPDATE familycontact SET email = ?, phone = ?, address = ?  WHERE id = ?";
-	        PreparedStatement pr = ((java.sql.Statement) familycontact).getConnection().prepareStatement(sql);
+	        String sql = "UPDATE FamilyContact SET phone = ?, address = ?  WHERE family_id = ?";
+	        PreparedStatement pr = familyContactManager.getConnection().prepareStatement(sql);;
 	        
-	        if (familycontact.getEmail() != null) {
-	            pr.setString(1, familycontact.getEmail());
-	        }
-	        if(familycontact.getPhone()!=0) {
-	        	pr.setInt(2, familycontact.getPhone());
-	        }
-	        if (familycontact.getAddress() != null) {
-	            pr.setString(3, familycontact.getAddress());
-	        }
-	        pr.setInt(4, familycontact.getFamily_id());
+	        
+	        pr.setInt(1, familycontact.getPhone());
+	       
+	        pr.setString(2, familycontact.getAddress());
+	        
+	        pr.setInt(3, familycontact.getFamily_id());
 	        pr.executeUpdate();
 	        pr.close();
 	    } catch (Exception e) {
@@ -83,45 +56,74 @@ public class JDBCFamilyContactManager implements FamilyContactManager{
 	}
 	
 	
+	
+	
 	@Override
-	public FamilyContact searchFamilyContactbyId ( int id) {
-		FamilyContact fc = null;
-		try {
-			java.sql.Statement stmt = ((java.sql.Statement) familyContactManager).getConnection().createStatement();
-			String sql = "SELECT name,email,phone,address FROM familyContact WHERE id = " + id;
-			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				String name = rs.getString("name");
-				String email = rs.getString("email");
-				String address = rs.getString("address");
-				int phone = rs.getInt("phone");
-
-				fc = new FamilyContact(id,name, email, phone, address);
-			}
-			rs.close();
-			stmt.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return fc;
+	public FamilyContact searchFamilyContactbyId(int family_id) {
+	    FamilyContact fc = null;
+	    try {
+	        String sql = "SELECT * FROM FamilyContact WHERE family_id = ?";
+	        PreparedStatement pr = familyContactManager.getConnection().prepareStatement(sql);
+	        pr.setInt(1, family_id);
+	        ResultSet rs = pr.executeQuery();
+	        
+	        if (rs.next()) {
+	            String name = rs.getString("name");
+	            String email = rs.getString("email");
+	            String address = rs.getString("address");
+	            int phone = rs.getInt("phone");
+	            
+	            fc = new FamilyContact(family_id, name, email, phone, address);
+	        }
+	        
+	        rs.close();
+	        pr.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return fc;
 	}
+
+
+
 	
 	
-	private String getName() {
+	
+	@Override
+	public int searchFamilycontacIdfromUId(int User_id) {
+	    int family_id = 0;
+	    try {
+	        Statement stmt = familyContactManager.getConnection().createStatement();
+	        String sql = "SELECT FamilyContact.family_id FROM FamilyContact JOIN User ON FamilyContact.email = User.username WHERE User.id = " + User_id;
+	        ResultSet rs = stmt.executeQuery(sql);
+
+	        if (rs.next()) {
+	            family_id = rs.getInt("family_id");
+	        }
+
+	        rs.close();
+	        stmt.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return family_id;
+	}
+
+
+	@Override
+	public FamilyContact showFamilyContactInfo(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	private String getAddress() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private Date getEmail() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

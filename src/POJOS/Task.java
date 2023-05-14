@@ -6,6 +6,7 @@ public class Task {
     //Attributes of Task class
     private int task_id;
     private String description;
+    
 
     //Empty constructor
     public Task() {

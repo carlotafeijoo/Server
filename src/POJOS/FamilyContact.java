@@ -10,12 +10,8 @@ public class FamilyContact {
 	private int family_id;
 	private int elderly_id;
 
-	public FamilyContact(String name2, int age) {
-		super();
-	}
 	
 	public FamilyContact(String name, String address, int phone, String email, int family_id, int elderly_id) {
-		super();
 		this.name = name;
 		this.address = address;
 		this.phone = phone;
@@ -24,18 +20,28 @@ public class FamilyContact {
 		this.elderly_id = elderly_id;
 	}	
 	
-	//id,name, email, phone, address
-	
-	public FamilyContact(int family_id, String name, String email, int phone, String address) {
-		super();
-		this.family_id = family_id;
-		this.name = name;
-		this.email = email;
-		this.phone = phone;
-		this.address = address;
+
+	public FamilyContact() {
 		
 	}
-	
+
+
+	public FamilyContact(int family_id, String name, String email, int phone, String address) {
+		this.family_id=family_id;
+		this.name=name;
+		this.email=email;
+		this.phone=phone;
+		this.address=address;
+	}
+
+	public FamilyContact (String name, int phone, String email, String address) {
+		this.name=name;
+		this.phone=phone;
+		this.email=email;
+		this.address=address;
+	}
+
+
 	public String getName() {
 		return name;
 	}

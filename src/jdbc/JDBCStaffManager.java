@@ -1,15 +1,16 @@
 package jdbc;
-import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.ArrayList;
 
 import Interfaces.StaffManager;
 import POJOS.Elderly;
+import POJOS.FamilyContact;
 import POJOS.Staff;
 
 
@@ -55,30 +56,9 @@ public class JDBCStaffManager implements StaffManager {
 	}
 
 	
-	//List all the staff members
-	@Override
-	public List<Staff> listStaffMembers() {
-	    List<Staff> staffmembers = new ArrayList<Staff>();
-	    try {
-	        Connection connection = ((java.sql.Statement) staffmanager).getConnection();
-	        Statement stmt = (Statement) connection.createStatement();
-	        String sql = "SELECT * FROM staff";
-	        ResultSet rs = ((java.sql.Statement) stmt).executeQuery(sql);
-	        while (rs.next()) {
-	            Integer id = rs.getInt("id");
-	            String field = rs.getString("field");
-	            Integer phone = rs.getInt("phone");
-	            Date dob = rs.getDate("dob");
-	            Staff staffmember = new Staff(id, field, phone, dob);
-	            staffmembers.add(staffmember);
-	        }
-	        rs.close();
-	        ((Connection) stmt).close();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return staffmembers;
-	}
+	
+	
+	
 
 
 	//Search in all the staff members list a member with a specific id
@@ -207,6 +187,53 @@ public class JDBCStaffManager implements StaffManager {
 		return staffmembers;
 	}
 
+	
+	@Override
+	// get staff_id from user id -> for login
+	public int searchStaffIdfromUId(int id) {
+		int id2 = 0;
+		try {
+			Statement stmt = staffmanager.getConnection().createStatement(); 
+			String sql = "SELECT familycontact.id FROM familycontact JOIN users ON familycontact.email=users.email WHERE users.id= " + id;
+			ResultSet rs = stmt.executeQuery(sql);
+
+			id2 = rs.getInt("id");
+
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return id2;
+
+	}
+	
+	@Override
+	public Staff searchStaffbyId ( int id) {
+		Staff staff=null;
+		try {
+			Statement stmt = staffmanager.getConnection().createStatement();
+			String sql = "SELECT name,phone,address, dob, field FROM familycontact WHERE id = " + id;
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				String name = rs.getString("name");
+				int phone = rs.getInt("phone");
+				String address = rs.getString("address");
+				Date dob = rs.getDate("dob");
+				String field= rs.getString("fileld");
+
+				staff= new Staff(name, phone, dob, address, field);
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return staff;
+	}
+	
 	
 	public List<POJOS.Staff> StaffMembersFromElderlyList(Elderly elderly_id) {
 		return null;

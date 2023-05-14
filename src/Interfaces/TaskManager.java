@@ -11,7 +11,7 @@ public interface TaskManager {
 	public void assign(int task_id, int staff_id);
 	public void unassign(int task_id, int staff_id);
 	public Task getTask (int task_id);
-	
+	public List<Task> getListOfTasksFromStaff(int staff_id);
 	
 	
 

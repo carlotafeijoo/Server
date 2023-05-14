@@ -1,25 +1,24 @@
 package Interfaces;
 
+import java.sql.SQLException;
+
 import POJOS.FamilyContact;
 
 public interface FamilyContactManager {
 	
 	//add a family contact
-	public static void addFamilyContact (FamilyContact familycontact) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void addFamilyContact (FamilyContact familycontact) throws SQLException;
 	
 	//show family contact info before updating
-	public static FamilyContact showFamilyContactInfo(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public FamilyContact showFamilyContactInfo(int id);
 	
 	//update the info of a family contact
 	public void updateFamilyContactInfo(FamilyContact familycontact);
 	
 	public FamilyContact searchFamilyContactbyId ( int id);
+	
+	public int searchFamilycontacIdfromUId(int id);
+	
 	
 	
 }

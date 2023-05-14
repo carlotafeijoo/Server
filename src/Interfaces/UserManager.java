@@ -13,8 +13,8 @@ public interface UserManager {
 	public void newRole(Role r);
 	public Role getRole(String email);
 	public List<Role> getRoles();
-	public User checkPassword(String email, String passwd);
-	public boolean checkEmail(String email);
+	public User checkPassword(String username, byte[] digest);
+	public boolean checkUsername(String username);
 	public void updateUserEmail(String newEmail, String oldEmail, String password);
 	public void updateUserPassword(String email, String newPassword, String oldPassword);
 }

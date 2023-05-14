@@ -22,8 +22,7 @@ public class JDBCElderlyManager implements ElderlyManager{
 	
 	public void addElderly(Elderly e) {
 		try {
-			System.out.println("paciente"+e.toString());
-			String sql = "INSERT INTO elderly (name, age) VALUES (?,?)";
+			String sql = "INSERT INTO Elderly (name, age) VALUES (?,?)";
 			// use preparedStmt so nothing damages the database
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setString(1, e.getName());
@@ -56,37 +55,42 @@ public class JDBCElderlyManager implements ElderlyManager{
 	
 	
 	@Override
-	public Elderly searchElderlyById( int id) {
-		Elderly elderly = null;
-		try {
-			java.sql.Statement stmt = ((java.sql.Statement) elderly).getConnection().createStatement();
-			String sql = "SELECT name,age FROM elderly WHERE id = " + id;
-			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				String name = rs.getString("name");
-				int age = rs.getInt("age");
+	public Elderly searchElderlyById(int id) throws Exception {
+	    Elderly elderly = null;
+	    try {
+	        String sql = "SELECT * FROM Elderly WHERE elderly_id = ?";
+	        PreparedStatement pr = manager.getConnection().prepareStatement(sql);
+	        pr.setInt(1, id);
+	        ResultSet rs = pr.executeQuery();
 
-				elderly = new Elderly(id,name, age);
-			}
-			rs.close();
-			stmt.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return elderly;
+	        while (rs.next()) {
+	            Integer elderly_id = rs.getInt("elderly_id");
+	            String name = rs.getString("name");
+	            Integer age = rs.getInt("age");
+	            elderly = new Elderly(elderly_id, name, age);
+	        }
+
+	        rs.close();
+	        pr.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return elderly;
 	}
+
+
 	
 	
 	@Override
-	public List<Elderly> getListOfElderlies() {
+	public List<Elderly> getListOfElderliesFromStaff (int staff_id) {
 	    List<Elderly> elderlies = new ArrayList<Elderly>();
-	    elderlies=null;
 	    try {
-	        Connection connection = ((java.sql.Statement) elderlies).getConnection();
-	        Statement stmt = (Statement) connection.createStatement();
-	        String sql = "SELECT * FROM elderly";
-	        ResultSet rs = ((java.sql.Statement) stmt).executeQuery(sql);
+	    	String sql = "SELECT * FROM elderly WHERE staff_id = ?";
+			PreparedStatement pr = manager.getConnection().prepareStatement(sql);
+			pr.setInt(1,staff_id);
+			ResultSet rs = pr.executeQuery();
+		
 	        while (rs.next()) {
 	            Integer id = rs.getInt("id");
 	            String name = rs.getString("name");
@@ -95,11 +99,35 @@ public class JDBCElderlyManager implements ElderlyManager{
 	            elderlies.add(elderly);
 	        }
 	        rs.close();
-	        ((Connection) stmt).close();
+	        pr.close();
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
 	    return elderlies;
+	}
+	
+	
+	@Override 
+	public List<Elderly> getListOfElderly(){
+		 List<Elderly> elderlies = new ArrayList<Elderly>();
+		    try {
+		    	String sql = "SELECT * FROM Elderly ";
+				PreparedStatement pr = manager.getConnection().prepareStatement(sql);
+				ResultSet rs = pr.executeQuery();
+			
+		        while (rs.next()) {
+		            Integer id = rs.getInt("elderly_id");
+		            String name = rs.getString("name");
+		            Integer age = rs.getInt("age");
+		            Elderly elderly = new Elderly(id, name, age);
+		            elderlies.add(elderly);
+		        }
+		        rs.close();
+		        pr.close();
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+		    return elderlies;
 	}
 	
 
@@ -122,25 +150,18 @@ public class JDBCElderlyManager implements ElderlyManager{
 	
 
 	@Override
-	public void updateInfo(Elderly e) {
+	public void updateInfo(Elderly elderly) {
 	    try {
-	        if (e != null) {
-	            System.out.println("patient" + e.toString());
-	            String sql = "UPDATE patient SET name = ?, age = ? WHERE id = ?";
-	            PreparedStatement pr = manager.getConnection().prepareStatement(sql);
+	        String sql = "UPDATE Elderly SET age=? WHERE elderly_id = ?;";
+	        PreparedStatement pr = manager.getConnection().prepareStatement(sql);
 
-	            pr.setString(1, e.getName());
-	            pr.setInt(2, e.getAge());
-	            pr.setInt(3, e.getElderly_id());
+	        pr.setInt(1, elderly.getAge());
+	        pr.setInt(2, elderly.getElderly_id());
 
-	            pr.executeUpdate();
-	            pr.close();
-	        } else {
-	            System.out.println("Elderly object is null.");
-	            // Handle the case when the elderly object is null
-	        }
-	    } catch (Exception p) {
-	        p.printStackTrace();
+	        pr.executeUpdate();
+	        pr.close();
+	    } catch (Exception e) {
+	        e.printStackTrace();
 	    }
 	}
 

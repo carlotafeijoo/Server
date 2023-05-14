@@ -28,13 +28,16 @@ public class JPAUserManager implements UserManager{
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
 		
+		System.out.println("tiene: " +this.getRoles());
 		
-		List<Role> existingRoles = this.getRoles();
-		if(existingRoles.size() < 2 || existingRoles.isEmpty()) {
-			Role elderly = new Role("elderly");
-			Role staff= new Role("staff");
+		if(this.getRoles().isEmpty()) {
+			Role elderly = new Role("Elderly");
+			Role staff= new Role("Staff");
+			Role familycontact = new Role ("FamilyContact");
 			this.newRole(elderly);
 			this.newRole(staff);
+			this.newRole(familycontact);
+			System.out.println("Se han creado los roles");
 		}		
 	}
 	
@@ -56,7 +59,7 @@ public class JPAUserManager implements UserManager{
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			md.update(password.getBytes());
 			byte[] hash = md.digest();
-			Query q = em.createNativeQuery("SELECT * FROM users WHERE email = ? AND password = ?", User.class);
+			Query q = em.createNativeQuery("SELECT * FROM User WHERE email = ? AND password = ?", User.class);
 			q.setParameter(1, email);
 			q.setParameter(2, hash);
 			if (!q.getResultList().isEmpty()) {
@@ -79,54 +82,47 @@ public class JPAUserManager implements UserManager{
 
 	@Override
 	public Role getRole(String name) { 
-		Query q = em.createNativeQuery("SELECT * FROM roles WHERE name = ?", Role.class);
-		q.setParameter(1, name);
-		return (Role) q.getSingleResult();
+		Query q = em.createNativeQuery("SELECT * FROM Role WHERE name LIKE ?", Role.class);
+		q.setParameter(1, name); 
+		Role r= (Role) q.getSingleResult();
+		return r;
 	}
 
 	@Override
 	public List<Role> getRoles() {
-		Query q = em.createNativeQuery("SELECT * FROM roles", Role.class);
+		Query q = em.createNativeQuery("SELECT * FROM Role", Role.class);
+
 		List<Role> roles = (List<Role>) q.getResultList();
+
 		return roles;
 	}
 
 	@Override
-	public User checkPassword(String email, String passwd) {
+	public User checkPassword(String username, byte[] passwd) {
 		User u = null;
+		Query q = em.createNativeQuery("SELECT * FROM User WHERE username =? AND password = ?", User.class);
+		q.setParameter(1, username);
+		q.setParameter(2, passwd);
+		
 		try {
-			MessageDigest md = MessageDigest.getInstance("MD5");
-			md.update(passwd.getBytes());
-			byte[] digest = md.digest();
-			Query q = em.createNativeQuery("Select * FROM users WHERE email =? AND password = ?", User.class);
-			q.setParameter(1, email);
-			q.setParameter(2,digest);
-			return (User) q.getSingleResult();
-		}catch(NoSuchAlgorithmException e){
-			e.printStackTrace();
-		}
+			u= (User) q.getSingleResult();
+		}catch (NoResultException e) {}
+		
 		return u;
 	}
 	
 	@Override
-	public boolean checkEmail(String email) {
-		try {
-			Query q = em.createNativeQuery("SELECT * FROM users WHERE email = ?", User.class);
-			q.setParameter(1, email);
-			User temp = (User)q.getSingleResult();
-			if(temp.getEmail().equalsIgnoreCase(email)) {
-				return true;
-			}else {
-				return false;
-			}
-		}catch(NoResultException nre) {
-			return false;
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		return false;
+	public boolean checkUsername(String username) {
+	    try {
+	        Query q = em.createNativeQuery("SELECT * FROM User WHERE username = ?", User.class);
+	        q.setParameter(1, username);
+	        return !q.getResultList().isEmpty();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return false;
 	}
+
 	
 	@Override
 	public void updateUserEmail(String newEmail, String oldEmail, String password) {
@@ -134,12 +130,12 @@ public class JPAUserManager implements UserManager{
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			md.update(password.getBytes());
 			byte[] hash = md.digest();
-			Query q = em.createNativeQuery("SELECT * FROM users WHERE email = ? ", User.class);
+			Query q = em.createNativeQuery("SELECT * FROM User WHERE email = ? ", User.class);
 			q.setParameter(1, oldEmail);
 			q.setParameter(2, hash);
 			User u = (User) q.getSingleResult();
 			em.getTransaction().begin();
-			u.setEmail(newEmail);
+			u.setUsername(newEmail);
 			em.getTransaction().commit();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -152,7 +148,7 @@ public class JPAUserManager implements UserManager{
  			MessageDigest md = MessageDigest.getInstance("MD5");
  			md.update(oldPassword.getBytes());
  			byte[] hash = md.digest();
- 			Query q = em.createNativeQuery("SELECT * FROM users WHERE email = ? AND password = ?", User.class);
+ 			Query q = em.createNativeQuery("SELECT * FROM User WHERE email = ? AND password = ?", User.class);
  			q.setParameter(1, email);
  			q.setParameter(2, hash);
  			User u = (User) q.getSingleResult();
@@ -166,6 +162,8 @@ public class JPAUserManager implements UserManager{
  			e.printStackTrace();
  		}
 	}
+
+	
 	
 	
 }

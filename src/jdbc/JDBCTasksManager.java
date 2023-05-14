@@ -1,9 +1,13 @@
 package jdbc;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import Interfaces.TaskManager;
+import POJOS.Elderly;
 import POJOS.Task;
 
 public class JDBCTasksManager implements TaskManager{
@@ -42,10 +46,9 @@ public class JDBCTasksManager implements TaskManager{
 		}
 	}
 
-	//list the tasks of a staff member
-	public List<Task> getListOfTasks(){
-		return null;
-	}
+	
+	
+	
 	
 	//assign a task to a staff
 	public void assign(int task_id, int staff_id){

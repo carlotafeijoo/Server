@@ -13,7 +13,7 @@
 	import javax.persistence.TableGenerator;
 	
 	@Entity
-	@Table(name = "roles")
+	@Table(name = "Role")
 	public class Role implements Serializable{
 	
 		
@@ -21,9 +21,12 @@
 		 * 
 		 */
 		private static final long serialVersionUID = -5726931783696626202L;
+		
+		
 		@Id
-		@GeneratedValue(generator = "roles")
-		@TableGenerator(name = "roles", table = "sqlite_sequence", pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "roles")
+		@GeneratedValue(generator = "Role")
+		@TableGenerator(name = "Role", table = "sqlite_sequence", 
+		pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "Role")
 		private Integer id;
 		private String name;
 		@OneToMany (fetch = FetchType.LAZY, mappedBy = "role")
@@ -41,11 +44,7 @@
 		}
 	
 	
-		public void addUSer(User u) {
-			if(!users.contains(u)) {
-				users.add(u);
-			}
-		}
+		
 		
 		public void removeUser(User u) {
 			
@@ -106,10 +105,12 @@
 
 
 
-		public void addUser(User user) {
-			// TODO Auto-generated method stub
+		public void addUser(User u) {
+			if(!users.contains(u)) {
+				users.add(u);
+			}
 			
 		}
-	
+				
 		
 }
