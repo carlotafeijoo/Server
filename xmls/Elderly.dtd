@@ -6,6 +6,6 @@ IDs that start with a number
 <!DOCTYPE Elderly [
    <!ELEMENT Elderly (age)> 
    <!ELEMENT age (#PCDATA)>
-   <!ATTLIST Elderly name CDATA #REQUIRED
+   <!ATTLIST Elderly name CDATA #REQUIRED>
   
 ]>

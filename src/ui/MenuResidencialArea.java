@@ -348,6 +348,7 @@ public class MenuResidencialArea {
 		
 		String address = InputException.getString("Address: ");
 		String email = InputException.getString("Email: ");
+		System.out.println("Your email adress will be used as your username");
 		Integer phone = InputException.getInt("Phone: ");
 		System.out.println("Enter the year of birth:");
         int year = Integer.parseInt(read.readLine());
@@ -364,7 +365,7 @@ public class MenuResidencialArea {
         java.sql.Date dob = new java.sql.Date(utilDate.getTime());
 
 		
-		String username = InputException.getString("Username: ");
+		String username = email;
 		String password = InputException.getString("Password: ");
 		MessageDigest md = MessageDigest.getInstance("MD5");
 		md.update(password.getBytes());
@@ -395,9 +396,7 @@ public class MenuResidencialArea {
 		MessageDigest md = MessageDigest.getInstance("MD5");
 		md.update(password.getBytes());
 		byte[] digest = md.digest();
-		
-	
-		
+				
 		User u = userManager.checkPassword(username, digest);
 	
 		if (u == null) {
@@ -428,8 +427,6 @@ public class MenuResidencialArea {
 	
 		}
 	}
-
-
 	
 	private static void familyContactMenu(int User_id) {
 		
@@ -472,8 +469,6 @@ public class MenuResidencialArea {
 		}
 	}
 
-	
-	
 	private static void elderlyMenu() {
 		
 		try {
@@ -484,16 +479,14 @@ public class MenuResidencialArea {
 				System.out.println("2. Update the information of an elderly. ");
 				System.out.println("3. Get the list of all elderlies. ");
 				System.out.println("4. Load new elderlies. ");
-				System.out.println("5. Print me");
+				System.out.println("5. Export elderlies to xml"); //before print me
 				System.out.println("6. Back");
 				
-
 				choice = InputException.getInt("Introduce your choice: ");
 
 				switch (choice) {
 
 				case 1:
-					
 					addElderly();
 					break;
 					
@@ -509,21 +502,26 @@ public class MenuResidencialArea {
 					    System.out.println("Elderly not found with the provided id.");
 					}
 				    break;
+				    
 				case 3:
-					
 					getListOfElderlies();
 					break;	
 					
 				case 4: 
 					loadElderly(); //xml
+					//break?
+					//TO DO: see if they are being put or not
 				
 				case 5:
-					printMe(); //xml
+					exportElderly(); //xml
+					//break?
+					
 				case 6:
 					mainMenu();
-				default:
-					break;
+					//break?
 					
+				default:
+					break;	
 				}
 			} while (true);
 
@@ -539,10 +537,14 @@ public class MenuResidencialArea {
 		
 	}
 
-	private static void printMe() {
-		int id=InputException.getInt("Introduce the id of the elderly wanted to be printed:" );
-		xmlmanager.staff2xml(id);
-		
+	private static void exportElderly() {
+		int id=InputException.getInt("Introduce the id of the elderly wanted to be exported:" );
+		try {
+			xmlmanager.elderly2xml(elderlyManager.searchElderlyById(id));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public static void addElderly() throws Exception {
@@ -555,14 +557,10 @@ public class MenuResidencialArea {
 
 		Elderly elderly = new Elderly(name, age);
  
-		
 		elderlyManager.addElderly(elderly);
 		elderlyMenu();
 
 	}
-	
-	
-
 	
 	private static void getListOfElderlies() throws IOException, Exception {
 		
@@ -575,18 +573,14 @@ public class MenuResidencialArea {
 	
 	
     private static void staffMenu(int User_id) {
-    
-		
 		try {
-			
-			
+
 			int choice;
 			do {
 				System.out.println("1.Update information. ");
 				System.out.println("2.Register new task. ");
 				System.out.println("3.List all the tasks. ");
-				
-				System.out.println("4.Print me.  ");
+				System.out.println("4.Export staff members.  ");
 				System.out.println("5.Load new staff members. ");
 				System.out.println("6.Back.  ");
 			
@@ -594,7 +588,6 @@ public class MenuResidencialArea {
 				choice = InputException.getInt("Introduce your choice: ");
 
 				switch (choice) {
-
 				
 				case 1:
 					int staff_id = staffManager.searchStaffIdfromUId(User_id);
@@ -611,34 +604,29 @@ public class MenuResidencialArea {
 					}
 				    break;
 					
-					
 				case 2:
-					
 					int staffToAssignNewTask_id = staffManager.searchStaffIdfromUId(User_id);
-					
 					addTask(staffToAssignNewTask_id);
-					
 					System.out.println("Task added sucessfully!");
-					
-					
 					break;
 					
 				case 3:
 					int staffAllTask_id = staffManager.searchStaffIdfromUId(User_id);
-					
 					List <Task> tasksList = tasksManager.getListOfTasks(staffAllTask_id);
-					
 					System.out.println("List of tasks: " +tasksList);
-					
 					break;
+					
 				case 4: 
-					printMe();
-				break;
+					exportStaff();
+					break;
+					
 				case 5:
 					loadStaff();
+					//break??
 					
 				case 6:
 					mainMenu();
+					//break??
 					
 				default:
 					break;
@@ -657,6 +645,11 @@ public class MenuResidencialArea {
 		
 	}
     
+    private static void exportStaff() {
+    	int id=InputException.getInt("Introduce the id of the staff wanted to be exported:" );
+    	xmlmanager.staff2xml(id);
+    }
+    
     public static void addTask(int staffToAssignNewTask_id) throws Exception {
 
 		System.out.println("Input the information of the new task: ");
@@ -673,9 +666,5 @@ public class MenuResidencialArea {
 	}
 
 	
-    
-    
 
-	
-	
 }

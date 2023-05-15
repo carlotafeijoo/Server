@@ -15,11 +15,9 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name="Elderly")
-@XmlType(propOrder= {"age"})
+@XmlType(propOrder= {"name" , "age"})
 public class Elderly implements Serializable{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -8265618237491167237L;
 	
 	@XmlTransient

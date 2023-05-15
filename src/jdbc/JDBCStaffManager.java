@@ -56,10 +56,6 @@ public class JDBCStaffManager implements StaffManager {
 	        e.printStackTrace();
 	    }
 	}
-
-
-	
-
 	
 	@Override
 	// get staff_id from user id -> for login

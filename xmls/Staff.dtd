@@ -11,8 +11,7 @@ IDs that start with a number
    <!ELEMENT address (#PCDATA)>
    <!ELEMENT elderlies  (elderly++)> <!--It is a list-->
    <!ELEMENT Elderly (age)>
-   <!ATTLIST Elderly name CDATA #REQUIRED
-   <!ELEMENT age (#PCDATA)>
+   <!ATTLIST Elderly name CDATA #REQUIRED>
                   	  
-   
+  
 ]>

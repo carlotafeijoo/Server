@@ -5,27 +5,8 @@ The type of the attribute "id" of Employee needs
 to be CDATA instead of ID, since DTD doesn't allow
 IDs that start with a number
 -->
-<!DOCTYPE Elderly [
-   <!ELEMENT Elderly (age)> 
-   <!ELEMENT age (#PCDATA)>
-   <!ATTLIST Elderly name CDATA #REQUIRED
-  
-]>
 
-<Elderly>
-    <name>External Sales Report</name>
-    <content>Eh, better than expected!</content>
-    <date>2016-11-09</date>
-    <Authors>
-        <Employee name="Employee-0" id="2">
-            <dob>2016-12-20</dob>
-            <address>Address-0</address>
-            <salary>0.0</salary>
-        </Employee>
-        <Employee name="Employee-1" id="3">
-            <dob>2016-12-21</dob>
-            <address>Address-1</address>
-            <salary>101.0</salary>
-        </Employee>
-    </Authors>
-</Report>
+
+<Elderly name= "Carlota">
+    <age>65</age>
+</Elderly>

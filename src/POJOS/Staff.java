@@ -58,10 +58,16 @@ public class Staff {
 		this.elderlies = elderlies;
 		this.email=email;
 	}
-
-
-
 	
+	public Staff(String name, Integer phone, Date dob, String address) {
+		super();
+		this.name = name;
+		this.phone = phone;
+		this.dob = dob;
+		this.address = address;
+	}
+
+
 	public Staff(String name, Integer phone, Date dob, String address, String field, String email) {
 		this.email=email;
 		this.field=field;

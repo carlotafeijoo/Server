@@ -22,7 +22,7 @@ IDs that start with a number
 <Staff name= "Juan">
 	<phone>665778906</phone>
 	<dob>22/07/2002</dob>
-	<address>Doctor Esuqerdo</address>
+	<address>Doctor Esquerdo</address>
 	<elderlies>
 		<elderly age = 88>
 		</elderly>
@@ -30,6 +30,5 @@ IDs that start with a number
 		<elderly age= 79>
 		</elderly>
 	</elderlies>
-	
 </Staff>
     
