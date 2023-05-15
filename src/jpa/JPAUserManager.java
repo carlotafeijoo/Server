@@ -32,9 +32,11 @@ public class JPAUserManager implements UserManager{
 			Role elderly = new Role("Elderly");
 			Role staff= new Role("Staff");
 			Role familycontact = new Role ("FamilyContact");
+			Role schedule = new Role ("Schedule");
 			this.newRole(elderly);
 			this.newRole(staff);
 			this.newRole(familycontact);
+			this.newRole(schedule);
 		}		
 	}
 	

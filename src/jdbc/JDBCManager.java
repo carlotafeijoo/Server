@@ -93,7 +93,16 @@ public class JDBCManager {
 			+ ");";
 			stmt.executeUpdate(sql);
 			
-			
+			//TABLE SCHEDULE
+			sql= "CREATE TABLE Schedule ("
+			+ " schedule_id		INTEGER PRIMARY KEY AUTOINCREMENT, "
+			+ " weekDay			TEXT NOT NULL, "
+			+ " staff_id	 	INTEGER REFERENCES Staff(staff_id), "
+			+ " task_id	 		INTEGER REFERENCES Task(task_id), "
+			+ " elderly_id	 	INTEGER REFERENCES Elderly(elderly_id) "
+			+ ");";
+			stmt.executeUpdate(sql);
+					
 			
 			
 		} catch (SQLException e) {
