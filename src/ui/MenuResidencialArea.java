@@ -2,12 +2,9 @@ package ui;
 
 import java.io.*;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.sql.Date;
-import java.text.DateFormat;
+
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 import java.util.List;
 
 import Interfaces.*;
@@ -25,7 +22,7 @@ public class MenuResidencialArea {
 	
 	private static FamilyContactManager familyContactManager;
 	
-	private static PerformsManager performsManager;
+	
 	
 	private static StaffManager staffManager;
 	
@@ -35,9 +32,7 @@ public class MenuResidencialArea {
 	
 	private static XMLManager xmlmanager;
 	
-	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	
-	private static DateTimeFormatter formattert = DateTimeFormatter.ofPattern("HH:mm");
 	
 	
 	
@@ -49,7 +44,6 @@ public class MenuResidencialArea {
 		//initialize database JDBC
 		elderlyManager = new JDBCElderlyManager(jdbcManager);
 		familyContactManager = new JDBCFamilyContactManager(jdbcManager);
-		performsManager = new JDBCPerformsManager(jdbcManager);
 		staffManager = new JDBCStaffManager(jdbcManager);
 		tasksManager = new JDBCTasksManager(jdbcManager);
 		// initialize database JPA
@@ -67,9 +61,9 @@ public class MenuResidencialArea {
 			int option;
 			do {
 				System.out.println("MAIN MENU ");
-				System.out.println("1. Elderly management ");
-				System.out.println("2. I am family contact ");
-				System.out.println("3. I am staff member  ");
+				System.out.println("1. I am an administrator ");
+				System.out.println("2. I am a family contact ");
+				System.out.println("3. I am a staff member  ");
 				System.out.println("4. Exit ");
 				option = InputException.getInt("Introduce the number choice:  ");
 
@@ -147,6 +141,7 @@ public class MenuResidencialArea {
 			case 1:
 				// Call method REGISTER
 				registerStaff();
+				loginStaff();
 	
 				break;
 			case 2:
@@ -193,7 +188,7 @@ public class MenuResidencialArea {
 		FamilyContact fc = new FamilyContact(name, phone, email, address);
 	
 		familyContactManager.addFamilyContact(fc);
-		System.out.println("REGISTER SUCESSFULL!");
+		System.out.println("Register sucessfull!");
 	}
 	
 	public static void registerStaff() throws Exception {
@@ -211,7 +206,7 @@ public class MenuResidencialArea {
 			System.out.println("3.Chef");
 			System.out.println("4.Animator");
 
-			choice = InputException.getInt(" Chose field: ");
+			choice = InputException.getInt("Chose field: ");
 			switch (choice) {
 
 			case 1:
@@ -222,49 +217,55 @@ public class MenuResidencialArea {
 				break;
 			case 3:
 				field = "Chef";
-
-				break;
-			case 4:
-				field = "Animator";
-
-				break;
 			default:
 				break;
 			}
 		} while (choice < 1 || choice > 4);
 		
-		String address = InputException.getString("Adress: ");
-		Integer phone = InputException.getInt("Phone: ");
-		System.out.println("Type the date of birth:");
-		String dob_str = read.readLine();
-		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
-		Date dob = (Date) df.parse(dob_str);
-		
-		
+		String address = InputException.getString("Address: ");
 		String email = InputException.getString("Email: ");
+		Integer phone = InputException.getInt("Phone: ");
+		System.out.println("Enter the year of birth:");
+        int year = Integer.parseInt(read.readLine());
+
+        System.out.println("Enter the month of birth:");
+        int month = Integer.parseInt(read.readLine());
+
+        System.out.println("Enter the day of birth:");
+        int day = Integer.parseInt(read.readLine());
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        String dobStr = String.format("%04d/%02d/%02d", year, month, day);
+        java.util.Date utilDate = dateFormat.parse(dobStr);
+        java.sql.Date dob = new java.sql.Date(utilDate.getTime());
+
+		
+		String username = InputException.getString("Username: ");
 		String password = InputException.getString("Password: ");
 		MessageDigest md = MessageDigest.getInstance("MD5");
 		md.update(password.getBytes());
 		byte[] digest = md.digest();
 	
 		// CREATE STAFF AND ADD TO JPA
-		User u = new User(email, digest);
-		Role role = userManager.getRole("staff");
+		User u = new User(username, digest);
+		Role role = userManager.getRole("Staff");
 		u.setRole(role);
 		role.addUser(u);
 		userManager.newUser(u);
 	
 		// CREATE STAFF AND ADD TO JDBD
-		Staff staff = new Staff(name, phone,dob, address, field);
-
+		Staff staff = new Staff(name, phone,dob, address, field, email);
+		staff.setField(field); 
+		
 		
 		staffManager.addStaffMember(staff);
+		System.out.println("Register sucessfull!");
 		
 	}
 
 	public static void logIn() throws Exception {
 	
-		System.out.println("Email :");
+		System.out.println("Username :");
 		String username = read.readLine();
 		String password = InputException.getString("Password: ");
 		MessageDigest md = MessageDigest.getInstance("MD5");
@@ -281,14 +282,14 @@ public class MenuResidencialArea {
 		}
 		
 		//depending on the type of user we open a different menu
-		if(u!= null && u.getRole().getName().equals("staff")) {
+		if(u!= null && u.getRole().getName().equals("Staff")) {
 			Integer id=u.getId();
 			
 			int staff_id = staffManager.searchStaffIdfromUId(id);
 			Staff staff = staffManager.searchStaffbyId(staff_id);
 			System.out.println(staff);
-			System.out.println("Logic successful!");
-			StaffMenu(u.getId());
+			System.out.println("Login successful!");
+			staffMenu(u.getId());
 			
 		}
 		if (u != null && u.getRole().getName().equals("FamilyContact")) {
@@ -298,7 +299,7 @@ public class MenuResidencialArea {
 			System.out.println(familycontact_id);
 			FamilyContact fc = familyContactManager.searchFamilyContactbyId(familycontact_id);
 			System.out.println(fc);
-			System.out.println("Logic successful!");
+			System.out.println("Login successful!");
 			familyContactMenu(u.getId());
 	
 		}
@@ -311,8 +312,8 @@ public class MenuResidencialArea {
 		try {
 			int choice;
 			do {
-				System.out.println("1. Update your information. ");
-				System.out.println("2. Exit");
+				System.out.println("1. Update information. ");
+				System.out.println("2. Exit. ");
 				choice = InputException.getInt("Introduce your choice: ");
 
 				switch (choice) {
@@ -331,7 +332,7 @@ public class MenuResidencialArea {
 					    familyContactManager.updateFamilyContactInfo(familyToUpdate);
 					    System.out.println("Information updated successfully.");
 					} else {
-					    System.out.println("Family contact");
+					    System.out.println("Family contact update fail.");
 					}
 				    break;
 					
@@ -355,7 +356,7 @@ public class MenuResidencialArea {
 			int choice;
 			do {
 				
-				System.out.println("1. Add an elderly.  ");
+				System.out.println("1. Add an elderly to the database.  ");
 				System.out.println("2. Update the information of an elderly. ");
 				System.out.println("3. Get the list of all elderlies. ");
 				System.out.println("4. Load new elderlies. ");
@@ -375,7 +376,6 @@ public class MenuResidencialArea {
 				case 2:
 					int elderly_id = InputException.getInt("Introduce the id of the elderly that is going to be updated:");
 					Elderly elderlyToUpdate = elderlyManager.searchElderlyById(elderly_id);
-					System.out.println(elderlyToUpdate);
 					if (elderlyToUpdate != null) {
 					    int newAge = InputException.getInt("Enter the new age for the elderly: ");
 					    elderlyToUpdate.setAge(newAge);
@@ -450,7 +450,7 @@ public class MenuResidencialArea {
 	}
 	
 	
-    private static void StaffMenu( Integer id) {
+    private static void staffMenu(int User_id) {
     
 		
 		try {
@@ -458,10 +458,10 @@ public class MenuResidencialArea {
 			
 			int choice;
 			do {
-			
-				System.out.println("1.List all the elderlies associated to the staff member . ");
-				System.out.println("2.List all the task associated to a staff member . ");
-				System.out.println("3.Update the information of a staff member. ");
+				System.out.println("1.Update information. ");
+				System.out.println("2.Register new task. ");
+				System.out.println("3.List all the tasks. ");
+				
 				System.out.println("4.Print me.  ");
 				System.out.println("5.Load new staff members. ");
 				System.out.println("6.Back.  ");
@@ -473,15 +473,39 @@ public class MenuResidencialArea {
 
 				
 				case 1:
+					int staff_id = staffManager.searchStaffIdfromUId(User_id);
+					Staff staffToUpdate =staffManager.searchStaffbyId(staff_id);
+					if(staffToUpdate !=null) {
+						int newPhone = InputException.getInt("Enter your new phone number: ");
+						staffToUpdate.setPhone(newPhone);
+						String newAddress = InputException.getString("Enter your new address: ");
+						staffToUpdate.setAddress(newAddress);
+						staffManager.updateStaffMemberInfo(staffToUpdate);
+						 System.out.println("Information updated successfully! ");
+					} else {
+					    System.out.println("Staff update fail.");
+					}
+				    break;
 					
-					getlistOfEderliesFromStaff(id);
-					break;
+					
 				case 2:
-					getlistOfTasksFromStaff(id);
+					
+					int staffToAssignNewTask_id = staffManager.searchStaffIdfromUId(User_id);
+					
+					addTask(staffToAssignNewTask_id);
+					
+					System.out.println("Task added sucessfully!");
+					
+					
 					break;
 					
 				case 3:
-					updateInfoStaff(id);
+					int staffAllTask_id = staffManager.searchStaffIdfromUId(User_id);
+					
+					List <Task> tasksList = tasksManager.getListOfTasks(staffAllTask_id);
+					
+					System.out.println("List of tasks: " +tasksList);
+					
 					break;
 				case 4: 
 					printMe();
@@ -508,53 +532,25 @@ public class MenuResidencialArea {
 		System.out.println(xmlmanager.xml2Staff(file));
 		
 	}
-
-	
     
-    private static void getlistOfEderliesFromStaff(int id) throws IOException {
+    public static void addTask(int staffToAssignNewTask_id) throws Exception {
+
+		System.out.println("Input the information of the new task: ");
+ 
+		String description = InputException.getString("Description: ");
 		
-    	
-		System.out.println("The list of elderlies associated to this staff member is: ");
-		elderlyManager.getListOfElderliesFromStaff(id);
-		StaffMenu(id);
+
+		Task task = new Task(description,staffToAssignNewTask_id );
+ 
 		
+		tasksManager.addTask(task);
+		
+
 	}
-    private static void getlistOfTasksFromStaff(int id) throws IOException {
-    	System.out.println("The list of tasks associated to this staff member is: ");
-    	
-    }
-    
-    private static void updateInfoStaff(int id) throws IOException {
 
-		//Show the staff´s information
-		Staff staffmember = StaffManager.showStaffInfo(id);
-		System.out.println(staffmember.toString());
-		
-		//Search the staff member by its id
-		Staff s = StaffManager.searchStaffmemberByID(id);
-
-		System.out.println("Update your information: ");
-		// Ask for info, if empty keeps the one existing before
-		System.out.println("Staff new phone: ");
-		String phoneString = read.readLine();
-		int phone = Integer.parseInt(phoneString);
-		if (phone!=0) {
-			s.setPhone(phone);
-		}
-		System.out.println("Staff new address: ");
-		String address=read.readLine();
-		if(!address.equals(" ")) {
-			s.setAddress(address);
-		}
-		
-		staffManager.updateStaffMemberInfo(s);
-		StaffMenu(id);
-	}
-    
-    
 	
-	
-
+    
+    
 
 	
 	

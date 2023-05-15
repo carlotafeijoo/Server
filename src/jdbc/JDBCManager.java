@@ -71,27 +71,29 @@ public class JDBCManager {
 			stmt.executeUpdate(sql);
 			
 			
-			//
-			
+			//TABLE STAFF
 			sql = "CREATE TABLE Staff ("
-			+ "	staff_id	INTEGER PRIMARY KEY AUTOINCREMENT,"
-			+ "	name		TEXT NOT NULL,"
-			+ "	DOB 		DATE,"
-			+ "	address		TEXT NOT NULL,"
-			+ "	phone		INTEGER NOT NULL"
-			+ ");";
+		    + " staff_id	INTEGER PRIMARY KEY AUTOINCREMENT,"
+		    + " name		TEXT NOT NULL,"
+		    + " field 		TEXT NOT NULL,"
+		    + " dob 		DATE,"
+		    + " address 	TEXT NOT NULL,"
+		    + " phone 		INTEGER NOT NULL,"
+		    + " email 		TEXT,"		
+		    + " elderlies 	TEXT"
+		    + ");";
 			stmt.executeUpdate(sql);
-			sql = "CREATE TABLE Tasks ("
+			
+			
+			//TABLE TASK
+			sql = "CREATE TABLE Task ("
 			+ "	task_id			INTEGER PRIMARY KEY AUTOINCREMENT,"
-			+ "	description		TEXT NOT NULL"
+			+ "	description		TEXT NOT NULL,"
+			+ " staff_id		INTEGER REFERENCES Staff(staff_id)"		
 			+ ");";
 			stmt.executeUpdate(sql);
-			sql = "CREATE TABLE Performs ("
-			+ "	performs_id		INTEGER PRIMARY KEY AUTOINCREMENT,"
-			+ "	staff_id		INTEGER NOT NULL REFERENCES Staff(staff_id) ON DELETE RESTRICT,"
-			+ " task_id			INTEGER NOT NULL REFERENCES Tasks(task_id) ON DELETE RESTRICT"
-			+ ");";
-			stmt.executeUpdate(sql);
+			
+			
 			
 			
 		} catch (SQLException e) {

@@ -6,16 +6,11 @@ import POJOS.Elderly;
 
 public interface ElderlyManager {
 	    
-	//get the list of the elderlies
-	public List<Elderly> getListOfElderliesFromStaff (int staff_id);
+	
 	
 	//add an elderly
 	public void addElderly(Elderly e);
 	
-	public static Elderly showElderlyInfo (int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 	public Elderly searchElderlyById( int id) throws Exception;

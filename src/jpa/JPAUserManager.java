@@ -1,7 +1,7 @@
 package jpa;
 
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -28,8 +28,6 @@ public class JPAUserManager implements UserManager{
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
 		
-		System.out.println("tiene: " +this.getRoles());
-		
 		if(this.getRoles().isEmpty()) {
 			Role elderly = new Role("Elderly");
 			Role staff= new Role("Staff");
@@ -37,7 +35,6 @@ public class JPAUserManager implements UserManager{
 			this.newRole(elderly);
 			this.newRole(staff);
 			this.newRole(familycontact);
-			System.out.println("Se han creado los roles");
 		}		
 	}
 	

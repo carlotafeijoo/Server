@@ -1,18 +1,15 @@
 package Interfaces;
 
 import POJOS.*;
+import java.sql.SQLException;
 import java.util.List;
+
 
 public interface TaskManager {
 	
-	public void addTask(Task t);
-	public void deleteTask(Task t);
-	public List<Task> getListOfTasks();
-	public void assign(int task_id, int staff_id);
-	public void unassign(int task_id, int staff_id);
-	public Task getTask (int task_id);
-	public List<Task> getListOfTasksFromStaff(int staff_id);
+	public void addTask(Task task) throws SQLException;
 	
+	public List<Task> getListOfTasks (int staffAllTask_id);
 	
 
 }

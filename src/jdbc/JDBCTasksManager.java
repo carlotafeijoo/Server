@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Interfaces.TaskManager;
-import POJOS.Elderly;
+
 import POJOS.Task;
 
 public class JDBCTasksManager implements TaskManager{
@@ -19,78 +19,48 @@ public class JDBCTasksManager implements TaskManager{
 	}
 	
 	//add a new task
-	public void addTask(Task t) {
+	public void addTask(Task task) throws SQLException {
 		try {
-			String sql = "INSERT INTO task (task_id, description) VALUES (?,?)";
-			// use preparedStmt so nothing damages the database
+			String sql = "INSERT INTO Task (description, staff_id) VALUES (?,?) ";
+			
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setString(1, t.getDescription());
-			prep.setInt(2, t.getTask_id()); 
+			
+			prep.setString(1, task.getDescription());
+			prep.setInt(2, task.getStaff_id()); 
+			
+			prep.executeUpdate();
 			prep.close();
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
 	}
 	
-	//delete a task
-	public void deleteTask(Task t) {
-		try {
-			String sql = "DELETE FROM t.task (task_id, description) VALUES (?,?)";
-			// use preparedStmt so nothing damages the database
-			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setString(1, t.getDescription());
-			prep.setInt(2, t.getTask_id()); 
-			prep.close();
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		}
-	}
-
 	
-	
-	
-	
-	//assign a task to a staff
-	public void assign(int task_id, int staff_id){
-		try{
-			String sql = "INSERT INTO task (task_id,staff_id) VALUES (?,?)";
-			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setInt(1, task_id);
-			prep.setInt(2, staff_id);		
-			prep.executeUpdate();				
-		}catch(Exception e) {
-			e.printStackTrace();
-		}	
+	@Override 
+	public List<Task> getListOfTasks (int task_id){
+		 List<Task> tasks = new ArrayList<Task>();
+		    try {
+		    	String sql = "SELECT * FROM Task ";
+				PreparedStatement pr = manager.getConnection().prepareStatement(sql);
+				ResultSet rs = pr.executeQuery();
+			
+		        while (rs.next()) {
+		            Integer id = rs.getInt("task_id");
+		            String description = rs.getString("description");
+		            Integer staff_id = rs.getInt("staff_id");
+		            Task task = new Task (id,description, staff_id);
+		            tasks.add(task);
+		        }
+		        rs.close();
+		        pr.close();
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+		    return tasks;
 	}
 	
-	//unassign a task from a staff member
-	public void unassign(int task_id, int staff_id){
-		try{
-			String sql = "DELETE FROM t.task (task_id, description) VALUES (?,?)";
-			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setInt(1, task_id);
-			prep.setInt(2, staff_id);		
-			prep.executeUpdate();				
-		}catch(Exception e) {
-			e.printStackTrace();
-		}	
-	}
 	
-	//get info (description) of a task by taskid
-	public Task getTask (int task_id) {
-		Task t = null;
-		String description = "";
-		try{			
-			String sql = "SELECT * FROM task (task_id,description) VALUES (?)";
-			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setString(1, description);		
-			prep.executeUpdate();	
-			t = new Task(task_id, description);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}	
-		return t;
-	}
+	
 	
 	
 }

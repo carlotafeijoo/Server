@@ -1,6 +1,5 @@
 package POJOS;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +24,8 @@ public class Staff {
 	@XmlTransient //this means i dont want the id to be shown in xml
 	private int staff_id;
 	@XmlTransient
+	private String email;
+	@XmlTransient
 	private String field;
 	@XmlElement
 	private Integer phone;
@@ -46,7 +47,7 @@ public class Staff {
 
 	//Constructor with all the class Task´s attributes as parameters
 	public Staff(String name, int staff_id, String field, Integer phone, Date dob, String address, 
-			List<Elderly> elderlies) {
+			List<Elderly> elderlies, String email) {
 		super();
 		this.name = name;
 		this.staff_id = staff_id;
@@ -55,51 +56,32 @@ public class Staff {
 		this.dob = dob;
 		this.address = address;
 		this.elderlies = elderlies;
+		this.email=email;
 	}
 
-	public Staff(String name, Integer phone,Date dob,String address) {
-		super();
-		this.name = name;
-		this.phone = phone;
-		this.dob = dob;
-		this.address = address;
-	}
-	
-	public Staff(String name, Integer phone,Date dob,String address, String field) {
-		super();
-		this.name = name;
-		this.phone = phone;
-		this.dob = dob;
-		this.address = address;
-		this.field = field;
-	}
-	
-	public Staff(int staff_id, String name, Integer phone,Date dob,String address) {
-		super();
-		this.staff_id = staff_id;
-		this.name = name;
-		this.phone = phone;
-		this.dob = dob;
-		this.address = address;
-	}
 
-	public Staff(int staff_id, String field, Integer phone, Date dob) {
-		super();
-		this.staff_id = staff_id;
-		this.field = field;
-		this.phone = phone;
-		this.dob = dob;
-	}
+
 	
-	public Staff(String field, String address, String name, Integer phone, Date dob) {
-		super();
+	public Staff(String name, Integer phone, Date dob, String address, String field, String email) {
+		this.email=email;
 		this.field=field;
 		this.address=address;
 		this.name=name;
 		this.phone=phone;
 		this.dob=dob;
 	}
+	
+	
 
+	public Staff(int staff_id, String name,  String field, Date dob, String address, Integer phone, String email) {
+		this.staff_id=staff_id;
+		this.email=email;
+		this.field=field;
+		this.address=address;
+		this.name=name;
+		this.phone=phone;
+		this.dob=dob;
+	}
 
 	public String getName() {
 		return name;
@@ -145,6 +127,9 @@ public class Staff {
 		return address;
 	}
 
+	public Integer getPhone() {
+		return phone;
+	}
 
 	public void setAddress(String address) {
 		this.address = address;
@@ -163,6 +148,14 @@ public class Staff {
 
 	public void setPhone(Integer phone) {
 		this.phone = phone;
+	}
+	
+	public void setEmail(String email) {
+		this.email=email;
+	}
+	
+	public String getEmail() {
+		return email;
 	}
 
 
@@ -186,28 +179,12 @@ public class Staff {
 	
 	@Override
 	public String toString() {
-		return "Staff [name= " + name + " whose date of birth=" + dob +
-				" ,address=" +address +" ,phone=" +phone +" in the field= " +field 
-				+"and takes care of " + elderlies +"]";
+		return "Staff [name= " + name + ", date of birth=" + dob +
+				" ,address=" +address +" ,phone=" +phone +", field= " +field +", email= " +email+ "]";
 	}
 
 
-	public int getPhone() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-	public int getId() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-	public void setPhone(int phone2) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	
 }
 

@@ -112,11 +112,6 @@ public class JDBCFamilyContactManager implements FamilyContactManager{
 	}
 
 
-	@Override
-	public FamilyContact showFamilyContactInfo(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	
 	

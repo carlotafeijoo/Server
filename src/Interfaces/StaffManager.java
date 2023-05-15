@@ -1,47 +1,19 @@
 package Interfaces;
 
-import java.util.List;
+import java.sql.SQLException;
 import POJOS.*;
 
 public interface StaffManager {
 
-
-	// add a staff member
-	public void addStaffMember (Staff staffmember);
 	
-	//delete a staff member
-	public void deleteStaffMember(int id);
+	public void addStaffMember (Staff staffmember) throws SQLException;
 	
-	//list all the staff members
-	public List<Staff> listStaffMembers(int id);
-	
-	//Get the list of staff members by field
-	public Staff searchStaffmemberBYField (String field);
-	
-	//search in the list of staff members by id
-	public static Staff searchStaffmemberByID (int id) {
-		return null;
-	}
-	
-	//get the staff members assigned to a specific elderly
-	public List<Staff> getAssignedStaffMembers(int elderlyId);
-		
-	// show info of a staff member
-	public static Staff showStaffInfo (int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-		
-	//update info from a staff member
-	public void updateStaffMemberInfo(Staff staffmember);
-	
-	//Count the staff members 
-	public int CountStaffMembers (String staff_field);
-		
 	
 	public int searchStaffIdfromUId(int id);
 	
 	public Staff searchStaffbyId ( int id);
+	
+	public void updateStaffMemberInfo(Staff staffmember);
 	
 
 }

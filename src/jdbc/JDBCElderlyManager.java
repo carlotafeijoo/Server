@@ -2,8 +2,6 @@ package jdbc;
 
 import POJOS.Elderly;
 
-import java.beans.Statement;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,24 +32,7 @@ public class JDBCElderlyManager implements ElderlyManager{
 		}
 	}
 		
-	public Elderly showElderlyInfo (int id) {
-	    Elderly elderly = null;
-	    try (java.sql.Statement statement = ((java.sql.Statement) elderly).getConnection().createStatement()) {
-	        String sql = "SELECT * FROM elderly WHERE id = " + id;
-	        ResultSet rs = statement.executeQuery(sql);
-	        while (rs.next()) {
-	            String name = rs.getString("name");
-	            int phone = rs.getInt("phone");
-
-	            elderly = new Elderly(id, name, phone);
-	        }
-	        rs.close();
-	        statement.close();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return elderly;
-	}
+	
 	
 	
 	@Override
@@ -79,32 +60,6 @@ public class JDBCElderlyManager implements ElderlyManager{
 	    return elderly;
 	}
 
-
-	
-	
-	@Override
-	public List<Elderly> getListOfElderliesFromStaff (int staff_id) {
-	    List<Elderly> elderlies = new ArrayList<Elderly>();
-	    try {
-	    	String sql = "SELECT * FROM elderly WHERE staff_id = ?";
-			PreparedStatement pr = manager.getConnection().prepareStatement(sql);
-			pr.setInt(1,staff_id);
-			ResultSet rs = pr.executeQuery();
-		
-	        while (rs.next()) {
-	            Integer id = rs.getInt("id");
-	            String name = rs.getString("name");
-	            Integer age = rs.getInt("age");
-	            Elderly elderly = new Elderly(id, name, age);
-	            elderlies.add(elderly);
-	        }
-	        rs.close();
-	        pr.close();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return elderlies;
-	}
 	
 	
 	@Override 
