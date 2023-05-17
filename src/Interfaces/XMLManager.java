@@ -10,6 +10,7 @@ public interface XMLManager {
 	public void elderly2xml(Elderly e);
 	public Elderly xml2Elderly(File xml);
 	public Staff xml2Staff(File xml);
+	public void simpleTransform(String sourcePath, String xsltPath,String resultDir);
 	
 
 }

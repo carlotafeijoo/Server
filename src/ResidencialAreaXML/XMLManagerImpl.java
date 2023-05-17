@@ -7,6 +7,11 @@ import java.sql.Statement;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+
 import Interfaces.XMLManager;
 import POJOS.Elderly;
 import POJOS.Staff;
@@ -71,7 +76,7 @@ public class XMLManagerImpl implements XMLManager{
 			JAXBContext jaxbContext= JAXBContext.newInstance(Elderly.class);
 			Unmarshaller unmarshaller= jaxbContext.createUnmarshaller();
 			el= (Elderly) unmarshaller.unmarshal(xml);
-			//JDBC code to insert elderly to table elderlies
+			
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -94,6 +99,15 @@ public class XMLManagerImpl implements XMLManager{
 			
 		}
 		return s;
+	}
+	public void simpleTransform(String sourcePath, String xsltPath,String resultDir) {
+		TransformerFactory tFactory = TransformerFactory.newInstance();
+		try {
+			Transformer transformer = tFactory.newTransformer(new StreamSource(new File(xsltPath)));
+			transformer.transform(new StreamSource(new File(sourcePath)),new StreamResult(new File(resultDir)));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

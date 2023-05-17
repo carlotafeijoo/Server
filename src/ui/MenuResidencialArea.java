@@ -541,6 +541,7 @@ public class MenuResidencialArea {
 		int id=InputException.getInt("Introduce the id of the elderly wanted to be exported:" );
 		try {
 			xmlmanager.elderly2xml(elderlyManager.searchElderlyById(id));
+			xmlmanager.simpleTransform("./xmls/Elderly.xml", "./xmls/elderly-style.xslt", "./xmls/elderly.html");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -648,6 +649,7 @@ public class MenuResidencialArea {
     private static void exportStaff() {
     	int id=InputException.getInt("Introduce the id of the staff wanted to be exported:" );
     	xmlmanager.staff2xml(id);
+    	xmlmanager.simpleTransform("./xmls/Staff.xml", "./xmls/staff-style.xslt", "./xmls/staff.html");
     }
     
     public static void addTask(int staffToAssignNewTask_id) throws Exception {

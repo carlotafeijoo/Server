@@ -4,7 +4,7 @@ to be CDATA instead of ID, since DTD doesn't allow
 IDs that start with a number
 -->
 <!DOCTYPE Staff [
-	<!ELEMENT Staff (phone, dob ,address, elderlies)> 
+<!ELEMENT Staff (phone, dob ,address, elderlies)> 
    <!ATTLIST Staff name CDATA #REQUIRED> <!-- AS name is an attribute-->
    <!ELEMENT phone (#PCDATA)>
    <!ELEMENT dob (#PCDATA)>
