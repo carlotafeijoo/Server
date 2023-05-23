@@ -33,9 +33,6 @@ public class MenuResidencialArea {
 	private static XMLManager xmlmanager;
 	
 	
-	
-	
-	
 	public static void main(String[] args) {
 
 		System.out.println("WELCOME TO THE RESIDENCIAL AREA DATA BASE");
@@ -47,18 +44,17 @@ public class MenuResidencialArea {
 		staffManager = new JDBCStaffManager(jdbcManager);
 		tasksManager = new JDBCTasksManager(jdbcManager);
 		scheduleManager = new JDBCScheduleManager (jdbcManager);
-		// initialize database JPA
+		//initialize database JPA
 		userManager = new JPAUserManager();
 		xmlmanager= new XMLManagerImpl();
 		
-
 		mainMenu();
+		
 	}
 	
 	public static void mainMenu() {
 		try {
 			
-		
 			int option;
 			do {
 				System.out.println("MAIN MENU ");
@@ -76,7 +72,6 @@ public class MenuResidencialArea {
 					
 				case 2:
 					loginFC();
-					
 					break;
 					
 				case 3:
@@ -84,9 +79,8 @@ public class MenuResidencialArea {
 					break;
 					
 				case 4:
-					
-					//JDBCManager.disconnect();
 					System.exit(4);
+					break;
 
 				default:
 					break;
@@ -111,16 +105,94 @@ public class MenuResidencialArea {
 				switch(opcion) {
 				case 1: 
 					elderlyMenu();
+					break;
 				case 2:
 					scheduleMenu();
+					break;
 				case 3:
 					mainMenu();
+					break;
 				}
 			}while (true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
+	}
+	
+private static void elderlyMenu() {
+		
+		try {
+			int choice;
+			do {
+				
+				System.out.println("1. Add an elderly to the database.  ");
+				System.out.println("2. Update the information of an elderly. ");
+				System.out.println("3. Get the list of all elderlies. ");
+				System.out.println("4. Load new elderlies. ");
+				System.out.println("5. Export elderlies to xml"); //before print me
+				System.out.println("6. Back");
+				
+				choice = InputException.getInt("Introduce your choice: ");
+
+				switch (choice) {
+
+				case 1:
+					addElderly();
+					break;
+					
+				case 2:
+					int elderly_id = InputException.getInt("Introduce the id of the elderly that is going to be updated:");
+					Elderly elderlyToUpdate = elderlyManager.searchElderlyById(elderly_id);
+					if (elderlyToUpdate != null) {
+					    int newAge = InputException.getInt("Enter the new age for the elderly: ");
+					    elderlyToUpdate.setAge(newAge);
+					    elderlyManager.updateInfo(elderlyToUpdate);
+					    System.out.println("Elderly information updated successfully.");
+					} else {
+					    System.out.println("Elderly not found with the provided id.");
+					}
+				    break;
+				    
+				case 3:
+					getListOfElderlies();
+					break;	
+					
+				case 4: 
+					loadElderly(); //xml
+					break;
+				
+				case 5:
+					exportElderly(); //xml
+					break;
+					
+				case 6:
+					mainMenu();
+					break;
+					
+				default:
+					break;	
+				}
+			} while (true);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void addElderly() throws Exception {
+	
+		System.out.println("Input the information of the new elderly: ");
+	
+		String name = InputException.getString(" Name: ");
+		
+		int age=InputException.getInt("Age:  ");
+	
+		Elderly elderly = new Elderly(name, age);
+	
+		elderlyManager.addElderly(elderly);
+		elderlyMenu();
+	
 	}
 	
 	private static void scheduleMenu() {
@@ -185,6 +257,7 @@ public class MenuResidencialArea {
 					
 				case 4:
 					mainMenu();
+					break;
 				default:
 					break;
 					
@@ -195,6 +268,7 @@ public class MenuResidencialArea {
 			e.printStackTrace();
 		}
 	}
+	
 	
 	private static void addSchedule ()throws Exception {
 		
@@ -247,6 +321,7 @@ public class MenuResidencialArea {
 			case 3:
 				// EXIT
 				mainMenu();
+				break;
 			default:
 				break;
 		}
@@ -277,6 +352,7 @@ public class MenuResidencialArea {
 			case 3:
 				// EXIT
 				mainMenu();
+				break;
 			default:
 				break;
 		}
@@ -459,6 +535,7 @@ public class MenuResidencialArea {
 					
 				case 2:
 					mainMenu();
+					break;
 				default:
 					break;
 				}
@@ -469,66 +546,6 @@ public class MenuResidencialArea {
 		}
 	}
 
-	private static void elderlyMenu() {
-		
-		try {
-			int choice;
-			do {
-				
-				System.out.println("1. Add an elderly to the database.  ");
-				System.out.println("2. Update the information of an elderly. ");
-				System.out.println("3. Get the list of all elderlies. ");
-				System.out.println("4. Load new elderlies. ");
-				System.out.println("5. Export elderlies to xml"); //before print me
-				System.out.println("6. Back");
-				
-				choice = InputException.getInt("Introduce your choice: ");
-
-				switch (choice) {
-
-				case 1:
-					addElderly();
-					break;
-					
-				case 2:
-					int elderly_id = InputException.getInt("Introduce the id of the elderly that is going to be updated:");
-					Elderly elderlyToUpdate = elderlyManager.searchElderlyById(elderly_id);
-					if (elderlyToUpdate != null) {
-					    int newAge = InputException.getInt("Enter the new age for the elderly: ");
-					    elderlyToUpdate.setAge(newAge);
-					    elderlyManager.updateInfo(elderlyToUpdate);
-					    System.out.println("Elderly information updated successfully.");
-					} else {
-					    System.out.println("Elderly not found with the provided id.");
-					}
-				    break;
-				    
-				case 3:
-					getListOfElderlies();
-					break;	
-					
-				case 4: 
-					loadElderly(); //xml
-					//break?
-					//TO DO: see if they are being put or not
-				
-				case 5:
-					exportElderly(); //xml
-					//break?
-					
-				case 6:
-					mainMenu();
-					//break?
-					
-				default:
-					break;	
-				}
-			} while (true);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 	
 	
 	private static void loadElderly() {
@@ -543,25 +560,10 @@ public class MenuResidencialArea {
 			xmlmanager.elderly2xml(elderlyManager.searchElderlyById(id));
 			xmlmanager.simpleTransform("./xmls/Elderly.xml", "./xmls/elderly-style.xslt", "./xmls/elderly.html");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public static void addElderly() throws Exception {
-
-		System.out.println("Input the information of the new elderly: ");
- 
-		String name = InputException.getString(" Name: ");
-		
-		int age=InputException.getInt("Age:  ");
-
-		Elderly elderly = new Elderly(name, age);
- 
-		elderlyManager.addElderly(elderly);
-		elderlyMenu();
-
-	}
 	
 	private static void getListOfElderlies() throws IOException, Exception {
 		
@@ -571,7 +573,6 @@ public class MenuResidencialArea {
 		elderlyMenu();
 		
 	}
-	
 	
     private static void staffMenu(int User_id) {
 		try {
@@ -618,16 +619,16 @@ public class MenuResidencialArea {
 					break;
 					
 				case 4: 
-					exportStaff();
+					loadStaff();
 					break;
 					
 				case 5:
-					loadStaff();
-					//break??
+					exportStaff();
+					break;
 					
 				case 6:
 					mainMenu();
-					//break??
+					break;
 					
 				default:
 					break;

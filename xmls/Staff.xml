@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Staff name="alvaro">
-    <phone>606900333</phone>
-    <dob>0010-11-23T00:00:00+01:00</dob>
-    <address>d</address>
+<Staff name="guillermo">
+    <phone>606900353</phone>
+    <dob>0028-08-12T00:00:00+01:00</dob>
+    <address>avenida de nazaret</address>
 </Staff>
