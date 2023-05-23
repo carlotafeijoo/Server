@@ -72,7 +72,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task [description=" + description +", staff member who performs it= " +staff_id +" ]";
+        return "\n Task [description=" + description +", staff member who performs it= " +staff_id +" ]";
     }
     
 }

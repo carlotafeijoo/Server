@@ -185,7 +185,7 @@ public class Staff {
 	
 	@Override
 	public String toString() {
-		return "Staff [name= " + name + ", date of birth=" + dob +
+		return "\n Staff [name= " + name + ", date of birth=" + dob +
 				" ,address=" +address +" ,phone=" +phone +", field= " +field +", email= " +email+ "]";
 	}
 

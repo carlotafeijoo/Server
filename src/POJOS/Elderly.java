@@ -29,7 +29,6 @@ public class Elderly implements Serializable{
 	@XmlTransient
 	private List<Staff> staffmembers;
 	
-	
 	public Elderly() {
 		super();
 		setStaffmembers(new ArrayList<Staff>());
@@ -40,7 +39,8 @@ public class Elderly implements Serializable{
 		this.elderly_id = elderly_id;
 		this.name = name;
 		this.age = age;
-	}   
+	} 
+	
 	public Elderly( String name, int age) {
 		super();
 		this.name = name;
@@ -85,7 +85,7 @@ public class Elderly implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Elderly [elderly_id=" + elderly_id + ", name=" + name + ", age=" + age + "]";
+		return "\n Elderly [elderly_id=" + elderly_id + ", name=" + name + ", age=" + age + "]";
 	}
 	
 	@Override

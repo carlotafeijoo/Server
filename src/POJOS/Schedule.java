@@ -84,7 +84,7 @@ public class Schedule {
 	
 	@Override
 	public String toString() {
-		return "Schedule [day of the week" + weekDay+ ", staff_id=" + staff_id + ", task_id=" + task_id + ",elderly_id "
+		return "\n Schedule [day of the week" + weekDay+ ", staff_id=" + staff_id + ", task_id=" + task_id + ",elderly_id "
 				+elderly_id+ "]";
 	}
 

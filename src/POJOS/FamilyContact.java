@@ -109,7 +109,7 @@ public class FamilyContact {
 	}
 	@Override
 	public String toString() {
-		return "Contact [name=" + name + ", address=" + address + ", phone=" + phone + ", email=" + email
+		return "\n Contact [name=" + name + ", address=" + address + ", phone=" + phone + ", email=" + email
 				+ ", family_id=" + family_id + ", elderly_id=" + elderly_id + "]";
 	}
 	
