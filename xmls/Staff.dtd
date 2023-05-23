@@ -9,7 +9,7 @@ IDs that start with a number
    <!ELEMENT phone (#PCDATA)>
    <!ELEMENT dob (#PCDATA)>
    <!ELEMENT address (#PCDATA)>
-   <!ELEMENT elderlies  (elderly++)> <!--It is a list-->
+   <!ELEMENT elderlies  (elderly++)> <!--It is a list, if pojo is transient, then delete list-->
    <!ELEMENT Elderly (age)>
    <!ATTLIST Elderly name CDATA #REQUIRED>
                   	  

@@ -33,6 +33,7 @@ public class Staff {
 	private Date dob;
 	@XmlElement
 	private String address;
+	//¿put it @XmlTransient?
 	@XmlElement
 	@XmlElementWrapper(name="elderlies") 
 	private List<Elderly> elderlies; // Many to many relationship

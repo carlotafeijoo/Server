@@ -79,6 +79,7 @@ public class MenuResidencialArea {
 					break;
 					
 				case 4:
+					System.out.println("YOU HAVE EXIT THE RESIDENCIAL AREA DATA BASE");
 					System.exit(4);
 					break;
 
@@ -343,10 +344,11 @@ public class MenuResidencialArea {
 	
 		String name = InputException.getString("Name: ");
 		String email = InputException.getString("Email: ");
+		System.out.println("Your email adress will be used as your username");
 		Integer phone = InputException.getInt("Phone: ");
 		String address = InputException.getString("Address: ");
 		
-		String username = InputException.getString("Username: ");
+		String username = email;
 		String password = InputException.getString("Password: ");
 		MessageDigest md = MessageDigest.getInstance("MD5");
 		md.update(password.getBytes());
@@ -396,7 +398,7 @@ public class MenuResidencialArea {
 		
 		if (u != null && u.getRole().getName().equals("FamilyContact")) {
 			Integer id = u.getId();
-			
+			System.out.println(id);
 			int familycontact_id = familyContactManager.searchFamilycontacIdfromUId(id);
 			System.out.println(familycontact_id);
 			FamilyContact fc = familyContactManager.searchFamilyContactbyId(familycontact_id);
@@ -597,6 +599,11 @@ public class MenuResidencialArea {
 				
 			case 3:
 				field = "Chef";
+				break;
+				
+			case 4:
+				field = "Animator";
+				break;
 				
 			default:
 				break;

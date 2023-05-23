@@ -94,16 +94,18 @@ public class JDBCFamilyContactManager implements FamilyContactManager{
 	public int searchFamilycontacIdfromUId(int User_id) {
 	    int family_id = 0;
 	    try {
-	        Statement stmt = familyContactManager.getConnection().createStatement();
-	        String sql = "SELECT FamilyContact.family_id FROM FamilyContact JOIN User ON FamilyContact.email = User.username WHERE User.id = " + User_id;
-	        ResultSet rs = stmt.executeQuery(sql);
+	        
+	        String sql = "SELECT FamilyContact.family_id FROM FamilyContact JOIN User ON FamilyContact.email = User.username WHERE User.id = ?";
+	        PreparedStatement pr = familyContactManager.getConnection().prepareStatement(sql);
+	        pr.setInt(1, User_id);
+	        ResultSet rs = pr.executeQuery();
 
 	        if (rs.next()) {
 	            family_id = rs.getInt("family_id");
 	        }
 
 	        rs.close();
-	        stmt.close();
+	        pr.close();
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
