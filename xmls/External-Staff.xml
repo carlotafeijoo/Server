@@ -11,23 +11,25 @@ IDs that start with a number
    <!ELEMENT phone (#PCDATA)>
    <!ELEMENT dob (#PCDATA)>
    <!ELEMENT address (#PCDATA)>
-   <!ELEMENT elderlies  (elderly++)> <!--It is a list, ERRORS--> 
-   <!ELEMENT Elderly (age)>
-   <!ATTLIST Elderly name CDATA #REQUIRED
+   <!ELEMENT elderlies  (elderly+)> <!--It is a list, ERRORS--> 
+   <!ELEMENT elderly (age)> 
    <!ELEMENT age (#PCDATA)>
+   <!ATTLIST elderly name CDATA #REQUIRED>
                   	  
    
 ]>
 
-<Staff name= "Juan">
+<Staff name= "Borja">
 	<phone>665778906</phone>
 	<dob>22/07/2002</dob>
 	<address>Doctor Esquerdo</address>
 	<elderlies>
-		<elderly age = 88>
+		<elderly name = "Federico">
+			<age>88</age>
 		</elderly>
-	
-		<elderly age= 79>
+			
+		<elderly name = "Carlota">
+			<age>77</age>
 		</elderly>
 	</elderlies>
 </Staff>
