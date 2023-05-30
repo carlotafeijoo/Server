@@ -4,15 +4,10 @@ to be CDATA instead of ID, since DTD doesn't allow
 IDs that start with a number
 -->
 <!DOCTYPE Staff [
-<!ELEMENT Staff (phone, dob ,address, elderlies)> 
+<!ELEMENT Staff (phone, dob ,address)> 
    <!ATTLIST Staff name CDATA #REQUIRED> <!-- AS name is an attribute-->
    <!ELEMENT phone (#PCDATA)>
    <!ELEMENT dob (#PCDATA)>
-   <!ELEMENT address (#PCDATA)>
-   <!ELEMENT elderlies  (elderly+)> <!--It is a list, if pojo is transient, then delete list-->
-   <!ELEMENT elderly (age)>
-   <!ATTLIST elderly name CDATA #REQUIRED>
-   		<!ELEMENT age (#PCDATA)>
-                  	  
+   <!ELEMENT address (#PCDATA)>                 	  
   
 ]>

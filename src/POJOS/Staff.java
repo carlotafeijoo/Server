@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name="Staff")
-@XmlType(propOrder= {"name","phone", "dob", "address","elderlies"})
+@XmlType(propOrder= {"name","phone", "dob", "address"})
 public class Staff {
 	
 	
@@ -33,9 +33,7 @@ public class Staff {
 	private Date dob;
 	@XmlElement
 	private String address;
-	//¿put it @XmlTransient?
-	@XmlElement
-	@XmlElementWrapper(name="elderlies") 
+	@XmlTransient 
 	private List<Elderly> elderlies; // Many to many relationship
 
 
@@ -183,12 +181,15 @@ public class Staff {
 		Staff other = (Staff) obj;
 		return Objects.equals(name, other.name);
 	}
-	
+
+
 	@Override
 	public String toString() {
-		return "\n Staff [name= " + name + ", date of birth=" + dob +
-				" ,address=" +address +" ,phone=" +phone +", field= " +field +", email= " +email+ "]";
+		return "Staff [name=" + name + ", staff_id=" + staff_id + ", email=" + email + ", field=" + field + ", phone="
+				+ phone + ", dob=" + dob + ", address=" + address + ", elderlies=" + elderlies + "]";
 	}
+	
+	
 
 
 	

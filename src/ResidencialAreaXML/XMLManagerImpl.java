@@ -12,6 +12,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.eclipse.persistence.internal.oxm.schema.model.List;
+
 import Interfaces.XMLManager;
 import POJOS.Elderly;
 import POJOS.Staff;
@@ -44,7 +46,7 @@ public class XMLManagerImpl implements XMLManager{
 			Marshaller marshaller= jaxbContext.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			File file= new File ("./xmls/Staff.xml"); //ir exportando cada para no sobreescribir
-			//concatenando el id 
+			//concatenando el id
 			marshaller.marshal(s, file);
 		}catch(Exception e) {
 			e.printStackTrace();

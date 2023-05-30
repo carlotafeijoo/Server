@@ -1,6 +1,7 @@
 package ui;
 
 import java.io.*;
+
 import java.security.MessageDigest;
 
 import java.text.SimpleDateFormat;
@@ -133,7 +134,7 @@ public class MenuResidencialArea {
 				System.out.println("2. Update the information of an elderly. ");
 				System.out.println("3. Get the list of all elderlies. ");
 				System.out.println("4. Load new elderlies. ");
-				System.out.println("5. Export elderlies to xml"); //before print me
+				System.out.println("5. Export elderlies to xml"); 
 				System.out.println("6. Back");
 				
 				choice = InputException.getInt("Introduce your choice: ");
@@ -488,7 +489,9 @@ public class MenuResidencialArea {
 	
     private static void loadStaff() {
     	File file = new File("./xmls/External-Staff.xml");
-		System.out.println(xmlmanager.xml2Staff(file));
+    	Staff f = null;
+    	f = xmlmanager.xml2Staff(file);
+		System.out.println(f);
 		
 	}
     

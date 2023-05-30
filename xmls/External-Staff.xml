@@ -6,31 +6,17 @@ to be CDATA instead of ID, since DTD doesn't allow
 IDs that start with a number
 -->
 <!DOCTYPE Staff [
-	<!ELEMENT Staff (phone, dob ,address, elderlies)> 
+	<!ELEMENT Staff (phone, dob ,address)> 
    <!ATTLIST Staff name CDATA #REQUIRED> <!-- AS name is an attribute-->
    <!ELEMENT phone (#PCDATA)>
    <!ELEMENT dob (#PCDATA)>
-   <!ELEMENT address (#PCDATA)>
-   <!ELEMENT elderlies  (elderly+)> <!--It is a list, ERRORS--> 
-   <!ELEMENT elderly (age)> 
-   <!ELEMENT age (#PCDATA)>
-   <!ATTLIST elderly name CDATA #REQUIRED>
-                  	  
+   <!ELEMENT address (#PCDATA)>                  	  
    
 ]>
 
 <Staff name= "Borja">
 	<phone>665778906</phone>
-	<dob>22/07/2002</dob>
+	<dob>22-07-2002</dob>
 	<address>Doctor Esquerdo</address>
-	<elderlies>
-		<elderly name = "Federico">
-			<age>88</age>
-		</elderly>
-			
-		<elderly name = "Carlota">
-			<age>77</age>
-		</elderly>
-	</elderlies>
 </Staff>
     

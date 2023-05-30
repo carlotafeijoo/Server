@@ -79,8 +79,7 @@ public class JDBCManager {
 		    + " dob 		DATE,"
 		    + " address 	TEXT NOT NULL,"
 		    + " phone 		INTEGER NOT NULL,"
-		    + " email 		TEXT,"		
-		    + " elderlies 	TEXT"
+		    + " email 		TEXT"		
 		    + ");";
 			stmt.executeUpdate(sql);
 			

@@ -85,9 +85,10 @@ public class Elderly implements Serializable{
 
 	@Override
 	public String toString() {
-		return "\n Elderly [elderly_id=" + elderly_id + ", name=" + name + ", age=" + age + "]";
+		return "Elderly [elderly_id=" + elderly_id + ", name=" + name + ", age=" + age + ", staffmembers="
+				+ staffmembers + "]";
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(age, elderly_id, name);
