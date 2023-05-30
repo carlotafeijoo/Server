@@ -85,8 +85,8 @@ public class Elderly implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Elderly [elderly_id=" + elderly_id + ", name=" + name + ", age=" + age + ", staffmembers="
-				+ staffmembers + "]";
+		return "\n [Elderly [elderly_id=" + elderly_id + ", name=" + name + ", age=" + age + ", staffmembers="
+				+ staffmembers + "]]";
 	}
 
 	@Override

@@ -263,13 +263,8 @@ public class MenuResidencialArea {
 					
 					String day = InputException.getString("Introduce the day name: " );
 					
-					scheduleManager.getDaySchedule(day);
-					
 					System.out.println("The schedule for " +day +" is: ");
-					
-					List<Schedule> schedules = scheduleManager.getDaySchedule(day);
-					
-					System.out.println(schedules);
+					scheduleManager.getDaySchedule(day);					
 					
 					System.out.println("List succesfully provided! ");
 			
@@ -401,9 +396,7 @@ public class MenuResidencialArea {
 			Integer id = u.getId();
 			System.out.println(id);
 			int familycontact_id = familyContactManager.searchFamilycontacIdfromUId(id);
-			System.out.println(familycontact_id);
 			FamilyContact fc = familyContactManager.searchFamilyContactbyId(familycontact_id);
-			System.out.println(fc);
 			System.out.println("Login successful!");
 			familyContactMenu(u.getId());
 	
@@ -515,9 +508,7 @@ public class MenuResidencialArea {
 				case 1:
 					
 					int family_id = familyContactManager.searchFamilycontacIdfromUId(User_id);
-					System.out.println(family_id);
 					FamilyContact familyToUpdate = familyContactManager.searchFamilyContactbyId(family_id);
-					System.out.println(familyToUpdate);
 					if (familyToUpdate != null) {
 					    int newPhone = InputException.getInt("Enter your new phone number: ");
 					    familyToUpdate.setPhone(newPhone);
