@@ -66,7 +66,7 @@ public class MenuResidencialArea {
 				option = InputException.getInt("Introduce the number choice:  ");
 
 				switch (option) {
-
+//gmjbmj
 				case 1:
 					administratorMenu();
 					break;
