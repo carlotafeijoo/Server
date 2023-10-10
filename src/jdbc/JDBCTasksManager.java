@@ -21,7 +21,7 @@ public class JDBCTasksManager implements TaskManager{
 	//add a new task
 	public void addTask(Task task) throws SQLException {
 		try {
-			String sql = "INSERT INTO Task (description, staff_id) VALUES (?,?) ";
+			String sql = "INSERT INTO Task (description, staff_id) VALUES (?,?) ";// añadir elderly id que tiene qu venir indicado por el doctor
 			
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			

@@ -84,7 +84,7 @@ public class JDBCManager {
 			stmt.executeUpdate(sql);
 			
 			
-			//TABLE TASK
+			//TABLE TASK AÑADIR ELDERLY ID, AÑADIR DE DECORACION UN COLUMNA DE HORARIO SI QUEREIS
 			sql = "CREATE TABLE Task ("
 			+ "	task_id			INTEGER PRIMARY KEY AUTOINCREMENT,"
 			+ "	description		TEXT NOT NULL,"
@@ -92,7 +92,7 @@ public class JDBCManager {
 			+ ");";
 			stmt.executeUpdate(sql);
 			
-			//TABLE SCHEDULE
+			//TABLE SCHEDULE ELIMINAR TABLA Y ELIINAR TODAS LAS REFERENCIAS A ESTA TABLA EN TODOS LOS METODOS DE JDBC
 			sql= "CREATE TABLE Schedule ("
 			+ " schedule_id		INTEGER PRIMARY KEY AUTOINCREMENT, "
 			+ " weekDay			TEXT NOT NULL, "
