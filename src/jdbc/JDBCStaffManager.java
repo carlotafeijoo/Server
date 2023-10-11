@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 import Interfaces.StaffManager;
 
-import POJOS.Staff;
+import POJOS.Doctor;
 
 
 public class JDBCStaffManager implements StaffManager {
@@ -22,7 +22,7 @@ public class JDBCStaffManager implements StaffManager {
 	}
 
 	@Override
-	public void addStaffMember(Staff staffmember) throws SQLException {
+	public void addStaffMember(Doctor staffmember) throws SQLException {
 	    try {
 	        String sql = "INSERT INTO Staff (name, field, dob, address, phone, email) VALUES (?,?,?,?,?,?)";
 	        PreparedStatement prep = staffmanager.getConnection().prepareStatement(sql);
@@ -42,7 +42,7 @@ public class JDBCStaffManager implements StaffManager {
 	
 	//update info from a staff member
 	@Override
-	public void updateStaffMemberInfo(Staff staffmember) {
+	public void updateStaffMemberInfo(Doctor staffmember) {
 	    try {
 	        String sql = "UPDATE Staff SET phone = ?, address = ? WHERE staff_id = ?";
 	        PreparedStatement pr = staffmanager.getConnection().prepareStatement(sql);;
@@ -81,8 +81,8 @@ public class JDBCStaffManager implements StaffManager {
 	
 
 	@Override
-	public Staff searchStaffbyId (int staff_id) {
-		Staff staff=null;
+	public Doctor searchStaffbyId (int staff_id) {
+		Doctor staff=null;
 		try {
 			String sql = "SELECT * FROM Staff WHERE staff_id = " + staff_id;
 			PreparedStatement pr = staffmanager.getConnection().prepareStatement(sql);
@@ -95,7 +95,7 @@ public class JDBCStaffManager implements StaffManager {
 				int phone = rs.getInt("phone");
 				String email = rs.getString("email");
 
-				staff= new Staff(staff_id, name, field, dob, address, phone, email);
+				staff= new Doctor(staff_id, name, field, dob, address, phone, email);
 			}
 			rs.close();
 			pr.close();

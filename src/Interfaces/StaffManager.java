@@ -6,14 +6,14 @@ import POJOS.*;
 public interface StaffManager {
 
 	
-	public void addStaffMember (Staff staffmember) throws SQLException;
+	public void addStaffMember (Doctor staffmember) throws SQLException;
 	
 	
 	public int searchStaffIdfromUId(int id);
 	
-	public Staff searchStaffbyId ( int id);
+	public Doctor searchStaffbyId ( int id);
 	
-	public void updateStaffMemberInfo(Staff staffmember);
+	public void updateStaffMemberInfo(Doctor staffmember);
 	
 
 }

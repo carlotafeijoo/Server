@@ -385,7 +385,7 @@ public class MenuResidencialArea {
 			Integer id=u.getId();
 			
 			int staff_id = staffManager.searchStaffIdfromUId(id);
-			Staff staff = staffManager.searchStaffbyId(staff_id);
+			Doctor staff = staffManager.searchStaffbyId(staff_id);
 			System.out.println(staff);
 			System.out.println("Login successful!");
 			staffMenu(u.getId());
@@ -421,7 +421,7 @@ public class MenuResidencialArea {
 				
 				case 1:
 					int staff_id = staffManager.searchStaffIdfromUId(User_id);
-					Staff staffToUpdate =staffManager.searchStaffbyId(staff_id);
+					Doctor staffToUpdate =staffManager.searchStaffbyId(staff_id);
 					if(staffToUpdate !=null) {
 						int newPhone = InputException.getInt("Enter your new phone number: ");
 						staffToUpdate.setPhone(newPhone);
@@ -482,7 +482,7 @@ public class MenuResidencialArea {
 	
     private static void loadStaff() {
     	File file = new File("./xmls/External-Staff.xml");
-    	Staff f = null;
+    	Doctor f = null;
     	f = xmlmanager.xml2Staff(file);
 		System.out.println(f);
 		
@@ -636,7 +636,7 @@ public class MenuResidencialArea {
 		userManager.newUser(u);
 	
 		// CREATE STAFF AND ADD TO JDBD
-		Staff staff = new Staff(name, phone,dob, address, field, email);
+		Doctor staff = new Doctor(name, phone,dob, address, field, email);
 		staff.setField(field); 
 		
 		staffManager.addStaffMember(staff);

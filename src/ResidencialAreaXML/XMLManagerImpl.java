@@ -16,7 +16,7 @@ import org.eclipse.persistence.internal.oxm.schema.model.List;
 
 import Interfaces.XMLManager;
 import POJOS.Elderly;
-import POJOS.Staff;
+import POJOS.Doctor;
 import jdbc.JDBCManager;
 
 public class XMLManagerImpl implements XMLManager{
@@ -24,7 +24,7 @@ public class XMLManagerImpl implements XMLManager{
 	
 	@Override
 	public void staff2xml(Integer id) {
-		Staff s= null;
+		Doctor s= null;
 		manager= new JDBCManager();
 		
 		try {
@@ -36,13 +36,13 @@ public class XMLManagerImpl implements XMLManager{
 			Integer phone= rs.getInt("phone");
 			Date dob = rs.getDate("dob");
 			String address= rs.getString("address");
-			s= new Staff(name,phone,dob,address);
+			s= new Doctor(name,phone,dob,address);
 			System.out.println(s);
 			rs.close();
 			stmt.close();
 			
 			//EXPORTS THE OWNER TO THE XML FILE
-			JAXBContext jaxbContext= JAXBContext.newInstance(Staff.class);
+			JAXBContext jaxbContext= JAXBContext.newInstance(Doctor.class);
 			Marshaller marshaller= jaxbContext.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			File file= new File ("./xmls/Staff.xml"); //ir exportando cada para no sobreescribir
@@ -88,12 +88,12 @@ public class XMLManagerImpl implements XMLManager{
 		
 	}
 	@Override
-	public Staff xml2Staff(File xml) {
-		Staff s= null;
+	public Doctor xml2Staff(File xml) {
+		Doctor s= null;
 		try {
-			JAXBContext jaxbContext= JAXBContext.newInstance(Staff.class);
+			JAXBContext jaxbContext= JAXBContext.newInstance(Doctor.class);
 			Unmarshaller unmarshaller= jaxbContext.createUnmarshaller();
-			s= (Staff) unmarshaller.unmarshal(xml);
+			s= (Doctor) unmarshaller.unmarshal(xml);
 			
 			
 		}catch(Exception e) {
