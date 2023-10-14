@@ -6,17 +6,20 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+//connects w/DB, creates tables
 public class JDBCManager {
 	
-	private Connection c=null;
+	private Connection c = null;
 
 	public JDBCManager(){
 	    try {            
 	        // Open the DB connection
 	        Class.forName("org.sqlite.JDBC");
 	        String dbPath = "/db/ResidencialArea.db";
+	        
 	        c = DriverManager.getConnection("jdbc:sqlite:." +dbPath );
 	        c.createStatement().execute("PRAGMA foreign_keys=ON");
+	        
 	        System.out.println("Database connection opened.");
 	        //create tables
 	        this.createTables();
@@ -51,31 +54,19 @@ public class JDBCManager {
 			Statement stmt = c.createStatement();
 			
 			
-			//TABLE ELDERLY
+			//TABLE ELDERLY (OK)
 			String sql = "CREATE TABLE Elderly ("
 			+ "	elderly_id	    INTEGER PRIMARY KEY AUTOINCREMENT,"
 			+ "	name			TEXT NOT NULL,"
-			+ "	age				INTEGER NOT NULL"
+			+ "	dob			DATE"
 			+ ");";
 			stmt.executeUpdate(sql);
+					
 			
-			//TABLE FAMILY CONTACT
-			sql = "CREATE TABLE FamilyContact ("
-			+ "	family_id	INTEGER PRIMARY KEY AUTOINCREMENT,"
-			+ "	elderly_id	INTEGER REFERENCES Elderly(elderly_id),"
-			+ "	name		TEXT NOT NULL,"
-			+ "	address		TEXT NOT NULL,"
-			+ "	phone		INTEGER NOT NULL,"
-			+ "	email		TEXT NOT NULL UNIQUE "
-			+ ");";
-			stmt.executeUpdate(sql);
-			
-			
-			//TABLE STAFF
-			sql = "CREATE TABLE Staff ("
-		    + " staff_id	INTEGER PRIMARY KEY AUTOINCREMENT,"
+			//TABLE DOCTOR (OK)
+			sql = "CREATE TABLE Doctor ("
+		    + " doctor_id	INTEGER PRIMARY KEY AUTOINCREMENT,"
 		    + " name		TEXT NOT NULL,"
-		    + " field 		TEXT NOT NULL,"
 		    + " dob 		DATE,"
 		    + " address 	TEXT NOT NULL,"
 		    + " phone 		INTEGER NOT NULL,"
