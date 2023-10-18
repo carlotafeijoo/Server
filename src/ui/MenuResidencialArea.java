@@ -27,7 +27,6 @@ public class MenuResidencialArea {
 	private static UserManager userManager;
 
 	private static TaskManager tasksManager;
-
 	public static void main(String[] args) {
 
 		System.out.println("WELCOME TO THE RESIDENCIAL AREA DATA BASE");
@@ -80,48 +79,35 @@ public class MenuResidencialArea {
 
 	}
 
-	private static void administratorMenu() {
-		try {
-			int opcion;
-			do {
-				System.out.println("1. Elderly management. ");
-				System.out.println("2. Back. ");
-				opcion = InputException.getInt("Introduce the number choice:  ");
 
-				switch (opcion) {
-				case 1:
-					elderlyMenu();
-					break;
-				case 2:
-					mainMenu();
-					break;
-
-				}
-			} while (true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private static void elderlyMenu() {
+	private static void elderlyMenu(int User_id) {
 
 		try {
 			int choice;
 			do {
 
 				System.out.println("1. Record signal.  ");
-				System.out.println("2. Back");
+				System.out.println("2. See my tasks");
+				System.out.println("3. Back");
 
 				choice = InputException.getInt("Introduce your choice: ");
 
 				switch (choice) {
 
 				case 1:
-					// funcion de llamar al bitalino
+					//AQUI: FUNCION DE LLAMAR AL BITALINO
 					break;
 				case 2:
-					mainMenu();
-					break;
+					int elderly_id= elderlyManager.searchElderlyIdfromUId(User_id);
+                 List <Task> tasks=elderlyManager.seeTasks(elderly_id);
+                 for (int i=0;i<tasks.size();i++) {
+                	 System.out.println(tasks.get(i).toStringtoElderly());
+                 }
+					break;				
+					
+				case 3:
+						mainMenu();
+						break;
 
 				default:
 					break;
@@ -169,16 +155,11 @@ public class MenuResidencialArea {
 		Elderly elderly = new Elderly(name, dni, dob, doctor_id);
 
 		elderlyManager.addElderly(elderly);
-		elderlyMenu();
+		elderlyMenu(u.getId());
 
 	}
 
-	private static void getListOfElderlies() throws IOException, Exception {
-		System.out.println("The list of elderlies is: ");
-		List<Elderly> resultado = elderlyManager.getListOfElderly();
-		System.out.println(resultado);
-		elderlyMenu();
-	}
+
 
 	public static void logIn() throws Exception {
 
@@ -217,7 +198,7 @@ public class MenuResidencialArea {
 
 			System.out.println(elderly);
 			System.out.println("Login successful!");
-			doctorMenu(u.getId());
+			elderlyMenu(u.getId());
 
 		}
 

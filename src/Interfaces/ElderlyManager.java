@@ -2,6 +2,7 @@ package Interfaces;
 
 import java.util.List;
 import POJOS.Elderly;
+import POJOS.Task;
 
 public interface ElderlyManager {
 
@@ -21,5 +22,7 @@ public interface ElderlyManager {
 	int searchElderlyIdfromUId(int User_id);
 
 	List<Elderly> getListOfElderlyByDoctorID(int doctor_id);
+
+	public List<Task> seeTasks(int user_id);
 
 }

@@ -1,6 +1,7 @@
 package jdbc;
 
 import POJOS.Elderly;
+import POJOS.Task;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -167,6 +168,30 @@ public class JDBCElderlyManager implements ElderlyManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public List<Task> seeTasks(int user_id) {
+		List<Task> tasks = new ArrayList<Task>();
+		try {
+			String sql = "SELECT * FROM Task WHERE elderly_id = ?";
+			PreparedStatement pr = manager.getConnection().prepareStatement(sql);
+			pr.setInt(1, user_id);
+
+			ResultSet rs = pr.executeQuery();
+
+			while (rs.next()) {
+				String description = rs.getString("description");
+				int duration= rs.getInt("duration");
+				Task t = new Task(description, duration);
+				tasks.add(t);
+			}
+			rs.close();
+			pr.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return tasks;
 	}
 
 }
