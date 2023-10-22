@@ -25,8 +25,9 @@ public class JDBCDoctorManager implements DoctorManager {
 			String sql = "INSERT INTO Doctor (name, dob, address, phone, email) VALUES (?,?,?,?,?)";
 			PreparedStatement prep = Doctormanager.getConnection().prepareStatement(sql);
 			prep.setString(1, Doctormember.getName());
-			// prep.setString(2, Doctormember.getField());
-			prep.setDate(2, (Date) Doctormember.getDob());
+
+			java.sql.Date sqlDate = new java.sql.Date(Doctormember.getDob().getTime());
+			prep.setDate(2, sqlDate);
 			prep.setString(3, Doctormember.getAddress());
 			prep.setInt(4, Doctormember.getPhone());
 			prep.setString(5, Doctormember.getEmail());

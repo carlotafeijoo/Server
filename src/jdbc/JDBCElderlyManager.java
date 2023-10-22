@@ -31,7 +31,7 @@ public class JDBCElderlyManager implements ElderlyManager {
 			prep.setDate(2, sqlDate);
 			prep.setInt(3, e.getDni());
 			prep.setInt(4, e.getDoctor_id());
-			System.out.println("mi id del doctor" + e.getDoctor_id());
+			System.out.println("mi id of the doctor" + e.getDoctor_id());
 			prep.executeUpdate();
 			prep.close();
 		} catch (Exception exception) {
@@ -182,7 +182,7 @@ public class JDBCElderlyManager implements ElderlyManager {
 
 			while (rs.next()) {
 				String description = rs.getString("description");
-				int duration= rs.getInt("duration");
+				int duration = rs.getInt("duration");
 				Task t = new Task(description, duration);
 				tasks.add(t);
 			}

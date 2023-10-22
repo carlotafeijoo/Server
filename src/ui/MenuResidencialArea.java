@@ -2,7 +2,6 @@ package ui;
 
 import java.io.*;
 
-
 import java.security.MessageDigest;
 
 import java.text.SimpleDateFormat;
@@ -27,6 +26,7 @@ public class MenuResidencialArea {
 	private static UserManager userManager;
 
 	private static TaskManager tasksManager;
+
 	public static void main(String[] args) {
 
 		System.out.println("WELCOME TO THE RESIDENCIAL AREA DATA BASE");
@@ -79,7 +79,6 @@ public class MenuResidencialArea {
 
 	}
 
-
 	private static void elderlyMenu(int User_id) {
 
 		try {
@@ -95,19 +94,19 @@ public class MenuResidencialArea {
 				switch (choice) {
 
 				case 1:
-					//AQUI: FUNCION DE LLAMAR AL BITALINO
+					// AQUI: FUNCION DE LLAMAR AL BITALINO
 					break;
 				case 2:
-					int elderly_id= elderlyManager.searchElderlyIdfromUId(User_id);
-                 List <Task> tasks=elderlyManager.seeTasks(elderly_id);
-                 for (int i=0;i<tasks.size();i++) {
-                	 System.out.println(tasks.get(i).toStringtoElderly());
-                 }
-					break;				
-					
+					int elderly_id = elderlyManager.searchElderlyIdfromUId(User_id);
+					List<Task> tasks = elderlyManager.seeTasks(elderly_id);
+					for (int i = 0; i < tasks.size(); i++) {
+						System.out.println(tasks.get(i).toStringtoElderly());
+					}
+					break;
+
 				case 3:
-						mainMenu();
-						break;
+					mainMenu();
+					break;
 
 				default:
 					break;
@@ -158,8 +157,6 @@ public class MenuResidencialArea {
 		elderlyMenu(u.getId());
 
 	}
-
-
 
 	public static void logIn() throws Exception {
 
