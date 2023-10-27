@@ -171,7 +171,7 @@ public class JDBCElderlyManager implements ElderlyManager {
 	}
 
 	@Override
-	public List<Task> seeTasks(int user_id) {
+	public List<Task> seeTasksbyElderly(int user_id) {
 		List<Task> tasks = new ArrayList<Task>();
 		try {
 			String sql = "SELECT * FROM Task WHERE elderly_id = ?";

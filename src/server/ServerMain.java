@@ -23,6 +23,7 @@ import jdbc.JDBCManager;
 import jdbc.JDBCTasksManager;
 import jpa.JPAUserManager;
 import POJOS.*;
+import exceptions.InputException;
 
 public class ServerMain {
 	static OutputStream os = null;
@@ -68,24 +69,28 @@ public class ServerMain {
 		 * System.out.println(line); } }
 		 */
 
-		ServerSocket sso = new ServerSocket(9009);
+		 sso = new ServerSocket(9009);
 		while (true) {
-			Socket so = sso.accept();
+			 so = sso.accept();
 			System.out.println("cliente conectado");
 			// el server lee lineas pero tambien manda
 			br = new BufferedReader(new InputStreamReader(so.getInputStream()));
-			OutputStream os = so.getOutputStream();
-			PrintWriter pw = new PrintWriter(os, true);
+			 os = so.getOutputStream();
+			 pw = new PrintWriter(os, true);
 
 			String line;
 
 			while ((line = br.readLine()) != null) {
+				System.out.println(line);
 				if (line.contains("stop")) {
 					releaseResources(pw, br, os, so);
 					System.out.println("conexion with the client ended");
 
 					break;
-				} else if (line.contains("addDoctor")) {// si el cliente dice que quiere añadir un doctor
+				} 
+				
+				//DOCTOR
+				else if (line.contains("addDoctor")) {// si el cliente dice que quiere añadir un doctor
 
 					System.out.println(line);
 
@@ -124,17 +129,55 @@ public class ServerMain {
 					pw.println("doctor added");
 					
 	
-				}else if(line.contains("logInDoctor")) {
+				}else if(line.contains("checkPassword")) {
+					String username = br.readLine();
+					String password = br.readLine();
+					MessageDigest md = MessageDigest.getInstance("MD5");
+					md.update(password.getBytes());
+					byte[] digest = md.digest();
+					User u = userManager.checkPassword(username, digest);
+					try {
+					pw.println(u.getRole().toString());
+					pw.println(u.toString());
+					}catch(Exception e) {
+						System.out.println("no existe el usuario");
+						e.printStackTrace();
+					}
 					
 				}else if(line.contains("searchDoctorIdfromUId")) {
+					String id_text=br.readLine();
+					int id=Integer.parseInt(id_text);
+					int doctor_id =  doctorManager.searchDoctorIdfromUId(id);
+					pw.println(""+doctor_id);
+					
 					
 				}else if(line.contains("searchDoctorbyId")) {
+					String id_text = br.readLine();
+					int id = Integer.parseInt(id_text);					
+					Doctor doctor = doctorManager.searchDoctorbyId(id);
+					pw.println(doctor.toString());
+					
 					
 				}else if(line.contains("updateDoctorMemberInfo")) {
+					//HACER
 					
-				}else if(line.contains("searchAllDoctors")) {
 					
-				}else if(line.contains("addElderly")) {
+				}else if(line.contains("getListOfTasks")) {
+					//HACER
+					
+					
+				}else if(line.contains("getListOfElderlyByDoctorID")) {
+					//HACER
+					
+					
+				}else if(line.contains("addTask")) {
+					//HACER
+				
+				}
+				
+				
+				//ELDERLY
+				else if(line.contains("addElderly")) {
 					System.out.println(line);
 
 					String username = br.readLine();
@@ -148,13 +191,12 @@ public class ServerMain {
 
 					// CREATE elderly AND ADD TO JPA
 					User u = new User(username, digest);
+					
 					Role role = userManager.getRole("Elderly");
 					u.setRole(role);
 					role.addUser(u);
 					userManager.newUser(u);
-
 					// recibir un elderly
-
 					try {
 
 						// pasar de elderly texto a elderly objeto
@@ -169,7 +211,46 @@ public class ServerMain {
 					}
 					pw.println("elderly added");
 					
+				
+				}else if(line.contains("searchAllDoctors")) {
+					ArrayList<Doctor> doctores = doctorManager.searchAllDoctors();
+					pw.println(""+doctores.size());
+					
+					for(int i = 0; i < doctores.size(); i++) {
+						pw.println(doctores.get(i));
+					}
+				
+				
+				}else if(line.contains("searchElderlyIdfromUId")) {
+					String id_text=br.readLine();
+					int id=Integer.parseInt(id_text);
+					int elderly_id =  elderlyManager.searchElderlyIdfromUId(id);
+					pw.println(""+elderly_id);
+				
+			
+				}else if(line.contains("searchElderlyById")) {
+					System.out.println("dddd");
+
+					String id_text = br.readLine();
+					System.out.println("dddd");
+
+					int id = Integer.parseInt(id_text);	
+					System.out.println("dddd");
+
+					Elderly elderly = null;
+					try {
+						elderly = elderlyManager.searchElderlyById(id);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					System.out.println("elderly"+elderly.toString());
+					pw.println(elderly.toString());
+			
+					
+				}else if(line.contains("seeTasks")) {
+					//HACER
 				}
+				
 
 			}
 		}

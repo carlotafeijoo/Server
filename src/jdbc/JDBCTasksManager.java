@@ -21,14 +21,7 @@ public class JDBCTasksManager implements TaskManager {
 	// add a new task
 	public void addTask(Task task) throws SQLException {
 		try {
-			String sql = "INSERT INTO Task (description, doctor_id,duration,elderly_id) VALUES (?,?,?,?) ";// añadir
-																											// elderly
-																											// id que
-																											// tiene qu
-																											// venir
-																											// indicado
-																											// por el
-																											// doctor
+			String sql = "INSERT INTO Task (description, doctor_id,duration,elderly_id) VALUES (?,?,?,?) ";
 
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 
@@ -44,6 +37,7 @@ public class JDBCTasksManager implements TaskManager {
 		}
 	}
 
+	//BORRARLA O NO?
 	@Override
 	public List<Task> getListOfTasks(int task_id) {
 		List<Task> tasks = new ArrayList<Task>();

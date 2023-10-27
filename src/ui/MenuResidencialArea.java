@@ -341,34 +341,24 @@ public class MenuResidencialArea {
 		int choice;
 		do {
 
-			System.out.println("1.Carer");
-			System.out.println("2.Cleaner");
-			System.out.println("3.Chef");
-			System.out.println("4.Animator");
+			System.out.println("1.Cardiologist");
+			System.out.println("2.Generalist Physician");
 
 			choice = InputException.getInt("Chose field: ");
 			switch (choice) {
 
 			case 1:
-				field = "Carer";
+				field = "Cardiologist";
 				break;
 
 			case 2:
-				field = "Cleaner";
-				break;
-
-			case 3:
-				field = "Chef";
-				break;
-
-			case 4:
-				field = "Animator";
+				field = "Generalist Physician";
 				break;
 
 			default:
 				break;
 			}
-		} while (choice < 1 || choice > 4);
+		} while (choice < 1 || choice > 2);
 
 		String address = InputException.getString("Address: ");
 		String email = InputException.getString("Email: ");

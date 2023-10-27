@@ -23,6 +23,6 @@ public interface ElderlyManager {
 
 	List<Elderly> getListOfElderlyByDoctorID(int doctor_id);
 
-	public List<Task> seeTasks(int user_id);
+	public List<Task> seeTasksbyElderly(int user_id);
 
 }
