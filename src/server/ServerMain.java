@@ -162,7 +162,7 @@ public class ServerMain {
 					String doctorObject_string = br.readLine();
 					Doctor doctorToUpdate = new Doctor(doctorObject_string);
 					doctorManager.updateDoctorMemberInfo(doctorToUpdate);
-		
+					//La fecha rompe esto
 					
 				}else if(line.contains("getListOfTasks")) {
 					//HACER
