@@ -174,10 +174,26 @@ public class ServerMain {
 					
 				}else if(line.contains("getListOfElderlyByDoctorID")) {
 					//HACER
-					
-					
+					//PARA EL QUE SE PONGA A HACERLO
+					//mirar el metodo addTask(int doctorToAssignNewTask_id) de DoctorMenuResidencialArea
+					//esto es de la opcion de listar all doctors (en el elderly). Habria que cambiarlo por elderly
+					//revisar si funciona porque lo he copiado tal cual
+					//saludos mari
+//					ArrayList<Doctor> doctores = doctorManager.searchAllDoctors();
+//					pw.println(""+doctores.size());
+//					
+//					for(int i = 0; i < doctores.size(); i++) {
+//						pw.println(doctores.get(i));
+//					}
 				}else if(line.contains("addTask")) {
-					//HACER
+					String taskObject_string = br.readLine();
+					Task newTask = new Task (taskObject_string);
+					try {
+						tasksManager.addTask(newTask);
+						pw.println("task added");
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
 				
 				}
 				
