@@ -160,9 +160,9 @@ public class ServerMain {
 					
 				}else if(line.contains("updateDoctorMemberInfo")) {
 					String doctorObject_string = br.readLine();
+					System.out.println(doctorObject_string);
 					Doctor doctorToUpdate = new Doctor(doctorObject_string);
 					doctorManager.updateDoctorMemberInfo(doctorToUpdate);
-					//La fecha rompe esto
 					
 				}else if(line.contains("getListOfTasks")) {
 					//HACER

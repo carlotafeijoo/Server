@@ -98,10 +98,10 @@ public class MenuResidencialArea {
 					break;
 				case 2:
 					int elderly_id = elderlyManager.searchElderlyIdfromUId(User_id);
-					List<Task> tasks = elderlyManager.seeTasks(elderly_id);
-					for (int i = 0; i < tasks.size(); i++) {
-						System.out.println(tasks.get(i).toStringtoElderly());
-					}
+					//List<Task> tasks = elderlyManager.seeTasks(elderly_id);
+					//for (int i = 0; i < tasks.size(); i++) {
+					//	System.out.println(tasks.get(i).toStringtoElderly());
+					//}
 					break;
 
 				case 3:

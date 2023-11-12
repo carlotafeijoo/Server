@@ -42,12 +42,14 @@ public class JDBCDoctorManager implements DoctorManager {
 	@Override
 	public void updateDoctorMemberInfo(Doctor Doctormember) {
 		try {
-			String sql = "UPDATE Doctor SET phone = ?, address = ? WHERE doctor_id = ?";
+			String sql = "UPDATE Doctor SET phone = ?, address = ?, dob = ? WHERE doctor_id = ?";
 			PreparedStatement pr = Doctormanager.getConnection().prepareStatement(sql);
 			;
 			pr.setInt(1, Doctormember.getPhone());
 			pr.setString(2, Doctormember.getAddress());
-			pr.setInt(3, Doctormember.getdoctor_id());
+			java.sql.Date sqlDate = new java.sql.Date(Doctormember.getDob().getTime());
+			pr.setDate(3, sqlDate);
+			pr.setInt(4, Doctormember.getdoctor_id());
 			pr.executeUpdate();
 			pr.close();
 		} catch (Exception e) {

@@ -17,6 +17,7 @@ public class Doctor {
 	private String address;
 	private List<Elderly> elderlies;
 
+
 	// Empty constructor
 	public Doctor() {
 		super();
@@ -153,8 +154,9 @@ public class Doctor {
 
 	@Override
 	public String toString() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		return "Doctor [name=" + name + ", doctor_id=" + doctor_id + ", email=" + email + ", phone=" + phone + ", dob="
-				+ dob + ", address=" + address + "]";
+				+ dateFormat.format(dob) + ", address=" + address + "]";
 	}
 
 	public String toStringForPatients() {
