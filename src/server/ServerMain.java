@@ -41,7 +41,7 @@ public class ServerMain {
 
 	private static TaskManager tasksManager;
 
-	public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
+	public static void main(String[] args) throws IOException, NoSuchAlgorithmException, ParseException {
 		System.out.println("SERVER");
 		// el server es el que se conecta con la base de datos
 		JDBCManager jdbcManager = new JDBCManager();
@@ -159,8 +159,10 @@ public class ServerMain {
 					
 					
 				}else if(line.contains("updateDoctorMemberInfo")) {
-					//HACER
-					
+					String doctorObject_string = br.readLine();
+					Doctor doctorToUpdate = new Doctor(doctorObject_string);
+					doctorManager.updateDoctorMemberInfo(doctorToUpdate);
+		
 					
 				}else if(line.contains("getListOfTasks")) {
 					//HACER
