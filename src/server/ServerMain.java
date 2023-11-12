@@ -12,6 +12,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 import Interfaces.DoctorManager;
 import Interfaces.ElderlyManager;
@@ -166,7 +167,10 @@ public class ServerMain {
 					
 				}else if(line.contains("getListOfTasks")) {
 					//HACER
-					
+					String id_text = br.readLine();
+					int id = Integer.parseInt(id_text);	
+					List<Task> listtasks = tasksManager.getListOfTasks(id);
+					pw.println(listtasks);
 					
 				}else if(line.contains("getListOfElderlyByDoctorID")) {
 					//HACER
