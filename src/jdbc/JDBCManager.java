@@ -52,13 +52,12 @@ public class JDBCManager {
 					+ "	name			TEXT NOT NULL," + "	dob			DATE," + "DNI          INTEGER NOT NULL,"
 					+ " doctor_id		INTEGER REFERENCES Doctor(doctor_id)" + ");";
 			stmt.executeUpdate(sql);
-
+	
 			// TABLE DOCTOR (OK)
 			sql = "CREATE TABLE Doctor (" + " doctor_id	INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ " name		TEXT NOT NULL," + " dob 		DATE," + " address 	TEXT NOT NULL,"
 					+ " phone 		INTEGER NOT NULL," + " email 		TEXT" + ");";
 			stmt.executeUpdate(sql);
-
 			// TABLE TASK AÑADIR ELDERLY ID, AÑADIR DE DECORACION UN COLUMNA DE HORARIO SI
 			// QUEREIS
 			sql = "CREATE TABLE Task (" + "	task_id			INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -67,12 +66,11 @@ public class JDBCManager {
 					+ ");";
 			stmt.executeUpdate(sql);
 			
-			
-			sql = "CREATE TABLE Report (" + " report_id	INTEGER PRIMARY KEY AUTOINCREMENT,"
+			sql = "CREATE TABLE Report (" + " report_id	    INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ " file_name		TEXT NOT NULL," + " task_id		INTEGER REFERENCES Task(task_id),"
 					+ " elderly_id 		INTEGER REFERENCES Elderly(elderly_id)" + ");";
 			stmt.executeUpdate(sql);
-
+		
 			/*
 			 * //TABLE SCHEDULE ELIMINAR TABLA Y ELIINAR TODAS LAS REFERENCIAS A ESTA TABLA
 			 * EN TODOS LOS METODOS DE JDBC sql= "CREATE TABLE Schedule (" +
