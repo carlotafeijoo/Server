@@ -170,7 +170,7 @@ public class ServerMain {
 					String id_text = br.readLine();
 					int id_doc = Integer.parseInt(id_text);	
 					String id_text2 = br.readLine();
-					int id_elder = Integer.parseInt(id_text);	
+					int id_elder = Integer.parseInt(id_text2);	
 					List<Task> listtasks = tasksManager.getListOfTasksByDoctorFromElderly(id_doc,id_elder);
 					pw.println(""+listtasks.size());			
 					for(int i = 0; i < listtasks.size(); i++) {
