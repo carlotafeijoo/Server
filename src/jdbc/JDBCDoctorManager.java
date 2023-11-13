@@ -6,12 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 import Interfaces.DoctorManager;
-
 import POJOS.Doctor;
-import POJOS.Elderly;
 
 public class JDBCDoctorManager implements DoctorManager {
 
@@ -46,7 +43,7 @@ public class JDBCDoctorManager implements DoctorManager {
 		try {
 			String sql = "UPDATE Doctor SET phone = ?, address = ?, dob = ? WHERE doctor_id = ?";
 			PreparedStatement pr = Doctormanager.getConnection().prepareStatement(sql);
-			;
+
 			pr.setInt(1, Doctormember.getPhone());
 			pr.setString(2, Doctormember.getAddress());
 			java.sql.Date sqlDate = new java.sql.Date(Doctormember.getDob().getTime());
@@ -110,7 +107,7 @@ public class JDBCDoctorManager implements DoctorManager {
 
 	@Override
 	public ArrayList<Doctor> searchAllDoctors() {
-		ArrayList<Doctor> listaDoctores = new ArrayList<Doctor>();
+		ArrayList<Doctor> listaDoctores = new ArrayList<>();
 		try {
 			String sql = "SELECT * FROM Doctor ";
 			PreparedStatement pr = Doctormanager.getConnection().prepareStatement(sql);

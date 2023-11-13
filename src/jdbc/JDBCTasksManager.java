@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Interfaces.TaskManager;
-
 import POJOS.Task;
 
 public class JDBCTasksManager implements TaskManager {
@@ -19,6 +18,7 @@ public class JDBCTasksManager implements TaskManager {
 	}
 
 	// add a new task
+	@Override
 	public void addTask(Task task) throws SQLException {
 		try {
 			String sql = "INSERT INTO Task (description, doctor_id,duration,elderly_id) VALUES (?,?,?,?) ";
@@ -40,7 +40,7 @@ public class JDBCTasksManager implements TaskManager {
 	//BORRARLA O NO?
 	@Override
 	public List<Task> getListOfTasks() {
-		List<Task> tasks = new ArrayList<Task>();
+		List<Task> tasks = new ArrayList<>();
 		try {
 			String sql = "SELECT * FROM Task ";
 			PreparedStatement pr = manager.getConnection().prepareStatement(sql);
@@ -60,10 +60,10 @@ public class JDBCTasksManager implements TaskManager {
 		}
 		return tasks;
 	}
-	
+
 	@Override
 	public List<Task> getListOfTasksByDoctorFromElderly(int doctor_id, int elderly_id) {
-		List<Task> tasks = new ArrayList<Task>();
+		List<Task> tasks = new ArrayList<>();
 		try {
 			String sql = "SELECT * FROM Task WHERE doctor_id = ? AND elderly_id = ?" ;
 			PreparedStatement pr = manager.getConnection().prepareStatement(sql);

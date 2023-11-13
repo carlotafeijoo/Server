@@ -18,13 +18,16 @@ import Interfaces.DoctorManager;
 import Interfaces.ElderlyManager;
 import Interfaces.TaskManager;
 import Interfaces.UserManager;
+import POJOS.Doctor;
+import POJOS.Elderly;
+import POJOS.Role;
+import POJOS.Task;
+import POJOS.User;
 import jdbc.JDBCDoctorManager;
 import jdbc.JDBCElderlyManager;
 import jdbc.JDBCManager;
 import jdbc.JDBCTasksManager;
 import jpa.JPAUserManager;
-import POJOS.*;
-import exceptions.InputException;
 
 public class ServerMain {
 	static OutputStream os = null;
@@ -57,14 +60,14 @@ public class ServerMain {
 		/*
 		 * EJEMPLO DIAPO 27 ServerSocket sso = new ServerSocket (9009); Socket so =
 		 * sso.accept();
-		 * 
-		 * 
+		 *
+		 *
 		 * OutputStream os = so.getOutputStream(); PrintWriter pw = new PrintWriter(os,
 		 * true); pw.println("mi linea mandada"); //releaseResources(pw, os, so);
-		 * 
+		 *
 		 * BufferedReader br = new BufferedReader(new
 		 * InputStreamReader(so.getInputStream()));
-		 * 
+		 *
 		 * String line; while((line = br.readLine()) != null) {
 		 * if(line.contains("stop")) { releaseResources(pw, os, so); break; }else {
 		 * System.out.println(line); } }
@@ -88,7 +91,7 @@ public class ServerMain {
 					System.out.println("conexion with the client ended");
 
 					break;
-				} 
+				}
 
 				//DOCTOR
 				else if (line.contains("addDoctor")) {// si el cliente dice que quiere añadir un doctor
@@ -154,7 +157,7 @@ public class ServerMain {
 
 				}else if(line.contains("searchDoctorbyId")) {
 					String id_text = br.readLine();
-					int id = Integer.parseInt(id_text);					
+					int id = Integer.parseInt(id_text);
 					Doctor doctor = doctorManager.searchDoctorbyId(id);
 					pw.println(doctor.toString());
 
@@ -168,13 +171,13 @@ public class ServerMain {
 				}else if(line.contains("getListOfTasksByDoctorFromElder")) {
 					//HACER
 					String id_text = br.readLine();
-					int id_doc = Integer.parseInt(id_text);	
+					int id_doc = Integer.parseInt(id_text);
 					String id_text2 = br.readLine();
-					int id_elder = Integer.parseInt(id_text2);	
+					int id_elder = Integer.parseInt(id_text2);
 					List<Task> listtasks = tasksManager.getListOfTasksByDoctorFromElderly(id_doc,id_elder);
-					pw.println(""+listtasks.size());			
-					for(int i = 0; i < listtasks.size(); i++) {
-						pw.println(listtasks.get(i));
+					pw.println(""+listtasks.size());
+					for (Task listtask : listtasks) {
+						pw.println(listtask);
 					}
 
 				}else if(line.contains("getListOfElderlyByDoctorID")) {
@@ -183,8 +186,8 @@ public class ServerMain {
 					List<Elderly> elderlys = elderlyManager.getListOfElderlyByDoctorID(idDoctor);
 					pw.println(""+elderlys.size());
 
-					for(int i = 0; i < elderlys.size(); i++) {
-						pw.println(elderlys.get(i));
+					for (Elderly elderly : elderlys) {
+						pw.println(elderly);
 					}
 
 
@@ -241,8 +244,8 @@ public class ServerMain {
 					ArrayList<Doctor> doctores = doctorManager.searchAllDoctors();
 					pw.println(""+doctores.size());
 
-					for(int i = 0; i < doctores.size(); i++) {
-						pw.println(doctores.get(i));
+					for (Doctor doctore : doctores) {
+						pw.println(doctore);
 					}
 
 
@@ -259,7 +262,7 @@ public class ServerMain {
 					String id_text = br.readLine();
 					System.out.println("dddd");
 
-					int id = Integer.parseInt(id_text);	
+					int id = Integer.parseInt(id_text);
 					System.out.println("dddd");
 
 					Elderly elderly = null;
@@ -274,11 +277,11 @@ public class ServerMain {
 
 				}else if(line.contains("seeTasks")) {
 					String id_text = br.readLine();
-					int id_elder = Integer.parseInt(id_text);	
+					int id_elder = Integer.parseInt(id_text);
 					List<Task> listtasks = elderlyManager.seeTasksbyElderly(id_elder);
-					pw.println(""+listtasks.size());			
-					for(int i = 0; i < listtasks.size(); i++) {
-						pw.println(listtasks.get(i));
+					pw.println(""+listtasks.size());
+					for (Task listtask : listtasks) {
+						pw.println(listtask);
 
 					}
 

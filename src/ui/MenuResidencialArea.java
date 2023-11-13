@@ -1,19 +1,28 @@
 package ui;
 
-import java.io.*;
-
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.security.MessageDigest;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import Interfaces.*;
+import Interfaces.DoctorManager;
+import Interfaces.ElderlyManager;
+import Interfaces.TaskManager;
+import Interfaces.UserManager;
+import POJOS.Doctor;
+import POJOS.Elderly;
+import POJOS.Role;
+import POJOS.Task;
+import POJOS.User;
 import exceptions.InputException;
-import jdbc.*;
+import jdbc.JDBCDoctorManager;
+import jdbc.JDBCElderlyManager;
+import jdbc.JDBCManager;
+import jdbc.JDBCTasksManager;
 import jpa.JPAUserManager;
-import POJOS.*;
 
 public class MenuResidencialArea {
 
@@ -131,8 +140,8 @@ public class MenuResidencialArea {
 
 		ArrayList<Doctor> doctores = DoctorManager.searchAllDoctors();
 
-		for (int i = 0; i < doctores.size(); i++) {
-			System.out.println(doctores.get(i).toStringForPatients());
+		for (Doctor doctore : doctores) {
+			System.out.println(doctore.toStringForPatients());
 		}
 		int doctor_id = InputException.getInt("put the id of your doctor:  ");
 
@@ -265,8 +274,8 @@ public class MenuResidencialArea {
 
 		// print all elderlies of this doctor
 		List<Elderly> elderlies = elderlyManager.getListOfElderlyByDoctorID(doctorToAssignNewTask_id);
-		for (int i = 0; i < elderlies.size(); i++) {
-			System.out.println(elderlies.get(i).toString() + "\n");
+		for (Elderly element : elderlies) {
+			System.out.println(element.toString() + "\n");
 		}
 		int elderly_id = InputException.getInt("Elderly id: ");
 		int duration = InputException.getInt("Duration: ");

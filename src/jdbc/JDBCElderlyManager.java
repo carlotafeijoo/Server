@@ -1,8 +1,5 @@
 package jdbc;
 
-import POJOS.Elderly;
-import POJOS.Task;
-
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Interfaces.ElderlyManager;
+import POJOS.Elderly;
+import POJOS.Task;
 
 public class JDBCElderlyManager implements ElderlyManager {
 	private JDBCManager manager;
@@ -20,6 +19,7 @@ public class JDBCElderlyManager implements ElderlyManager {
 		this.manager = m;
 	}
 
+	@Override
 	public void addElderly(Elderly e) {
 		try {
 			String sql = "INSERT INTO Elderly (name, dob,DNI,doctor_id) VALUES (?,?,?,?)";
@@ -67,7 +67,7 @@ public class JDBCElderlyManager implements ElderlyManager {
 
 	@Override
 	public List<Elderly> getListOfElderly() {
-		List<Elderly> elderlies = new ArrayList<Elderly>();
+		List<Elderly> elderlies = new ArrayList<>();
 		try {
 			String sql = "SELECT * FROM Elderly ";
 			PreparedStatement pr = manager.getConnection().prepareStatement(sql);
@@ -92,7 +92,7 @@ public class JDBCElderlyManager implements ElderlyManager {
 
 	@Override
 	public List<Elderly> getListOfElderlyByDoctorID(int doctor_id) {
-		List<Elderly> elderlies = new ArrayList<Elderly>();
+		List<Elderly> elderlies = new ArrayList<>();
 		try {
 			String sql = "SELECT * FROM Elderly WHERE doctor_id = ?";
 			PreparedStatement pr = manager.getConnection().prepareStatement(sql);
@@ -172,7 +172,7 @@ public class JDBCElderlyManager implements ElderlyManager {
 
 	@Override
 	public List<Task> seeTasksbyElderly(int user_id) {
-		List<Task> tasks = new ArrayList<Task>();
+		List<Task> tasks = new ArrayList<>();
 		try {
 			String sql = "SELECT * FROM Task WHERE elderly_id = ?";
 			PreparedStatement pr = manager.getConnection().prepareStatement(sql);

@@ -1,7 +1,6 @@
 package jpa;
 
 import java.security.MessageDigest;
-
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -49,6 +48,7 @@ public class JPAUserManager implements UserManager {
 		em.getTransaction().commit();
 	}
 
+	@Override
 	public void deleteUser(String email, String password) {
 		try {
 			System.out.println("The user");
@@ -89,7 +89,7 @@ public class JPAUserManager implements UserManager {
 	public List<Role> getRoles() {
 		Query q = em.createNativeQuery("SELECT * FROM Role", Role.class);
 
-		List<Role> roles = (List<Role>) q.getResultList();
+		List<Role> roles = q.getResultList();
 
 		return roles;
 	}
