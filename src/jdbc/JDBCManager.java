@@ -66,6 +66,12 @@ public class JDBCManager {
 					+ " duration		INTEGER NOT NULL," + " elderly_id 		INTEGER REFERENCES Elderly(elderly_id)"
 					+ ");";
 			stmt.executeUpdate(sql);
+			
+			
+			sql = "CREATE TABLE Report (" + " report_id	INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ " file_name		TEXT NOT NULL," + " task_id		INTEGER REFERENCES Task(task_id),"
+					+ " elderly_id 		INTEGER REFERENCES Elderly(elderly_id)" + ");";
+			stmt.executeUpdate(sql);
 
 			/*
 			 * //TABLE SCHEDULE ELIMINAR TABLA Y ELIINAR TODAS LAS REFERENCIAS A ESTA TABLA
