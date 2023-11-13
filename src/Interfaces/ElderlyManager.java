@@ -21,7 +21,7 @@ public interface ElderlyManager {
 
 	int searchElderlyIdfromUId(int User_id);
 
-	List<Elderly> getListOfElderlyByDoctorID(int doctor_id);
+	public List<Elderly> getListOfElderlyByDoctorID(int doctor_id);
 
 	public List<Task> seeTasksbyElderly(int user_id);
 

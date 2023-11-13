@@ -8,6 +8,8 @@ public interface TaskManager {
 
 	public void addTask(Task task) throws SQLException;
 
-	public List<Task> getListOfTasks(int staffAllTask_id);
+	public List<Task> getListOfTasks();
+	
+	public List<Task> getListOfTasksByDoctorFromElderly(int doctor_id, int elderly_id);
 
 }
