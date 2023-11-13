@@ -185,6 +185,12 @@ public class ServerMain {
 //					for(int i = 0; i < doctores.size(); i++) {
 //						pw.println(doctores.get(i));
 //					}
+					
+					
+					
+					
+					
+					
 				}else if(line.contains("addTask")) {
 					String taskObject_string = br.readLine();
 					Task newTask = new Task (taskObject_string);
