@@ -31,12 +31,9 @@ public class JPAUserManager implements UserManager {
 		if (this.getRoles().isEmpty()) {
 			Role elderly = new Role("Elderly");
 			Role doctor = new Role("Doctor");
-			Role familycontact = new Role("FamilyContact");
-			Role schedule = new Role("Schedule");
 			this.newRole(elderly);
 			this.newRole(doctor);
-			this.newRole(familycontact);
-			this.newRole(schedule);
+
 		}
 	}
 
