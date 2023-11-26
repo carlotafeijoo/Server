@@ -224,6 +224,7 @@ public class ServerMain {
 					u.setRole(role);
 					role.addUser(u);
 					userManager.newUser(u);
+					
 					// recibir un elderly
 					try {
 
