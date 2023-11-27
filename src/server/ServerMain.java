@@ -276,6 +276,26 @@ public class ServerMain {
 					pw.println(elderly.toString());
 
 
+					
+				}else if(line.contains("searchElderlyDNIById")) {
+						System.out.println("dddd");
+
+						String id_text = br.readLine();
+						System.out.println("dddd");
+
+						int id = Integer.parseInt(id_text);
+						System.out.println("dddd");
+
+						Elderly elderly = null;
+						try {
+							elderly = elderlyManager.searchElderlyById(id);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						//System.out.println("elderly"+elderly.toString());
+						pw.println(elderly.getDni());
+					
+					
 				}else if(line.contains("seeTasks")) {
 					String id_text = br.readLine();
 					int id_elder = Integer.parseInt(id_text);
