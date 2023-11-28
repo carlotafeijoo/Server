@@ -295,11 +295,12 @@ public class ServerMain {
 							e.printStackTrace();
 						}
 						//System.out.println("elderly"+elderly.toString());
+						//System.out.println(elderly.getName());
 						pw.println(elderly.getName());
 						
-						String file =  null;
+						//String file =  null;
 						
-						try{
+						/*try{
 							file = br.readLine();
 							System.out.println(file);
 							String dir = System.getProperty("user.dir");
@@ -310,7 +311,7 @@ public class ServerMain {
 				        } catch (IOException e) {
 				            e.printStackTrace();
 				        }
-						
+						*/
 					
 				}else if(line.contains("seeTasks")) {
 					
