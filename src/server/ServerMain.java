@@ -283,7 +283,7 @@ public class ServerMain {
 
 
 					
-				}else if(line.contains("searchElderlyDNIById")) {
+				}else if(line.contains("searchElderlyNameById")) {
 
 						String id_text = br.readLine();
 						int id = Integer.parseInt(id_text);
@@ -295,7 +295,7 @@ public class ServerMain {
 							e.printStackTrace();
 						}
 						//System.out.println("elderly"+elderly.toString());
-						pw.println(elderly.getDni());
+						pw.println(elderly.getName());
 						
 				
 						String file =  null;
