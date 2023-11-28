@@ -1,6 +1,10 @@
 package server;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -32,6 +36,8 @@ import jpa.JPAUserManager;
 public class ServerMain {
 	static OutputStream os = null;
 	static PrintWriter pw = null;
+	static DataInputStream dis = null;
+	static FileInputStream fis = null;
 
 	static BufferedReader br = null;
 	static ServerSocket sso = null;
@@ -258,13 +264,13 @@ public class ServerMain {
 
 
 				}else if(line.contains("searchElderlyById")) {
-					System.out.println("dddd");
+					//System.out.println("dddd");
 
 					String id_text = br.readLine();
-					System.out.println("dddd");
+					//System.out.println("dddd");
 
 					int id = Integer.parseInt(id_text);
-					System.out.println("dddd");
+					//System.out.println("dddd");
 
 					Elderly elderly = null;
 					try {
@@ -278,13 +284,9 @@ public class ServerMain {
 
 					
 				}else if(line.contains("searchElderlyDNIById")) {
-						System.out.println("dddd");
 
 						String id_text = br.readLine();
-						System.out.println("dddd");
-
 						int id = Integer.parseInt(id_text);
-						System.out.println("dddd");
 
 						Elderly elderly = null;
 						try {
@@ -294,13 +296,26 @@ public class ServerMain {
 						}
 						//System.out.println("elderly"+elderly.toString());
 						pw.println(elderly.getDni());
-					
+						
+				
+						String file =  null;
+						
+						try{
+							file = br.readLine();
+							fis = new FileInputStream(file);
+				        } catch (IOException e) {
+				            e.printStackTrace();
+				        }
+						
 					
 				}else if(line.contains("seeTasks")) {
+					
 					String id_text = br.readLine();
 					int id_elder = Integer.parseInt(id_text);
+					
 					List<Task> listtasks = elderlyManager.seeTasksbyElderly(id_elder);
 					pw.println(""+listtasks.size());
+					
 					for (Task listtask : listtasks) {
 						pw.println(listtask);
 
