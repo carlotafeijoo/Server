@@ -297,12 +297,16 @@ public class ServerMain {
 						//System.out.println("elderly"+elderly.toString());
 						pw.println(elderly.getName());
 						
-				
 						String file =  null;
 						
 						try{
 							file = br.readLine();
-							fis = new FileInputStream(file);
+							System.out.println(file);
+							String dir = System.getProperty("user.dir");
+							File txt = new File(dir,file);
+							//fis = new FileInputStream(file);
+							
+							
 				        } catch (IOException e) {
 				            e.printStackTrace();
 				        }
