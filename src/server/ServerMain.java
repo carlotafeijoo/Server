@@ -34,14 +34,12 @@ import jdbc.JDBCTasksManager;
 import jpa.JPAUserManager;
 
 public class ServerMain {
-	static OutputStream os = null;
-	static PrintWriter pw = null;
+
+
 	static DataInputStream dis = null;
 	static FileInputStream fis = null;
-
-	static BufferedReader br = null;
 	static ServerSocket sso = null;
-	static Socket so = null;
+	
 
 	private static ElderlyManager elderlyManager;
 
@@ -81,12 +79,42 @@ public class ServerMain {
 
 		sso = new ServerSocket(9009);
 		while (true) {
-			so = sso.accept();
+			Socket so = sso.accept();
 			System.out.println("cliente conectado");
 			// el server lee lineas pero tambien manda
-			br = new BufferedReader(new InputStreamReader(so.getInputStream()));
-			os = so.getOutputStream();
-			pw = new PrintWriter(os, true);
+			 ClientHandler clientHandler = new ClientHandler(so, userManager, doctorManager, elderlyManager, tasksManager);
+	            Thread clientThread = new Thread(clientHandler);
+	            clientThread.start();
+	        }
+	    }
+	}
+class ClientHandler implements Runnable {
+    private Socket so;
+    private UserManager userManager;
+    private DoctorManager doctorManager;
+    private ElderlyManager elderlyManager;
+    private TaskManager tasksManager;
+
+    public ClientHandler(Socket so, UserManager userManager, DoctorManager doctorManager, ElderlyManager elderlyManager, TaskManager tasksManager) {
+        this.so = so;
+        this.userManager = userManager;
+        this.doctorManager = doctorManager;
+        this.elderlyManager = elderlyManager;
+        this.tasksManager = tasksManager;
+    }
+
+    @Override
+    public void run() {
+        try {
+            handleClientConnection();
+        } catch (IOException | NoSuchAlgorithmException | ParseException e) {
+            e.printStackTrace();
+        }
+    }
+    private void handleClientConnection() throws IOException, NoSuchAlgorithmException, ParseException {
+    	 BufferedReader br = new BufferedReader(new InputStreamReader(so.getInputStream()));
+         OutputStream os = so.getOutputStream();
+         PrintWriter pw = new PrintWriter(os, true);
 
 			String line;
 
@@ -330,27 +358,24 @@ public class ServerMain {
 				}
 			}
 		}
-	}
+	
 
-	private static void releaseResources(PrintWriter printWriter, BufferedReader br, OutputStream outputStream,
-			Socket socket) {
-		printWriter.close();
-		try {
-			outputStream.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		try {
-			br.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
-			socket.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
+    private static void releaseResources(PrintWriter printWriter, BufferedReader br, OutputStream outputStream, Socket socket) {
+        printWriter.close();
+        try {
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
