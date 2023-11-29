@@ -1,4 +1,4 @@
-package server;
+package ui;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -51,7 +51,7 @@ public class ServerMain {
 
 	public static void main(String[] args) throws IOException, NoSuchAlgorithmException, ParseException {
 		System.out.println("SERVER");
-		// el server es el que se conecta con la base de datos
+		//Server connects to DB
 		JDBCManager jdbcManager = new JDBCManager();
 
 		// initialize database JDBC
@@ -61,33 +61,20 @@ public class ServerMain {
 		// initialize database JPA
 		userManager = new JPAUserManager();
 
-		/*
-		 * EJEMPLO DIAPO 27 ServerSocket sso = new ServerSocket (9009); Socket so =
-		 * sso.accept();
-		 *
-		 *
-		 * OutputStream os = so.getOutputStream(); PrintWriter pw = new PrintWriter(os,
-		 * true); pw.println("mi linea mandada"); //releaseResources(pw, os, so);
-		 *
-		 * BufferedReader br = new BufferedReader(new
-		 * InputStreamReader(so.getInputStream()));
-		 *
-		 * String line; while((line = br.readLine()) != null) {
-		 * if(line.contains("stop")) { releaseResources(pw, os, so); break; }else {
-		 * System.out.println(line); } }
-		 */
 
 		sso = new ServerSocket(9009);
 		while (true) {
 			Socket so = sso.accept();
 			System.out.println("cliente conectado");
-			// el server lee lineas pero tambien manda
+			// Server: reads and sends lines
 			 ClientHandler clientHandler = new ClientHandler(so, userManager, doctorManager, elderlyManager, tasksManager);
 	            Thread clientThread = new Thread(clientHandler);
 	            clientThread.start();
 	        }
 	    }
 	}
+
+
 class ClientHandler implements Runnable {
     private Socket so;
     private UserManager userManager;
@@ -128,7 +115,7 @@ class ClientHandler implements Runnable {
 				}
 
 				//DOCTOR
-				else if (line.contains("addDoctor")) {// si el cliente dice que quiere añadir un doctor
+				else if (line.contains("addDoctor")) {// Client wants to add a doctor
 
 					System.out.println(line);
 
@@ -148,15 +135,14 @@ class ClientHandler implements Runnable {
 					role.addUser(u);
 					userManager.newUser(u);
 
-					// recibir un doctor
-
+					//Receive Doctor
 					try {
 
-						// pasar de doctor texto a doctor objeto
+						//From Doctor TEXT to Doctor OBJECT
 						Doctor doctor;
 						doctor = new Doctor(doctor_text);
 
-						// añadir el doctor a la base de datos
+						//Add doctor to db
 						doctorManager.addDoctorMember(doctor);
 
 					} catch (ParseException e) {
@@ -259,14 +245,14 @@ class ClientHandler implements Runnable {
 					role.addUser(u);
 					userManager.newUser(u);
 					
-					// recibir un elderly
+					// Receive elderly
 					try {
 
-						// pasar de elderly texto a elderly objeto
+						//From elderly TEXT to elderly OBJECT
 						Elderly elderly;
 						elderly = new Elderly(elderly_text);
 
-						// añadir el elderly a la base de datos
+						//Add elderly to DB
 						elderlyManager.addElderly(elderly);
 
 					} catch (ParseException e) {
