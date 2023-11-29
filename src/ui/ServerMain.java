@@ -61,7 +61,7 @@ public class ServerMain {
 			do {
 				System.out.println("SERVER MENU ");
 				System.out.println("1. Start server ");
-				System.out.println("2. Switch off server  ");
+				System.out.println("2. Switch off application  ");
 				option = InputException.getInt("Introduce the number choice:  ");
 				
 				int clientCounter = 0;
