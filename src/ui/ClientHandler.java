@@ -62,8 +62,9 @@ public class ClientHandler implements Runnable {
          OutputStream os = so.getOutputStream();
          PrintWriter pw = new PrintWriter(os, true);
          DataInputStream dis = new DataInputStream(so.getInputStream());
-         BufferedInputStream bis = null;
+         BufferedInputStream bis = new BufferedInputStream(so.getInputStream());
          BufferedOutputStream bos = null;
+         FileOutputStream fos = null;
          
          System.out.println(ServerMain.clientCounter + " :num clients");
 
@@ -285,21 +286,38 @@ public class ClientHandler implements Runnable {
 						//System.out.println(elderly.getName());
 						pw.println(elderly.getName());
 						
-						byte[] bytesReceived = new byte[2000000];
-						dis = new DataInputStream(so.getInputStream());
+						
+						//dis = new DataInputStream()
+						
+						String file_name = dis.readUTF().toString();
+						int file_size = dis.readInt();
+						
+						System.out.println("FILE TO BE RECEIVED");
+						
+						String diract = System.getProperty("user.dir"); // find where the program is executing
+			            //String dirfolder = diract +"\\recordstxt";
+						fos = new FileOutputStream(diract);
+						bos = new BufferedOutputStream(fos);
+						//bin = new BufferedInputStream(so.getInputStream());
+						
+						byte[] bytesReceived = new byte[file_size];
+						
 						//file name
-						String file = dis.readUTF();
+						/*String file = dis.readUTF();
 						file = file.substring(file.indexOf('/')+1, file.length());
 						
 						bos = new BufferedOutputStream(new FileOutputStream(file));
-						int inData;
+						int inData;*/
 						
-						while((inData = bis.read(bytesReceived)) != -1) {
-							bos.write(bytesReceived, 0, inData);
+						for (int i=0; i < bytesReceived.length; i++) {
+							bytesReceived[i] = (byte)bis.read();
 						}
 						
-						System.out.println(file);
-						System.out.println(bos);
+						/*while((inData = bis.read(bytesReceived)) != -1) {
+							bos.write(inData);
+						}*/
+						
+						System.out.println(bytesReceived);
 					
 				}else if(line.contains("seeTasks")) {
 					
