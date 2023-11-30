@@ -1,6 +1,11 @@
 package ui;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -56,6 +61,9 @@ public class ClientHandler implements Runnable {
     	 BufferedReader br = new BufferedReader(new InputStreamReader(so.getInputStream()));
          OutputStream os = so.getOutputStream();
          PrintWriter pw = new PrintWriter(os, true);
+         DataInputStream dis = new DataInputStream(so.getInputStream());
+         BufferedInputStream bis = null;
+         BufferedOutputStream bos = null;
          
          System.out.println(ServerMain.clientCounter + " :num clients");
 
@@ -277,20 +285,21 @@ public class ClientHandler implements Runnable {
 						//System.out.println(elderly.getName());
 						pw.println(elderly.getName());
 						
-						//String file =  null;
+						byte[] bytesReceived = new byte[2000000];
+						dis = new DataInputStream(so.getInputStream());
+						//file name
+						String file = dis.readUTF();
+						file = file.substring(file.indexOf('/')+1, file.length());
 						
-						/*try{
-							file = br.readLine();
-							System.out.println(file);
-							String dir = System.getProperty("user.dir");
-							File txt = new File(dir,file);
-							//fis = new FileInputStream(file);
-							
-							
-				        } catch (IOException e) {
-				            e.printStackTrace();
-				        }
-						*/
+						bos = new BufferedOutputStream(new FileOutputStream(file));
+						int inData;
+						
+						while((inData = bis.read(bytesReceived)) != -1) {
+							bos.write(bytesReceived, 0, inData);
+						}
+						
+						System.out.println(file);
+						System.out.println(bos);
 					
 				}else if(line.contains("seeTasks")) {
 					
