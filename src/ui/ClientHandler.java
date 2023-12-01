@@ -222,7 +222,7 @@ public class ClientHandler implements Runnable {
 					// Receive elderly
 					try {
 
-						//From elderly TEXT to elderly OBJECT
+						//From elderly OBJECT to elderly TEXT
 						Elderly elderly;
 						elderly = new Elderly(elderly_text);
 
@@ -314,12 +314,14 @@ public class ClientHandler implements Runnable {
 						String file_name = br.readLine();
 						
 				        String diract = System.getProperty("user.dir"); 
-				        String dirfolder = diract +"\\recordstxt";
+				        //String dirfolder = diract +"\\recordstxt";
+				        String dirfolder = diract +"//recordstxt";
 				    	
 				    	File archivo = new File(dirfolder, file_name);
 				    	
 				    	// a partir de aqui he usado el codigo de Java para escribir en un fichero
 				        PrintWriter printwriter = null;
+				        
 				        try {
 				            printwriter = new PrintWriter(archivo);
 				            String stringleido;
@@ -330,6 +332,7 @@ public class ClientHandler implements Runnable {
 				            //(asi es como está en el txt generado de bitalino)
 				            //tenemos que sustituir todas las comas por \n
 				            String signal = convertCommaIntoLines(stringleido);
+				            
 				            //signal ya esta bien en cuanto a formato, asi que lo escribimos en el fichero
 				            printwriter.println(signal);
 

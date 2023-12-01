@@ -104,7 +104,7 @@ public class JDBCTasksManager implements TaskManager {
 			ResultSet rs = pr.executeQuery();
 
 			while (rs.next()) {
-				int task_id = rs.getInt("task_id");
+				//int task_id = rs.getInt("task_id");
 				String description = rs.getString("description");
 				Integer doctor_id = rs.getInt("doctor_id");
 				Integer duration = rs.getInt("duration");
