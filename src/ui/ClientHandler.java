@@ -286,7 +286,7 @@ public class ClientHandler implements Runnable {
 						//System.out.println(elderly.getName());
 						pw.println(elderly.getName());
 						
-						if(line.contains("seeTasks")) {
+						if(line.contains("seeTasksandId")) {
 							
 							List<Task> listtasks = elderlyManager.seeTaskANDidbyElderly(eld_id);
 							pw.println(""+listtasks.size());
@@ -294,9 +294,10 @@ public class ClientHandler implements Runnable {
 							for (Task listtask : listtasks) {
 								pw.println(listtask);
 
-							}	
+							}
+						}
 						
-						if (line.contains("searchTaskDurationByELDid")){
+							else if (line.contains("searchTaskDurationByELDid")){
 							
 							String task_id_text = br.readLine();
 							int task_id = Integer.parseInt(task_id_text);
@@ -356,9 +357,9 @@ public class ClientHandler implements Runnable {
 
 
 				}
-				}
+			}
 		}
-	}
+	//}
     
     private static String convertCommaIntoLines(String stringleido) {
     	String signal = stringleido.replace(",", "\n");
