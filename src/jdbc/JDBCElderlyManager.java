@@ -193,5 +193,34 @@ public class JDBCElderlyManager implements ElderlyManager {
 		}
 		return tasks;
 	}
+	
+	@Override
+	public List<Task> seeTaskANDidbyElderly(int user_id){
+		
+		List<Task> tasks = new ArrayList<>();
+		try {
+			String sql = "SELECT * FROM Task WHERE elderly_id = ?";
+			PreparedStatement pr = manager.getConnection().prepareStatement(sql);
+			pr.setInt(1, user_id);
 
+			ResultSet rs = pr.executeQuery();
+
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String description = rs.getString("description");
+				int duration = rs.getInt("duration");
+				Task t = new Task(id, description, duration);
+				tasks.add(t);
+			}
+			rs.close();
+			pr.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return tasks;
+		
+		
+	}
+	
+	
 }

@@ -1,5 +1,6 @@
 package jdbc;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Interfaces.TaskManager;
+import POJOS.Elderly;
 import POJOS.Task;
 
 public class JDBCTasksManager implements TaskManager {
@@ -87,5 +89,37 @@ public class JDBCTasksManager implements TaskManager {
 		}
 		return tasks;
 	}
+	
+	
+	//Search task by id
+	@Override
+	public Task getTask(int id_task) {
+		
+		Task task = null;
+		
+		try {
+			String sql = "SELECT * FROM Task WHERE task_id = ?" ;
+			PreparedStatement pr = manager.getConnection().prepareStatement(sql);
+			pr.setInt(1, id_task);
+			ResultSet rs = pr.executeQuery();
+
+			while (rs.next()) {
+				int task_id = rs.getInt("task_id");
+				String description = rs.getString("description");
+				Integer doctor_id = rs.getInt("doctor_id");
+				Integer duration = rs.getInt("duration");
+				Integer elderly_id = rs.getInt("eldely_id");
+				
+				task = new Task(id_task, description, doctor_id, duration, elderly_id);
+				
+			}
+			rs.close();
+			pr.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return task;
+	}
+	
 
 }

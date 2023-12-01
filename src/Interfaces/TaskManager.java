@@ -13,4 +13,6 @@ public interface TaskManager {
 
 	public List<Task> getListOfTasksByDoctorFromElderly(int doctor_id, int elderly_id);
 
+	public Task getTask(int id_task);
+
 }

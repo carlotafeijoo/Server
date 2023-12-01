@@ -273,18 +273,41 @@ public class ClientHandler implements Runnable {
 					
 				}else if(line.contains("searchElderlyNameById")) {
 
-						String id_text = br.readLine();
-						int id = Integer.parseInt(id_text);
+						String eld_id_text = br.readLine();
+						int eld_id = Integer.parseInt(eld_id_text);
 
 						Elderly elderly = null;
 						try {
-							elderly = elderlyManager.searchElderlyById(id);
+							elderly = elderlyManager.searchElderlyById(eld_id);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
 						//System.out.println("elderly"+elderly.toString());
 						//System.out.println(elderly.getName());
 						pw.println(elderly.getName());
+						
+						if(line.contains("seeTasks")) {
+							
+							List<Task> listtasks = elderlyManager.seeTaskANDidbyElderly(eld_id);
+							pw.println(""+listtasks.size());
+							
+							for (Task listtask : listtasks) {
+								pw.println(listtask);
+
+							}	
+						
+						if (line.contains("searchTaskDurationByELDid")){
+							
+							String task_id_text = br.readLine();
+							int task_id = Integer.parseInt(task_id_text);
+							
+							Task task = tasksManager.getTask(task_id);
+							int recordDuration = task.getDuration();
+							
+							pw.println(recordDuration);
+							
+							
+						}
 						
 						//leemos el nombre del fichero
 						String file_name = br.readLine();
@@ -333,8 +356,9 @@ public class ClientHandler implements Runnable {
 
 
 				}
-			}
+				}
 		}
+	}
     
     private static String convertCommaIntoLines(String stringleido) {
     	String signal = stringleido.replace(",", "\n");
