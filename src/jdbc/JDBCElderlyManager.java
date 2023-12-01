@@ -53,7 +53,8 @@ public class JDBCElderlyManager implements ElderlyManager {
 				String name = rs.getString("name");
 				Date dob = rs.getDate("dob");
 				Integer dni = rs.getInt("DNI");
-				elderly = new Elderly(id, name, dni, dob);
+				Integer doctor_id = rs.getInt("doctor_id");
+				elderly = new Elderly(id, name, dni, dob, doctor_id);
 			}
 
 			rs.close();
