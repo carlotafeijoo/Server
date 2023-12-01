@@ -31,7 +31,7 @@ public class JDBCElderlyManager implements ElderlyManager {
 			prep.setDate(2, sqlDate);
 			prep.setInt(3, e.getDni());
 			prep.setInt(4, e.getDoctor_id());
-			System.out.println("mi id of the doctor" + e.getDoctor_id());
+			//System.out.println("mi id of the doctor" + e.getDoctor_id());
 			prep.executeUpdate();
 			prep.close();
 		} catch (Exception exception) {

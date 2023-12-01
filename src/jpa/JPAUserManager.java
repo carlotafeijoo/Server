@@ -78,7 +78,7 @@ public class JPAUserManager implements UserManager {
 
 	@Override
 	public Role getRole(String name) {
-		System.out.println("nameee" + name);
+		//System.out.println("nameee" + name);
 		Query q = em.createNativeQuery("SELECT * FROM Role WHERE name LIKE ?", Role.class);
 		q.setParameter(1, name);
 		Role r = (Role) q.getSingleResult();

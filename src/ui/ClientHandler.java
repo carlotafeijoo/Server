@@ -286,39 +286,38 @@ public class ClientHandler implements Runnable {
 						//System.out.println(elderly.getName());
 						pw.println(elderly.getName());
 						
+						//leemos el nombre del fichero
+						String file_name = br.readLine();
 						
-						//dis = new DataInputStream()
-						
-						String file_name = dis.readUTF().toString();
-						int file_size = dis.readInt();
-						
-						System.out.println("FILE TO BE RECEIVED");
-						
-						String diract = System.getProperty("user.dir"); // find where the program is executing
-			            //String dirfolder = diract +"\\recordstxt";
-						fos = new FileOutputStream(diract);
-						bos = new BufferedOutputStream(fos);
-						//bin = new BufferedInputStream(so.getInputStream());
-						
-						byte[] bytesReceived = new byte[file_size];
-						
-						//file name
-						/*String file = dis.readUTF();
-						file = file.substring(file.indexOf('/')+1, file.length());
-						
-						bos = new BufferedOutputStream(new FileOutputStream(file));
-						int inData;*/
-						
-						for (int i=0; i < bytesReceived.length; i++) {
-							bytesReceived[i] = (byte)bis.read();
-						}
-						
-						/*while((inData = bis.read(bytesReceived)) != -1) {
-							bos.write(inData);
-						}*/
-						
-						System.out.println(bytesReceived);
-					
+				        String diract = System.getProperty("user.dir"); 
+				        String dirfolder = diract +"\\recordstxt";
+				    	
+				    	File archivo = new File(dirfolder, file_name);
+				    	
+				    	// a partir de aqui he usado el codigo de Java para escribir en un fichero
+				        PrintWriter printwriter = null;
+				        try {
+				            printwriter = new PrintWriter(archivo);
+				            String stringleido;
+				            //leemos toda la señal (recordar que esta separada por comas)
+				            stringleido = br.readLine();
+				           
+				            //queremos que los datos se escriban con intros
+				            //(asi es como está en el txt generado de bitalino)
+				            //tenemos que sustituir todas las comas por \n
+				            String signal = convertCommaIntoLines(stringleido);
+				            //signal ya esta bien en cuanto a formato, asi que lo escribimos en el fichero
+				            printwriter.println(signal);
+
+						} catch (IOException ioe) {
+				            System.out.println("Error" + ioe);
+				        } finally {
+				            if (printwriter != null) {
+				                printwriter.close();
+				            }
+
+				        }
+
 				}else if(line.contains("seeTasks")) {
 					
 					String id_text = br.readLine();
@@ -337,7 +336,10 @@ public class ClientHandler implements Runnable {
 			}
 		}
     
-
+    private static String convertCommaIntoLines(String stringleido) {
+    	String signal = stringleido.replace(",", "\n");
+    	return signal;
+    }
 
     private static void releaseResources(PrintWriter printWriter, BufferedReader br, OutputStream outputStream, Socket socket) {
         printWriter.close();
