@@ -205,7 +205,7 @@ public class ClientHandler implements Runnable {
 					String username = br.readLine();
 					String password = br.readLine();
 					String elderly_text = br.readLine();
-					System.out.println(elderly_text);
+					
 
 					MessageDigest md = MessageDigest.getInstance("MD5");
 					md.update(password.getBytes());
@@ -225,6 +225,8 @@ public class ClientHandler implements Runnable {
 						//From elderly OBJECT to elderly TEXT
 						Elderly elderly;
 						elderly = new Elderly(elderly_text);
+						
+						System.out.println("Server main" + elderly);
 
 						//Add elderly to DB
 						elderlyManager.addElderly(elderly);
@@ -232,7 +234,7 @@ public class ClientHandler implements Runnable {
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
-					pw.println("elderly added");
+					//pw.println("elderly added");
 
 
 				}else if(line.contains("searchAllDoctors")) {
@@ -252,13 +254,11 @@ public class ClientHandler implements Runnable {
 
 
 				}else if(line.contains("searchElderlyById")) {
-					//System.out.println("dddd");
+					
 
 					String id_text = br.readLine();
-					//System.out.println("dddd");
-
 					int id = Integer.parseInt(id_text);
-					//System.out.println("dddd");
+					
 
 					Elderly elderly = null;
 					try {
@@ -350,14 +350,16 @@ public class ClientHandler implements Runnable {
 					String id_text = br.readLine();
 					int id_elder = Integer.parseInt(id_text);
 					
-					List<Task> listtasks = elderlyManager.seeTasksbyElderly(id_elder);
-					pw.println(""+listtasks.size());
+					List<Task> list_tasks = elderlyManager.seeTasksbyElderly(id_elder);
+					int size = list_tasks.size();
+					pw.println(""+list_tasks.size());
 					
-					for (Task listtask : listtasks) {
+					
+					for (Task listtask : list_tasks) {
 						pw.println(listtask);
 
 					}
-
+		
 
 				}
 			}
