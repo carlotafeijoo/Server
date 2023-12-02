@@ -22,7 +22,7 @@ public class JDBCElderlyManager implements ElderlyManager {
 	@Override
 	public void addElderly(Elderly e) {
 		try {
-			String sql = "INSERT INTO Elderly (name, dob, DNI, doctor_id) VALUES (?,?,?,?,?)";
+			String sql = "INSERT INTO Elderly (name, dob, DNI, doctor_id) VALUES (?,?,?,?)";
 			// use preparedStmt so nothing damages the database
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			
