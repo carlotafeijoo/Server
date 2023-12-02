@@ -112,7 +112,8 @@ public class JPAUserManager implements UserManager {
 	@Override
 	public boolean checkUsername(String username) {
 		try {
-			Query q = em.createNativeQuery("SELECT * FROM User WHERE username = ?", User.class);
+			//Query q = em.createNativeQuery("SELECT * FROM User WHERE username = ?", User.class);
+			Query q = em.createNativeQuery("SELECT * FROM User WHERE username = ?"+username);
 			q.setParameter(1, username);
 			return !q.getResultList().isEmpty();
 		} catch (Exception e) {

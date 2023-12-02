@@ -15,7 +15,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import Interfaces.DoctorManager;
@@ -133,10 +135,39 @@ public class ClientHandler implements Runnable {
 					MessageDigest md = MessageDigest.getInstance("MD5");
 					md.update(password.getBytes());
 					byte[] digest = md.digest();
-					User u = userManager.checkPassword(username, digest);
+					
+					//User u = userManager.checkUsername(username);
+					
+					User u = userManager.checkPassword(username, digest); //returns a user null
 					try {
+						/*if(u == null) { //CREATE A DOCTOR WITH FIX VALUES THAT A REAL DOCTOR CANT PUT AS TO HAVE A DOCTOR TO RETURN
+							SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+							String dobStr = String.format("%04d-%02d-%02d", 1111, 1, 11);
+							java.util.Date utilDate = dateFormat.parse(dobStr);
+							java.sql.Date dob = new java.sql.Date(utilDate.getTime());
+							Doctor doctor_error = new Doctor("error", 1,  dob,  "error", "error");
+							//doctorManager.addDoctorMember(doctor_error);
+							
+							String name_error = "error";
+							byte [] pass_error = new byte[1];
+							pass_error[0] = 1;
+							User user_null = new User(name_error, pass_error);
+							Role role = userManager.getRole("Doctor");
+							user_null.setRole(role);
+							role.addUser(user_null);
+							userManager.newUser(user_null);//is necesary this line to create a doctor for just control the errors?
+							
+							pw.println(user_null.getRole().toString());
+							pw.println(user_null.toString());
+							
+						}else{
+							pw.println(u.getRole().toString());
+							pw.println(u.toString());
+						}*/
+						
 						pw.println(u.getRole().toString());
 						pw.println(u.toString());
+						
 					}catch(Exception e) {
 						System.out.println("no existe el usuario");
 						e.printStackTrace();
