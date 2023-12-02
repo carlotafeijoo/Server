@@ -139,7 +139,7 @@ public class JDBCElderlyManager implements ElderlyManager {
 		int elderly_id = 0;
 		try {
 			Statement stmt = manager.getConnection().createStatement();
-			String sql = "SELECT Elderly.elderly_id FROM Elderly JOIN User ON Elderly.DNI=User.username WHERE User.id = ?"
+			String sql = "SELECT Elderly.elderly_id FROM Elderly JOIN User ON Elderly.DNI=User.username WHERE User.id= "
 					+ User_id;
 			ResultSet rs = stmt.executeQuery(sql);
 

@@ -323,26 +323,27 @@ public class ClientHandler implements Runnable {
 						//System.out.println("elderly"+elderly.toString());
 						//System.out.println(elderly.getName());
 						pw.println(elderly.getName());
-						
+						line = br.readLine();
 						if(line.contains("seeTasksandId")) {
-							
+							System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 							List<Task> listtasks = elderlyManager.seeTaskANDidbyElderly(eld_id);
+							System.out.println(listtasks);
 							pw.println(""+listtasks.size());
 							
 							for (Task listtask : listtasks) {
-								pw.println(listtask);
+								pw.println(listtask.toString());
 
 							}
 						}
-						
-							else if (line.contains("searchTaskDurationByELDid")){
-							
+						line = br.readLine();
+						if (line.contains("searchTaskDurationByELDid")){
+							//TODO: REVISAR QUE SOLO PUEDA INTRODUCIR UNA TASK QUE LE PERTENECE
 							String task_id_text = br.readLine();
 							int task_id = Integer.parseInt(task_id_text);
-							
+							System.out.println(task_id);
 							Task task = tasksManager.getTask(task_id);
 							int recordDuration = task.getDuration();
-							
+							System.out.println(recordDuration);
 							pw.println(recordDuration);
 							
 							
