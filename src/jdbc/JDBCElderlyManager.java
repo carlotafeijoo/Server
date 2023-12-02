@@ -54,7 +54,7 @@ public class JDBCElderlyManager implements ElderlyManager {
 				Date dob = rs.getDate("dob");
 				Integer dni = rs.getInt("DNI");
 				Integer doctor_id = rs.getInt("doctor_id");
-				elderly = new Elderly(id, name, dni, dob, doctor_id);
+				elderly = new Elderly(elderly_id, name, dni, dob, doctor_id);
 			}
 
 			rs.close();
@@ -117,33 +117,33 @@ public class JDBCElderlyManager implements ElderlyManager {
 		return elderlies;
 	}
 
-	@Override
-	public void assign(int doctor_ID, int elderly_ID) {
-		try {
-			String sql = "INSERT INTO examines (doctorID,elderlyID) VALUES (?,?)";
-			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setInt(1, doctor_ID);
-			prep.setInt(2, elderly_ID);
-
-			prep.executeUpdate();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
+//	@Override
+//	public void assign(int doctor_ID, int elderly_ID) {
+//		try {
+//			String sql = "INSERT INTO examines (doctorID,elderlyID) VALUES (?,?)";
+//			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+//			prep.setInt(1, doctor_ID);
+//			prep.setInt(2, elderly_ID);
+//
+//			prep.executeUpdate();
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//	}
 
 	@Override
 	// get Doctor_id from user id -> for login
 	public int searchElderlyIdfromUId(int User_id) {
-		int doctor_id = 0;
+		int elderly_id = 0;
 		try {
 			Statement stmt = manager.getConnection().createStatement();
-			String sql = "SELECT Elderly.elderly_id FROM Elderly JOIN User ON Elderly.DNI=User.username WHERE User.id= "
+			String sql = "SELECT Elderly.elderly_id FROM Elderly JOIN User ON Elderly.DNI=User.username WHERE User.id = ?"
 					+ User_id;
 			ResultSet rs = stmt.executeQuery(sql);
 
-			doctor_id = rs.getInt("elderly_id");
+			elderly_id = rs.getInt("elderly_id");
 
 			rs.close();
 			stmt.close();
@@ -151,7 +151,7 @@ public class JDBCElderlyManager implements ElderlyManager {
 			e.printStackTrace();
 		}
 
-		return doctor_id;
+		return elderly_id;
 
 	}
 

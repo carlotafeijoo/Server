@@ -261,7 +261,10 @@ public class ClientHandler implements Runnable {
 						Elderly elderly;
 						elderly = new Elderly(elderly_text);
 						
-						System.out.println("Server main" + elderly);
+						//ESTO ESTA MAL
+						//va a imprimir un elderly_id = 0 porque aqui no esta mandando ningun id al constructor y tampoco pasa por la base de datos antes de imprimirlo
+						//System.out.println("Server main" + elderly);
+						//mirar en la base de datos que se haya metido bien (pero eso si que funciona)
 
 						//Add elderly to DB
 						elderlyManager.addElderly(elderly);
@@ -269,7 +272,7 @@ public class ClientHandler implements Runnable {
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
-					//pw.println("elderly added");
+					pw.println("elderly added");
 
 
 				}else if(line.contains("searchAllDoctors")) {

@@ -12,8 +12,8 @@ public interface ElderlyManager {
 
 	public Elderly searchElderlyById(int id) throws Exception;
 
-	// Assign a elderly to a staff member to a elderly
-	public void assign(int staff_ID, int elderly_ID);
+//	// Assign a elderly to a staff member to a elderly
+//	public void assign(int staff_ID, int elderly_ID);
 
 	// Update info from elderly
 	public void updateInfo(Elderly e);
