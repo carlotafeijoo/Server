@@ -140,8 +140,8 @@ public class ClientHandler implements Runnable {
 					
 					User u = userManager.checkPassword(username, digest); //returns a user null
 					try {
-						/*if(u == null) { //CREATE A DOCTOR WITH FIX VALUES THAT A REAL DOCTOR CANT PUT AS TO HAVE A DOCTOR TO RETURN
-							SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+						if(u == null) { //CREATE A DOCTOR WITH FIX VALUES THAT A REAL DOCTOR CANT PUT AS TO HAVE A DOCTOR TO RETURN
+							/*SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 							String dobStr = String.format("%04d-%02d-%02d", 1111, 1, 11);
 							java.util.Date utilDate = dateFormat.parse(dobStr);
 							java.sql.Date dob = new java.sql.Date(utilDate.getTime());
@@ -158,15 +158,19 @@ public class ClientHandler implements Runnable {
 							userManager.newUser(user_null);//is necesary this line to create a doctor for just control the errors?
 							
 							pw.println(user_null.getRole().toString());
-							pw.println(user_null.toString());
+							pw.println(user_null.toString());*/
+							Role role = userManager.getRole("Doctor");
+							pw.println(role.toString());
+							pw.println("error");
 							
 						}else{
 							pw.println(u.getRole().toString());
 							pw.println(u.toString());
-						}*/
+						}
 						
+						/*ORIGINAL
 						pw.println(u.getRole().toString());
-						pw.println(u.toString());
+						pw.println(u.toString());*/
 						
 					}catch(Exception e) {
 						System.out.println("no existe el usuario");
