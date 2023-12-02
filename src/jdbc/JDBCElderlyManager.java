@@ -222,6 +222,32 @@ public class JDBCElderlyManager implements ElderlyManager {
 		
 		
 	}
+	public boolean checkAlreadyUsedDNI(int username) {
+		boolean result = false;
+		try {
+			String sql = "SELECT * FROM  Eldely WHERE dni= ?";
+			PreparedStatement pr = manager.getConnection().prepareStatement(sql);
+			pr.setInt(1, username);
+			ResultSet rs = pr.executeQuery();
+			int registered = rs.getInt("dni");
+			if (registered == username) {
+
+				result = true;
+				pr.close();
+				rs.close();
+			} else {
+				result = false;
+				pr.close();
+				rs.close();
+			}
+
+		} catch (Exception e) {
+			System.out.println("Validated username");
+		}
+
+		return result;
+	}
+	
 	
 	
 }

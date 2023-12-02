@@ -27,5 +27,7 @@ public interface ElderlyManager {
 	public List<Task> seeTasksbyElderly(int user_id);
 
 	public List<Task> seeTaskANDidbyElderly(int id_elderly);
+	
+	public boolean checkAlreadyUsedDNI(int username);
 
 }

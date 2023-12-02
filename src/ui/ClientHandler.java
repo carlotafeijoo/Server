@@ -238,6 +238,11 @@ public class ClientHandler implements Runnable {
 					System.out.println(line);
 
 					String username = br.readLine();
+					int user = Integer.parseInt(username);
+					boolean check = elderlyManager.checkAlreadyUsedDNI(user);
+					if (check == false){
+						pw.println("Register uncompleted: DNI already in use, try to log in instead \n");
+					} else {
 					String password = br.readLine();
 					String elderly_text = br.readLine();
 					
@@ -273,7 +278,7 @@ public class ClientHandler implements Runnable {
 						e.printStackTrace();
 					}
 					pw.println("elderly added");
-
+					}
 
 				}else if(line.contains("searchAllDoctors")) {
 					ArrayList<Doctor> doctores = doctorManager.searchAllDoctors();
