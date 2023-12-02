@@ -132,5 +132,29 @@ public class JDBCDoctorManager implements DoctorManager {
 
 		return listaDoctores;
 	}
+	public boolean checkAlreadyUsedDNIDoc(String username) {
+		boolean result = false;
+		try {
+			String sql = "SELECT * FROM  Doctor WHERE email LIKE ?";
+			PreparedStatement pr = Doctormanager.getConnection().prepareStatement(sql);
+			pr.setString(1, "%" + username + "%");
+			ResultSet rs = pr.executeQuery();
+			String registered = rs.getString("email");
+			if (registered.equalsIgnoreCase(username)) {
 
+				result = true;
+				pr.close();
+				rs.close();
+			} else {
+				result = false;
+				pr.close();
+				rs.close();
+			}
+
+		} catch (Exception e) {
+			System.out.println("Validated username");
+		}
+
+		return result;
+	}
 }

@@ -96,6 +96,10 @@ public class ClientHandler implements Runnable {
 					System.out.println(line);
 
 					String username = br.readLine();
+					boolean check = doctorManager.checkAlreadyUsedDNIDoc(username);
+					if (check == false){
+						pw.println("Register uncompleted: email already in use, try to log in instead /n");
+					} else {
 					String password = br.readLine();
 					String doctor_text = br.readLine();
 					System.out.println(doctor_text);
@@ -128,7 +132,7 @@ public class ClientHandler implements Runnable {
 					}
 					pw.println("doctor added");
 
-
+					}
 				}else if(line.contains("checkPassword")) {
 					String username = br.readLine();
 					String password = br.readLine();

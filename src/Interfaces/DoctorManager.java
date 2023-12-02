@@ -16,5 +16,7 @@ public interface DoctorManager {
 	public void updateDoctorMemberInfo(Doctor Doctormember);
 
 	public ArrayList<Doctor> searchAllDoctors();
+	
+	public boolean checkAlreadyUsedDNIDoc(String username);
 
 }
