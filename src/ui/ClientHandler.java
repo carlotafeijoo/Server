@@ -333,34 +333,33 @@ public class ClientHandler implements Runnable {
 							e.printStackTrace();
 						}
 						//System.out.println("elderly"+elderly.toString());
-						//System.out.println(elderly.getName());
+						System.out.println(elderly.getName());
 						pw.println(elderly.getName());
-						line = br.readLine();
-						if(line.contains("seeTasksandId")) {
-							//System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-							List<Task> listtasks = elderlyManager.seeTaskANDidbyElderly(eld_id);
-							System.out.println(listtasks);
-							pw.println(""+listtasks.size());
-							
-							for (Task listtask : listtasks) {
-								pw.println(listtask.toString());
-
-							}
-						}
-						line = br.readLine();
-						if (line.contains("searchTaskDurationByELDid")){
-							//TODO: REVISAR QUE SOLO PUEDA INTRODUCIR UNA TASK QUE LE PERTENECE
-							String task_id_text = br.readLine();
-							int task_id = Integer.parseInt(task_id_text);
-							System.out.println(task_id);
-							Task task = tasksManager.getTask(task_id);
-							int recordDuration = task.getDuration();
-							System.out.println(recordDuration);
-							pw.println(recordDuration);
-							
-							
-						}
 						
+				}else if(line.contains("seeTasksandId")) {
+						String eld_id_text = br.readLine();
+						int eld_id = Integer.parseInt(eld_id_text);
+						System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+						List<Task> listtasks = elderlyManager.seeTaskANDidbyElderly(eld_id);
+						System.out.println(listtasks);
+						pw.println(""+listtasks.size());
+							
+						for (Task listtask : listtasks) {
+							pw.println(listtask.toString());
+						}
+				}else if (line.contains("searchTaskDurationByELDid")){
+						//TODO: REVISAR QUE SOLO PUEDA INTRODUCIR UNA TASK QUE LE PERTENECE
+						String task_id_text = br.readLine();
+						int task_id = Integer.parseInt(task_id_text);
+						System.out.println(task_id);
+						Task task = tasksManager.getTask(task_id);
+						int recordDuration = task.getDuration();
+						System.out.println(recordDuration);
+						pw.println(recordDuration);
+							
+							
+				}else if(line.contains("storeRecord")) {
+						System.out.println(line);
 						//leemos el nombre del fichero
 						String file_name = br.readLine();
 						

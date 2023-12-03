@@ -108,7 +108,7 @@ public class JDBCTasksManager implements TaskManager {
 				String description = rs.getString("description");
 				Integer doctor_id = rs.getInt("doctor_id");
 				Integer duration = rs.getInt("duration");
-				Integer elderly_id = rs.getInt("eldely_id");
+				Integer elderly_id = rs.getInt("elderly_id");
 				
 				task = new Task(id_task, description, doctor_id, duration, elderly_id);
 				

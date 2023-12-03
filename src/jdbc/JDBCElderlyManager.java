@@ -210,7 +210,7 @@ public class JDBCElderlyManager implements ElderlyManager {
 			ResultSet rs = pr.executeQuery();
 
 			while (rs.next()) {
-				int id = rs.getInt("id");
+				int id = rs.getInt("task_id");
 				String description = rs.getString("description");
 				int duration = rs.getInt("duration");
 				Task t = new Task(id, description, duration);
