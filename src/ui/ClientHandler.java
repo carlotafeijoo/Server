@@ -97,8 +97,8 @@ public class ClientHandler implements Runnable {
 
 					String username = br.readLine();
 					boolean check = doctorManager.checkAlreadyUsedDNIDoc(username);
-					if (check == false){
-						pw.println("Register uncompleted: email already in use, try to log in instead /n");
+					if (check == true){
+						pw.println("Register uncompleted: email already in use, try to log in instead");
 					} else {
 					String password = br.readLine();
 					String doctor_text = br.readLine();
@@ -244,45 +244,46 @@ public class ClientHandler implements Runnable {
 					String username = br.readLine();
 					int user = Integer.parseInt(username);
 					boolean check = elderlyManager.checkAlreadyUsedDNI(user);
-					if (check == false){
-						pw.println("Register uncompleted: DNI already in use, try to log in instead \n");
+					System.out.println(check);
+					if (check == true){
+						pw.println("Register uncompleted: DNI already in use, try to log in instead");
 					} else {
-					String password = br.readLine();
-					String elderly_text = br.readLine();
-					
-
-					MessageDigest md = MessageDigest.getInstance("MD5");
-					md.update(password.getBytes());
-					byte[] digest = md.digest();
-
-					// CREATE elderly AND ADD TO JPA
-					User u = new User(username, digest);
-
-					Role role = userManager.getRole("Elderly");
-					u.setRole(role);
-					role.addUser(u);
-					userManager.newUser(u);
-					
-					// Receive elderly
-					try {
-
-						//From elderly OBJECT to elderly TEXT
-						Elderly elderly;
-						elderly = new Elderly(elderly_text);
+						String password = br.readLine();
+						String elderly_text = br.readLine();
 						
-						//ESTO ESTA MAL
-						//va a imprimir un elderly_id = 0 porque aqui no esta mandando ningun id al constructor y tampoco pasa por la base de datos antes de imprimirlo
-						//System.out.println("Server main" + elderly);
-						//mirar en la base de datos que se haya metido bien (pero eso si que funciona)
-
-						//Add elderly to DB
-						elderlyManager.addElderly(elderly);
-
-					} catch (ParseException e) {
-						e.printStackTrace();
-					}
-					pw.println("elderly added");
-					}
+	
+						MessageDigest md = MessageDigest.getInstance("MD5");
+						md.update(password.getBytes());
+						byte[] digest = md.digest();
+	
+						// CREATE elderly AND ADD TO JPA
+						User u = new User(username, digest);
+	
+						Role role = userManager.getRole("Elderly");
+						u.setRole(role);
+						role.addUser(u);
+						userManager.newUser(u);
+						
+						// Receive elderly
+						try {
+	
+							//From elderly OBJECT to elderly TEXT
+							Elderly elderly;
+							elderly = new Elderly(elderly_text);
+							
+							//ESTO ESTA MAL
+							//va a imprimir un elderly_id = 0 porque aqui no esta mandando ningun id al constructor y tampoco pasa por la base de datos antes de imprimirlo
+							//System.out.println("Server main" + elderly);
+							//mirar en la base de datos que se haya metido bien (pero eso si que funciona)
+	
+							//Add elderly to DB
+							elderlyManager.addElderly(elderly);
+	
+						} catch (ParseException e) {
+							e.printStackTrace();
+						}
+						pw.println("elderly added");
+						}
 
 				}else if(line.contains("searchAllDoctors")) {
 					ArrayList<Doctor> doctores = doctorManager.searchAllDoctors();
@@ -399,7 +400,6 @@ public class ClientHandler implements Runnable {
 					int id_elder = Integer.parseInt(id_text);
 					
 					List<Task> list_tasks = elderlyManager.seeTasksbyElderly(id_elder);
-					int size = list_tasks.size();
 					pw.println(""+list_tasks.size());
 					
 					

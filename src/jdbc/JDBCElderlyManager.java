@@ -184,7 +184,10 @@ public class JDBCElderlyManager implements ElderlyManager {
 			while (rs.next()) {
 				String description = rs.getString("description");
 				int duration = rs.getInt("duration");
-				Task t = new Task(description, duration);
+				int doctor_id = rs.getInt("doctor_id");
+				int task_id= rs.getInt("task_id");
+				int elderly_id = rs.getInt("elderly_id");
+				Task t = new Task(task_id, description, doctor_id, duration,elderly_id);
 				tasks.add(t);
 			}
 			rs.close();
@@ -225,11 +228,12 @@ public class JDBCElderlyManager implements ElderlyManager {
 	public boolean checkAlreadyUsedDNI(int username) {
 		boolean result = false;
 		try {
-			String sql = "SELECT * FROM  Eldely WHERE dni= ?";
+			String sql = "SELECT * FROM  Elderly WHERE DNI= ?";
 			PreparedStatement pr = manager.getConnection().prepareStatement(sql);
 			pr.setInt(1, username);
 			ResultSet rs = pr.executeQuery();
-			int registered = rs.getInt("dni");
+			int registered = rs.getInt("DNI");
+			
 			if (registered == username) {
 
 				result = true;
