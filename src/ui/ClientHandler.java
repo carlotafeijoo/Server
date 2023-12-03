@@ -51,7 +51,9 @@ public class ClientHandler implements Runnable {
 
     @Override
     public void run() {
+    	
         try {
+        	
             handleClientConnection();
         } catch (IOException | NoSuchAlgorithmException | ParseException e) {
             e.printStackTrace();
@@ -60,36 +62,53 @@ public class ClientHandler implements Runnable {
     
     private void handleClientConnection() throws IOException, NoSuchAlgorithmException, ParseException {
     	
-    	 BufferedReader br = new BufferedReader(new InputStreamReader(so.getInputStream()));
-         OutputStream os = so.getOutputStream();
-         PrintWriter pw = new PrintWriter(os, true);
-         DataInputStream dis = new DataInputStream(so.getInputStream());
-         BufferedInputStream bis = new BufferedInputStream(so.getInputStream());
-         BufferedOutputStream bos = null;
-         FileOutputStream fos = null;
+		BufferedReader br = new BufferedReader(new InputStreamReader(so.getInputStream()));
+	    OutputStream os = so.getOutputStream();
+	    PrintWriter pw = new PrintWriter(os, true);
+	    DataInputStream dis = new DataInputStream(so.getInputStream());
+	    BufferedInputStream bis = new BufferedInputStream(so.getInputStream());
+	    BufferedOutputStream bos = null;
+	    FileOutputStream fos = null;
+	     
+	    String control_sms_on = "MODE: [Server accessible]";
+		String control_sms_sb = "MODE: [Server in standby]";
+		
+		if (ServerMain.clientCounter==0) {
+			pw.println(control_sms_sb);
+			
+		}else {
+			pw.println(control_sms_on);
+		}
+     	//pw.println(control_sms_on);
          
-         System.out.println(ServerMain.clientCounter + " :num clients");
+         System.out.println(ServerMain.clientCounter + " :number of clients");
 
-			String line;
-
+         String line;
+			
 			while ((line = br.readLine()) != null) {
 				//System.out.println(line);
 				
+				//System.out.println("Server accessible");
+		     	
 				if (line.contains("stop")) {
 					
 					releaseResources(pw, br, os, so);
 					System.out.println("Conexion with the client ended");
 					
 					ServerMain.clientCounter--;
-					System.out.println(ServerMain.clientCounter + "eliminado");
+					System.out.println(" There are " + ServerMain.clientCounter + " clients connected");
 					
 					if (ServerMain.clientCounter==0) {
+						
+						System.out.println("\nServer in standby mode");
+						pw.println(control_sms_sb);
+						
 						ServerMain.switchServerOFF();
 					}
 
 					break;
 				}
-
+				
 				//DOCTOR
 				else if (line.contains("addDoctor")) {// Client wants to add a doctor
 
@@ -144,25 +163,7 @@ public class ClientHandler implements Runnable {
 					
 					User u = userManager.checkPassword(username, digest); //returns a user null
 					try {
-						if(u == null) { //CREATE A DOCTOR WITH FIX VALUES THAT A REAL DOCTOR CANT PUT AS TO HAVE A DOCTOR TO RETURN
-							/*SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-							String dobStr = String.format("%04d-%02d-%02d", 1111, 1, 11);
-							java.util.Date utilDate = dateFormat.parse(dobStr);
-							java.sql.Date dob = new java.sql.Date(utilDate.getTime());
-							Doctor doctor_error = new Doctor("error", 1,  dob,  "error", "error");
-							//doctorManager.addDoctorMember(doctor_error);
-							
-							String name_error = "error";
-							byte [] pass_error = new byte[1];
-							pass_error[0] = 1;
-							User user_null = new User(name_error, pass_error);
-							Role role = userManager.getRole("Doctor");
-							user_null.setRole(role);
-							role.addUser(user_null);
-							userManager.newUser(user_null);//is necesary this line to create a doctor for just control the errors?
-							
-							pw.println(user_null.getRole().toString());
-							pw.println(user_null.toString());*/
+						if(u == null) { 
 							Role role = userManager.getRole("Doctor");
 							pw.println(role.toString());
 							pw.println("error");
@@ -177,7 +178,7 @@ public class ClientHandler implements Runnable {
 						pw.println(u.toString());*/
 						
 					}catch(Exception e) {
-						System.out.println("no existe el usuario");
+						System.out.println("User does not exist");
 						e.printStackTrace();
 					}
 
@@ -335,7 +336,7 @@ public class ClientHandler implements Runnable {
 						pw.println(elderly.getName());
 						line = br.readLine();
 						if(line.contains("seeTasksandId")) {
-							System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+							//System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 							List<Task> listtasks = elderlyManager.seeTaskANDidbyElderly(eld_id);
 							System.out.println(listtasks);
 							pw.println(""+listtasks.size());

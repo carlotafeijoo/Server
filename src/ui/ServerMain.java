@@ -93,7 +93,8 @@ public class ServerMain {
 
 	public static void serverMainON()throws IOException, NoSuchAlgorithmException, ParseException{
 			
-		System.out.println("SERVER");
+		System.out.println("SERVER ACTIVE");
+		System.out.println("Database connection openned.\n");
 		
 		//Server connects to DB
 		JDBCManager jdbcManager = new JDBCManager();
@@ -109,19 +110,17 @@ public class ServerMain {
 		
 		while (true) {
 			
-		
 			Socket so = sso.accept();
 			
 			ServerMain.clientCounter++;
-			//System.out.println(ServerPrueba.clientCounter + "anadido");
 				
-			System.out.println("Cliente conectado");
+			System.out.println("\nClient connected");
 			
 			// Server: reads and sends lines
 			 ClientHandler clientHandler = new ClientHandler(so, userManager, doctorManager, elderlyManager, tasksManager);
 	         Thread clientThread = new Thread(clientHandler);
 	         clientThread.start();
-	          
+  
         }
 
 	}
@@ -151,7 +150,8 @@ public class ServerMain {
 					break;
 
 				default:
-					break;
+					System.out.println("\nPlease introduce option 1 or 2.\n");
+					switchServerOFF();
 				}
 			} while (true);
 
