@@ -52,6 +52,7 @@ public class ServerMain {
 
 	private static TaskManager tasksManager;
 	
+	static int socketPort = 9009;
 	
 	public static void main(String[] args) {
 		
@@ -69,7 +70,7 @@ public class ServerMain {
 				switch (option) {
 
 				case 1:
-					sso = new ServerSocket(9009);
+					sso = new ServerSocket(socketPort);
 					serverMainON();
 					break;
 
@@ -127,6 +128,7 @@ public class ServerMain {
 	
 	public static void switchServerOFF()throws IOException, NoSuchAlgorithmException, ParseException{
 		
+		
 		try {
 
 			int option;
@@ -146,6 +148,13 @@ public class ServerMain {
 					break;
 
 				case 2:
+					
+					if (socketPort == 9009) {
+						socketPort = 9000;
+					}else {
+						socketPort = 9009;
+					}
+					sso = new ServerSocket(socketPort);
 					serverMainON();
 					break;
 

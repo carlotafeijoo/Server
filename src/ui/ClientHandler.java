@@ -104,6 +104,7 @@ public class ClientHandler implements Runnable {
 						System.out.println("\nServer in standby mode");
 						//pw.println(control_sms_sb); //Cambios para lo del stand by 
 						
+						//releaseResources(pw, br, os, so);
 						ServerMain.switchServerOFF();
 					}
 
