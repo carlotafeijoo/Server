@@ -70,6 +70,7 @@ public class ClientHandler implements Runnable {
 	    BufferedOutputStream bos = null;
 	    FileOutputStream fos = null;
 	     
+	    /*TODO Cambios para lo del stand by
 	    String control_sms_on = "MODE: [Server accessible]";
 		String control_sms_sb = "MODE: [Server in standby]";
 		
@@ -78,7 +79,7 @@ public class ClientHandler implements Runnable {
 			
 		}else {
 			pw.println(control_sms_on);
-		}
+		}*/
      	//pw.println(control_sms_on);
          
          System.out.println(ServerMain.clientCounter + " :number of clients");
@@ -101,7 +102,7 @@ public class ClientHandler implements Runnable {
 					if (ServerMain.clientCounter==0) {
 						
 						System.out.println("\nServer in standby mode");
-						pw.println(control_sms_sb);
+						//pw.println(control_sms_sb); //Cambios para lo del stand by 
 						
 						ServerMain.switchServerOFF();
 					}
