@@ -4,10 +4,13 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import Interfaces.ReportManager;
 import POJOS.Elderly;
 import POJOS.Report;
+import POJOS.Task;
 
 
 public class JDBCReportManager implements ReportManager {
@@ -62,7 +65,30 @@ public class JDBCReportManager implements ReportManager {
 		}
 	}
 	
-	
+	public List<Report> getListOfReportsByDoctorFromElderly(int elderly_id) {
+		List<Task> tasks = new ArrayList<>();
+		try {
+			String sql = "SELECT * FROM Report WHERE elderly_id = ?" ;
+			PreparedStatement pr = ReportManager.getConnection().prepareStatement(sql);
+			pr.setInt(1, elderly_id);
+			ResultSet rs = pr.executeQuery();
+
+			while (rs.next()) {
+				Integer id = rs.getInt("task_id");
+				String description = rs.getString("description");
+				Integer doc_id = rs.getInt("doctor_id");
+				Integer elder_id = rs.getInt("elderly_id");
+				Integer dur = rs.getInt("duration");
+				Task task = new Task(id,description,doc_id,dur,elder_id);
+				tasks.add(task);
+			}
+			rs.close();
+			pr.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return tasks;
+	}
 
 }
 

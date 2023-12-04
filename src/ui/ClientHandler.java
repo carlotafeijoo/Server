@@ -221,6 +221,18 @@ public class ClientHandler implements Runnable {
 					for (Task listtask : listtasks) {
 						pw.println(listtask);
 					}
+				}else if(line.contains("getListOfReportsByDoctorFromElder")) {
+						//HACER
+						String id_text = br.readLine();
+						int id_doc = Integer.parseInt(id_text);
+						String id_text2 = br.readLine();
+						int id_elder = Integer.parseInt(id_text2);
+						List<Report> listreports = reportManager.getListOfReportsByDoctorFromElderly(id_elder);
+						pw.println(""+listreports.size());
+						for (Report listreport : listreports) {
+							pw.println(listreport);
+						}
+
 
 				}else if(line.contains("getListOfElderlyByDoctorID")) {
 					//HACER
