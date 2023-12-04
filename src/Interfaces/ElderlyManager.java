@@ -27,4 +27,6 @@ public interface ElderlyManager {
 	
 	public boolean checkAlreadyUsedDNI(int username);
 
+	public void addSymptoms(int elderly_id);
+
 }

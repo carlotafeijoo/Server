@@ -38,6 +38,20 @@ public class JDBCElderlyManager implements ElderlyManager {
 			exception.printStackTrace();
 		}
 	}
+	
+	@Override
+	public void addSymptoms(int elderly_id) {
+		
+		try {
+			String sql = "INSERT INTO Elderly (symptoms) WHERE elderly_id = ? VALUES (?) ";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			
+			prep.setString(1, sql);
+		}
+		
+		
+	}
+
 
 	@Override
 	public Elderly searchElderlyById(int id) throws Exception {
