@@ -117,21 +117,7 @@ public class JDBCElderlyManager implements ElderlyManager {
 		return elderlies;
 	}
 
-//	@Override
-//	public void assign(int doctor_ID, int elderly_ID) {
-//		try {
-//			String sql = "INSERT INTO examines (doctorID,elderlyID) VALUES (?,?)";
-//			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-//			prep.setInt(1, doctor_ID);
-//			prep.setInt(2, elderly_ID);
-//
-//			prep.executeUpdate();
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//
-//	}
+
 
 	@Override
 	// get Doctor_id from user id -> for login

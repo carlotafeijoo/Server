@@ -85,7 +85,7 @@ public class ServerMain {
 			} while (true);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(" ");
 		}
 
 	}
@@ -130,6 +130,8 @@ public class ServerMain {
 		
 		
 		try {
+			
+			sso.close();
 
 			int option;
 			do {
@@ -149,11 +151,6 @@ public class ServerMain {
 
 				case 2:
 					
-					if (socketPort == 9009) {
-						socketPort = 9000;
-					}else {
-						socketPort = 9009;
-					}
 					sso = new ServerSocket(socketPort);
 					serverMainON();
 					break;
@@ -164,7 +161,7 @@ public class ServerMain {
 				}
 			} while (true);
 
-		} catch (Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
