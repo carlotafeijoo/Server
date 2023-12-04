@@ -16,6 +16,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import Interfaces.DoctorManager;
@@ -61,6 +62,24 @@ public class ServerMain {
 	static int socketPort = 9009;
 	
 	public static void main(String[] args) {
+				
+	/*		
+	Date d= new Date(2001,6,21);
+	//Elderly elderly = new Elderly(30,"Pepe", 343536, 12, d, "chest pain");
+	//System.out.println(elderly);
+	
+	JDBCManager jdbcManager = new JDBCManager();
+
+	// initialize database JDBC
+	ElderlyManager elderlyManager = new JDBCElderlyManager(jdbcManager);
+
+	String syp= "aaa";
+	
+	Elderly elder = new Elderly("Manuela", 343536, 1, d, "chest pain");
+	elderlyManager.addElderly(elder);
+	elderlyManager.addSymptoms(elder, syp);
+	System.out.println(elder);
+	*/
 		
 		try {
 

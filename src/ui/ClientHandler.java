@@ -74,18 +74,7 @@ public class ClientHandler implements Runnable {
 	    BufferedInputStream bis = new BufferedInputStream(so.getInputStream());
 	    BufferedOutputStream bos = null;
 	    FileOutputStream fos = null;
-	     
-	    /*TODO Cambios para lo del stand by
-	    String control_sms_on = "MODE: [Server accessible]";
-		String control_sms_sb = "MODE: [Server in standby]";
-		
-		if (ServerMain.clientCounter==0) {
-			pw.println(control_sms_sb);
-			
-		}else {
-			pw.println(control_sms_on);
-		}*/
-     	//pw.println(control_sms_on);
+	 
          
          System.out.println(ServerMain.clientCounter + " :number of clients");
 
@@ -210,6 +199,16 @@ public class ClientHandler implements Runnable {
 					Doctor doctorToUpdate = new Doctor(doctorObject_string);
 					doctorManager.updateDoctorMemberInfo(doctorToUpdate);
 
+					
+				}else if(line.contains("seeSymptoms")) {
+					
+					String eld_id_txt = br.readLine();
+					int eld_id = Integer.parseInt(eld_id_txt);
+					
+					String symp = elderlyManager.seeSymptoms(eld_id);
+					pw.println(symp);
+
+					
 				}else if(line.contains("getListOfTasksByDoctorFromElder")) {
 					//HACER
 					String id_text = br.readLine();
@@ -227,11 +226,11 @@ public class ClientHandler implements Runnable {
 						int id_doc = Integer.parseInt(id_text);
 						String id_text2 = br.readLine();
 						int id_elder = Integer.parseInt(id_text2);
-						List<Report> listreports = reportManager.getListOfReportsByDoctorFromElderly(id_elder);
+						/*List<Report> listreports = reportManager.getListOfReportsByDoctorFromElderly(id_elder);
 						pw.println(""+listreports.size());
 						for (Report listreport : listreports) {
 							pw.println(listreport);
-						}
+						}*/
 
 
 				}else if(line.contains("getListOfElderlyByDoctorID")) {
@@ -437,6 +436,12 @@ public class ClientHandler implements Runnable {
 					}
 		
 
+				}else if(line.contains("addSymptoms")) {
+					
+					int e_id = Integer.parseInt(br.readLine());
+					String symptom = br.readLine();
+					
+					elderlyManager.addSymptoms(e_id, symptom);
 				}
 			}
 		}

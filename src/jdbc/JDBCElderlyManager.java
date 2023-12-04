@@ -22,7 +22,7 @@ public class JDBCElderlyManager implements ElderlyManager {
 	@Override
 	public void addElderly(Elderly e) {
 		try {
-			String sql = "INSERT INTO Elderly (name, dob, DNI, doctor_id) VALUES (?,?,?,?)";
+			String sql = "INSERT INTO Elderly (name, dob, DNI, doctor_id, symptoms) VALUES (?,?,?,?,?)";
 			// use preparedStmt so nothing damages the database
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			
@@ -31,6 +31,8 @@ public class JDBCElderlyManager implements ElderlyManager {
 			prep.setDate(2, sqlDate);
 			prep.setInt(3, e.getDni());
 			prep.setInt(4, e.getDoctor_id());
+			prep.setString(5, e.getSymptoms());
+			
 			//System.out.println("mi id of the doctor" + e.getDoctor_id());
 			prep.executeUpdate();
 			prep.close();
@@ -40,17 +42,52 @@ public class JDBCElderlyManager implements ElderlyManager {
 	}
 	
 	@Override
-	public void addSymptoms(int elderly_id) {
+	public void addSymptoms(int eld_id, String symp) {
 		
 		try {
-			String sql = "INSERT INTO Elderly (symptoms) WHERE elderly_id = ? VALUES (?) ";
+			String sql = "UPDATE Elderly SET symptoms=CONCAT_WS(symptoms,?) WHERE elderly_id=?";
+			//set @sql_text = concat('insert into tblEvents (AccountId, EventTableId, EventTable, EventBasic, EventFull, EventDate, UserId) values(?, ?, ?, ?, ?, ?,?)');
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			
-			prep.setString(1, sql);
-		}
-		
+			prep.setString(1, symp);
+			prep.setInt(2, eld_id);
+			
+			prep.executeUpdate();
+			prep.close();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		
 	}
+	
+	@Override
+	public String seeSymptoms(int eld_id) {
+		
+		String symptoms = null;
+		
+		try {
+			String sql = "SELECT symptoms FROM Elderly WHERE elderly_id=?";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			
+			PreparedStatement pr = manager.getConnection().prepareStatement(sql);
+			pr.setInt(1, eld_id);
+			ResultSet rs = pr.executeQuery();
+			
+			while(rs.next()) {
+				symptoms = rs.getString("symptoms");
+			}
+			
+			rs.close();
+			pr.close();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		return symptoms;
+		
+	}
+		
 
 
 	@Override
@@ -68,7 +105,8 @@ public class JDBCElderlyManager implements ElderlyManager {
 				Date dob = rs.getDate("dob");
 				Integer dni = rs.getInt("DNI");
 				Integer doctor_id = rs.getInt("doctor_id");
-				elderly = new Elderly(elderly_id, name, dni, dob, doctor_id);
+				String symptoms = rs.getString("symptoms");
+				elderly = new Elderly(elderly_id, name, dni, doctor_id ,dob, symptoms);
 			}
 
 			rs.close();
@@ -94,9 +132,11 @@ public class JDBCElderlyManager implements ElderlyManager {
 				String name = rs.getString("name");
 				Date dob = rs.getDate("dob");
 				Integer dni = rs.getInt("DNI");
-				Elderly elderly = new Elderly(id, name, dni, dob);
+				String symptoms = rs.getNString("symptoms");
+				Elderly elderly = new Elderly(id, name, dni, dob, symptoms);
 				elderlies.add(elderly);
 			}
+			
 			rs.close();
 			pr.close();
 		} catch (SQLException e) {
@@ -120,7 +160,8 @@ public class JDBCElderlyManager implements ElderlyManager {
 				String name = rs.getString("name");
 				Date dob = rs.getDate("dob");
 				Integer dni = rs.getInt("DNI");
-				Elderly elderly = new Elderly(id, name, dni, dob);
+				String symptoms = rs.getString("symptoms");
+				Elderly elderly = new Elderly(id, name, dni, dob, symptoms);
 				elderlies.add(elderly);
 			}
 			rs.close();
@@ -251,7 +292,11 @@ public class JDBCElderlyManager implements ElderlyManager {
 
 		return result;
 	}
+
+
 	
 	
-	
-}
+	}
+
+
+

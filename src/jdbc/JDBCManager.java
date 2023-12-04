@@ -50,7 +50,7 @@ public class JDBCManager {
 			// TABLE ELDERLY (OK)
 			String sql = "CREATE TABLE Elderly (" + "	elderly_id	    INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ "	name			TEXT NOT NULL," + "	dob			DATE," + "DNI          INTEGER NOT NULL,"
-					+ " doctor_id		INTEGER REFERENCES Doctor(doctor_id)" + ");";
+					+ " doctor_id		INTEGER REFERENCES Doctor(doctor_id)," + "symptoms          TEXT" +");";
 			stmt.executeUpdate(sql);
 
 			// TABLE DOCTOR (OK)
@@ -71,16 +71,6 @@ public class JDBCManager {
 					+ " elderly_id 		INTEGER REFERENCES Elderly(elderly_id)" + ");";
 			stmt.executeUpdate(sql);
 
-			/*
-			 * //TABLE SCHEDULE ELIMINAR TABLA Y ELIINAR TODAS LAS REFERENCIAS A ESTA TABLA
-			 * EN TODOS LOS METODOS DE JDBC sql= "CREATE TABLE Schedule (" +
-			 * " schedule_id		INTEGER PRIMARY KEY AUTOINCREMENT, " +
-			 * " weekDay			TEXT NOT NULL, " +
-			 * " doctor_id	 	INTEGER REFERENCES Doctor(doctor_id), " +
-			 * " task_id	 		INTEGER REFERENCES Task(task_id), " +
-			 * " elderly_id	 	INTEGER REFERENCES Elderly(elderly_id) " + ");";
-			 * stmt.executeUpdate(sql);
-			 */
 
 		} catch (SQLException e) {
 			// Do not compile if tables already exist
