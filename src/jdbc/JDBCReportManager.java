@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import Interfaces.ReportManager;
+import POJOS.Elderly;
 import POJOS.Report;
 
 
@@ -45,6 +46,21 @@ public class JDBCReportManager implements ReportManager {
 		return report;
 	}
 	
+	public void addReport(Report r) {
+		try {
+			String sql = "INSERT INTO Report (file_name, elderly_id, task_id) VALUES (?,?,?)";
+			// use preparedStmt so nothing damages the database
+			PreparedStatement prep = ReportManager.getConnection().prepareStatement(sql);
+			
+			prep.setString(1, r.getFile_name());
+			prep.setInt(2, r.getElderly_id());
+			prep.setInt(3, r.getTask_id());
+			prep.executeUpdate();
+			prep.close();
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+	}
 	
 	
 

@@ -24,8 +24,10 @@ import Interfaces.DoctorManager;
 import Interfaces.ElderlyManager;
 import Interfaces.TaskManager;
 import Interfaces.UserManager;
+import Interfaces.ReportManager;
 import POJOS.Doctor;
 import POJOS.Elderly;
+import POJOS.Report;
 import POJOS.Role;
 import POJOS.Task;
 import POJOS.User;
@@ -37,15 +39,18 @@ public class ClientHandler implements Runnable {
     private DoctorManager doctorManager;
     private ElderlyManager elderlyManager;
     private TaskManager tasksManager;
+    private ReportManager reportManager;
+
 
     public ClientHandler(Socket so, UserManager userManager, DoctorManager doctorManager, 
-    		ElderlyManager elderlyManager, TaskManager tasksManager) {
+    		ElderlyManager elderlyManager, TaskManager tasksManager, ReportManager reportManager) {
     	
         this.so = so;
         this.userManager = userManager;
         this.doctorManager = doctorManager;
         this.elderlyManager = elderlyManager;
         this.tasksManager = tasksManager;
+        this.reportManager = reportManager;
     }
     
 
@@ -364,7 +369,15 @@ public class ClientHandler implements Runnable {
 						System.out.println(line);
 						//leemos el nombre del fichero
 						String file_name = br.readLine();
+						String task_id_text = br.readLine();
+						int task_id = Integer.parseInt(task_id_text);
+						String id_elderly_text = br.readLine();
+						int elderly_id = Integer.parseInt(id_elderly_text);
 						
+						Report rep =new Report(file_name, task_id, elderly_id);
+						
+						reportManager.addReport(rep);
+
 				        String diract = System.getProperty("user.dir"); 
 				        //String dirfolder = diract +"\\recordstxt";
 				        String dirfolder = diract +"//recordstxt";

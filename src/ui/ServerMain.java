@@ -20,6 +20,7 @@ import java.util.List;
 
 import Interfaces.DoctorManager;
 import Interfaces.ElderlyManager;
+import Interfaces.ReportManager;
 import Interfaces.TaskManager;
 import Interfaces.UserManager;
 import POJOS.Doctor;
@@ -27,11 +28,13 @@ import POJOS.Elderly;
 import POJOS.Role;
 import POJOS.Task;
 import POJOS.User;
+import POJOS.Report;
 import exceptions.InputException;
 import jdbc.JDBCDoctorManager;
 import jdbc.JDBCElderlyManager;
 import jdbc.JDBCManager;
 import jdbc.JDBCTasksManager;
+import jdbc.JDBCReportManager;
 import jpa.JPAUserManager;
 
 
@@ -51,6 +54,9 @@ public class ServerMain {
 	private static UserManager userManager;
 
 	private static TaskManager tasksManager;
+	
+	private static ReportManager reportManager;
+
 	
 	static int socketPort = 9009;
 	
@@ -104,6 +110,7 @@ public class ServerMain {
 		elderlyManager = new JDBCElderlyManager(jdbcManager);
 		doctorManager = new JDBCDoctorManager(jdbcManager);
 		tasksManager = new JDBCTasksManager(jdbcManager);
+		reportManager = new JDBCReportManager(jdbcManager);
 		
 		// initialize database JPA
 		userManager = new JPAUserManager();
@@ -118,7 +125,7 @@ public class ServerMain {
 			System.out.println("\nClient connected");
 			
 			// Server: reads and sends lines
-			 ClientHandler clientHandler = new ClientHandler(so, userManager, doctorManager, elderlyManager, tasksManager);
+			 ClientHandler clientHandler = new ClientHandler(so, userManager, doctorManager, elderlyManager, tasksManager, reportManager);
 	         Thread clientThread = new Thread(clientHandler);
 	         clientThread.start();
   

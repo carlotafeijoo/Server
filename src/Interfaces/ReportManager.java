@@ -8,5 +8,5 @@ public interface ReportManager {
 
 	Report seeBitalinoReportByID(int report_id) throws SQLException;
 
-	
+	void addReport(Report r);
 }
