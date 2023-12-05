@@ -65,29 +65,30 @@ public class JDBCReportManager implements ReportManager {
 		}
 	}
 	
-	public List<Report> getListOfReportsByDoctorFromElderly(int elderly_id) {
-		List<Task> tasks = new ArrayList<>();
+	public List<Report> getListOfReportsByDoctorFromElderly(int elderly_id, int doctor_id) {
+		List<Report> reports = new ArrayList<>();
 		try {
-			String sql = "SELECT * FROM Report WHERE elderly_id = ?" ;
+			String sql = "SELECT * FROM Report AS r JOIN Elderly AS e ON r.elderly_id = e.elderly_id"
+					+ " WHERE r.elderly_id = ? AND e.doctor_id = ?" ;
 			PreparedStatement pr = ReportManager.getConnection().prepareStatement(sql);
 			pr.setInt(1, elderly_id);
+			pr.setInt(2, doctor_id);
 			ResultSet rs = pr.executeQuery();
 
 			while (rs.next()) {
-				Integer id = rs.getInt("task_id");
-				String description = rs.getString("description");
-				Integer doc_id = rs.getInt("doctor_id");
+				Integer id = rs.getInt("report_id");
+				String fileanme = rs.getString("file_name");
+				Integer task_id = rs.getInt("task_id");
 				Integer elder_id = rs.getInt("elderly_id");
-				Integer dur = rs.getInt("duration");
-				Task task = new Task(id,description,doc_id,dur,elder_id);
-				tasks.add(task);
+				Report report = new Report(id,fileanme,task_id,elder_id);
+				reports.add(report);
 			}
 			rs.close();
 			pr.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return tasks;
+		return reports;
 	}
 
 }
