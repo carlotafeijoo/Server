@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Interfaces.ReportManager;
+import POJOS.Doctor;
 import POJOS.Elderly;
 import POJOS.Report;
 import POJOS.Task;
@@ -22,12 +23,12 @@ public class JDBCReportManager implements ReportManager {
 	}
 	
 	@Override
-	public Report seeBitalinoReportByID(int report_id) throws SQLException {
+	public Report seeBitalinoReportByID(int report_id) {
 		
 		Report report = null;
 		
 		try {
-			String sql = "SELECT * FROM Report WHERE id = ?";
+			String sql = "SELECT * FROM Report WHERE report_id = ?";
 			PreparedStatement prep = ReportManager.getConnection().prepareStatement(sql);
 			prep.setInt(1, report_id);
 			ResultSet resultSet = prep.executeQuery();
@@ -48,7 +49,7 @@ public class JDBCReportManager implements ReportManager {
 		
 		return report;
 	}
-	
+	@Override
 	public void addReport(Report r) {
 		try {
 			String sql = "INSERT INTO Report (file_name, elderly_id, task_id) VALUES (?,?,?)";
@@ -65,6 +66,7 @@ public class JDBCReportManager implements ReportManager {
 		}
 	}
 	
+	@Override
 	public List<Report> getListOfReportsByDoctorFromElderly(int elderly_id, int doctor_id) {
 		List<Report> reports = new ArrayList<>();
 		try {
