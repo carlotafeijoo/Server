@@ -45,7 +45,7 @@ public class JDBCElderlyManager implements ElderlyManager {
 	public void addSymptoms(int eld_id, String symp) {
 		
 		try {
-			String sql = "UPDATE Elderly SET symptoms=CONCAT_WS(symptoms,?) WHERE elderly_id=?";
+			String sql = "UPDATE Elderly SET symptoms=? WHERE elderly_id=?";
 			//set @sql_text = concat('insert into tblEvents (AccountId, EventTableId, EventTable, EventBasic, EventFull, EventDate, UserId) values(?, ?, ?, ?, ?, ?,?)');
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			
