@@ -15,8 +15,6 @@ public interface ElderlyManager {
 	// Update info from elderly
 	public void updateInfo(Elderly e);
 
-	public List<Elderly> getListOfElderly();
-
 	int searchElderlyIdfromUId(int User_id);
 
 	public List<Elderly> getListOfElderlyByDoctorID(int doctor_id);
