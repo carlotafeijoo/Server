@@ -45,7 +45,7 @@ public class JDBCElderlyManager implements ElderlyManager {
 	public void addSymptoms(int eld_id, String symp) {
 		
 		try {
-			String sql = "UPDATE Elderly SET symptoms=CONCAT_WS(symptoms,?) WHERE elderly_id=?";
+			String sql = "UPDATE Elderly SET symptoms=? WHERE elderly_id=?";
 			//set @sql_text = concat('insert into tblEvents (AccountId, EventTableId, EventTable, EventBasic, EventFull, EventDate, UserId) values(?, ?, ?, ?, ?, ?,?)');
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			
@@ -58,33 +58,6 @@ public class JDBCElderlyManager implements ElderlyManager {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		
-	}
-	
-	@Override
-	public String seeSymptoms(int eld_id) {
-		
-		String symptoms = null;
-		
-		try {
-			String sql = "SELECT symptoms FROM Elderly WHERE elderly_id=?";
-			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			
-			PreparedStatement pr = manager.getConnection().prepareStatement(sql);
-			pr.setInt(1, eld_id);
-			ResultSet rs = pr.executeQuery();
-			
-			while(rs.next()) {
-				symptoms = rs.getString("symptoms");
-			}
-			
-			rs.close();
-			pr.close();
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		return symptoms;
 		
 	}
 		
@@ -118,33 +91,7 @@ public class JDBCElderlyManager implements ElderlyManager {
 		return elderly;
 	}
 
-	@Override
-	public List<Elderly> getListOfElderly() {
-		List<Elderly> elderlies = new ArrayList<>();
-		try {
-			String sql = "SELECT * FROM Elderly ";
-			PreparedStatement pr = manager.getConnection().prepareStatement(sql);
-
-			ResultSet rs = pr.executeQuery();
-
-			while (rs.next()) {
-				Integer id = rs.getInt("elderly_id");
-				String name = rs.getString("name");
-				Date dob = rs.getDate("dob");
-				Integer dni = rs.getInt("DNI");
-				String symptoms = rs.getNString("symptoms");
-				Elderly elderly = new Elderly(id, name, dni, dob, symptoms);
-				elderlies.add(elderly);
-			}
-			
-			rs.close();
-			pr.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return elderlies;
-	}
-
+	
 	@Override
 	public List<Elderly> getListOfElderlyByDoctorID(int doctor_id) {
 		List<Elderly> elderlies = new ArrayList<>();
@@ -160,8 +107,9 @@ public class JDBCElderlyManager implements ElderlyManager {
 				String name = rs.getString("name");
 				Date dob = rs.getDate("dob");
 				Integer dni = rs.getInt("DNI");
+				Integer doct_id = rs.getInt("doctor_id");
 				String symptoms = rs.getString("symptoms");
-				Elderly elderly = new Elderly(id, name, dni, dob, symptoms);
+				Elderly elderly = new Elderly(id, name, dni, doct_id, dob, symptoms);
 				elderlies.add(elderly);
 			}
 			rs.close();
@@ -212,6 +160,32 @@ public class JDBCElderlyManager implements ElderlyManager {
 		}
 	}
 
+	@Override
+	public String seeSymptoms(int eld_id) {
+		
+		String symptoms = null;
+		
+		try {
+			String sql = "SELECT symptoms FROM Elderly WHERE elderly_id=?";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			
+			PreparedStatement pr = manager.getConnection().prepareStatement(sql);
+			pr.setInt(1, eld_id);
+			ResultSet rs = pr.executeQuery();
+			
+			while(rs.next()) {
+				symptoms = rs.getString("symptoms");
+			}
+			
+			rs.close();
+			pr.close();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		return symptoms;
+		
+	}
 	@Override
 	public List<Task> seeTasksbyElderly(int user_id) {
 		List<Task> tasks = new ArrayList<>();

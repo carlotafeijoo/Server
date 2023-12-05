@@ -76,7 +76,7 @@ public class ClientHandler implements Runnable {
 	    FileOutputStream fos = null;
 	 
          
-         System.out.println(ServerMain.clientCounter + " :number of clients");
+         System.out.println("Number of clients" + ServerMain.clientCounter);
 
          String line;
 			
@@ -88,10 +88,10 @@ public class ClientHandler implements Runnable {
 				if (line.contains("stop")) {
 					
 					releaseResources(pw, br, os, so);
-					System.out.println("Conexion with the client ended");
+					System.out.println("\nConexion with the client ended");
 					
 					ServerMain.clientCounter--;
-					System.out.println(" There are " + ServerMain.clientCounter + " clients connected");
+					System.out.println("There are " + ServerMain.clientCounter + " clients connected");
 					
 					if (ServerMain.clientCounter==0) {
 						
@@ -114,7 +114,7 @@ public class ClientHandler implements Runnable {
 					String username = br.readLine();
 					boolean check = doctorManager.checkAlreadyUsedDNIDoc(username);
 					if (check == true){
-						pw.println("Register uncompleted: email already in use, try to log in instead");
+						pw.println("\nRegister uncompleted: email already in use, try to log in instead");
 					} else {
 					String password = br.readLine();
 					String doctor_text = br.readLine();
@@ -175,7 +175,7 @@ public class ClientHandler implements Runnable {
 						pw.println(u.toString());*/
 						
 					}catch(Exception e) {
-						System.out.println("User does not exist");
+						System.out.println("\nUser does not exist");
 						e.printStackTrace();
 					}
 
@@ -351,13 +351,12 @@ public class ClientHandler implements Runnable {
 							e.printStackTrace();
 						}
 						//System.out.println("elderly"+elderly.toString());
-						System.out.println(elderly.getName());
+						System.out.println("\n" + elderly.getName());
 						pw.println(elderly.getName());
 						
 				}else if(line.contains("seeTasksandId")) {
 						String eld_id_text = br.readLine();
 						int eld_id = Integer.parseInt(eld_id_text);
-						System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 						List<Task> listtasks = elderlyManager.seeTaskANDidbyElderly(eld_id);
 						System.out.println(listtasks);
 						pw.println(""+listtasks.size());
@@ -372,11 +371,12 @@ public class ClientHandler implements Runnable {
 						System.out.println(task_id);
 						Task task = tasksManager.getTask(task_id);
 						int recordDuration = task.getDuration();
-						System.out.println(recordDuration);
+						System.out.println("/nRecord duration" +recordDuration);
 						pw.println(recordDuration);
 							
 							
 				}else if(line.contains("storeRecord")) {
+					
 						System.out.println(line);
 						//leemos el nombre del fichero
 						String file_name = br.readLine();
