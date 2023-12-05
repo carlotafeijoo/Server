@@ -86,7 +86,7 @@ public class ServerMain {
 
 			int option;
 			do {
-				System.out.println("SERVER MENU ");
+				System.out.println("\nSERVER MENU ");
 				System.out.println("1. Start server ");
 				System.out.println("2. Switch off application  ");
 				option = InputException.getInt("Introduce the number choice:  ");
@@ -101,7 +101,7 @@ public class ServerMain {
 					break;
 
 				case 2:
-					System.out.println("YOU HAVE SWITCHED OFF SERVER APPLICATION");
+					System.out.println("YOU HAVE SWITCHED OFF SERVER APPLICATION\n");
 					System.exit(0);
 					break;
 
@@ -120,7 +120,7 @@ public class ServerMain {
 
 	public static void serverMainON()throws IOException, NoSuchAlgorithmException, ParseException{
 			
-		System.out.println("SERVER ACTIVE");
+		System.out.println("\nSERVER ACTIVE");
 		System.out.println("Database connection openned.\n");
 		
 		//Server connects to DB
@@ -174,7 +174,7 @@ public class ServerMain {
 				switch (option) {
 
 				case 1:
-					System.out.println("YOU HAVE SWITCHED OFF SERVER APPLICATION");
+					System.out.println("\nYOU HAVE SWITCHED OFF SERVER APPLICATION");
 					System.exit(0);
 					break;
 

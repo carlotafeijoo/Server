@@ -324,7 +324,7 @@ public class ClientHandler implements Runnable {
 				boolean check = elderlyManager.checkAlreadyUsedDNI(user);
 				System.out.println(check);
 				if (check == true){
-					pw.println("Register uncompleted: DNI already in use, try to log in instead");
+					pw.println("\nRegister uncompleted: DNI already in use, try to log in instead");
 				} else {
 					String password = br.readLine();
 					String elderly_text = br.readLine();
@@ -416,7 +416,9 @@ public class ClientHandler implements Runnable {
 				String eld_id_text = br.readLine();
 				int eld_id = Integer.parseInt(eld_id_text);
 				List<Task> listtasks = elderlyManager.seeTaskANDidbyElderly(eld_id);
-				System.out.println(listtasks);
+				for (Task t : listtasks) {
+					System.out.println(t);
+				}
 				pw.println(""+listtasks.size());
 
 				for (Task listtask : listtasks) {
