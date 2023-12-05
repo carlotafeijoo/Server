@@ -18,6 +18,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Timer;
 
 import Interfaces.DoctorManager;
 import Interfaces.ElderlyManager;
@@ -159,15 +160,17 @@ public class ServerMain {
 			
 			sso.close();
 
-			int option;
+			int option = 0;
+			
 			do {
 				System.out.println("\nSWITCH OFF MENU ");
 				System.out.println("\nThere are no clients connected");
 				System.out.println("1. Turn off server application");
 				System.out.println("2. Continue operating server application");
 				
+				
 				option = InputException.getInt("Introduce the number choice:  ");
-
+				
 				switch (option) {
 
 				case 1:
@@ -184,12 +187,16 @@ public class ServerMain {
 				default:
 					System.out.println("\nPlease introduce option 1 or 2.\n");
 					switchServerOFF();
+					
+					
 				}
 			} while (true);
 
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} 
 		
 	}
 
