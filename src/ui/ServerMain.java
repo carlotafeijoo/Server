@@ -169,7 +169,7 @@ public class ServerMain {
 				System.out.println("2. Continue operating server application");
 				
 				
-				option = InputException.getInt("Introduce the number choice:  ");
+				option = InputException.getInt("\nIntroduce the number choice:  ");
 				
 				switch (option) {
 
@@ -193,8 +193,6 @@ public class ServerMain {
 			} while (true);
 
 		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} 
 		
