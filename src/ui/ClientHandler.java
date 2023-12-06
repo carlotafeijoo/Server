@@ -90,22 +90,22 @@ public class ClientHandler implements Runnable {
 
 				releaseResources(pw, br, os, so);
 				System.out.println("\nConexion with the client ended");
-
 				ServerMain.clientCounter--;
 				System.out.println("There are " + ServerMain.clientCounter + " clients connected");
-
-				if (ServerMain.clientCounter==0) {
-
-					System.out.println("\nServer in standby mode");
-					//pw.println(control_sms_sb); //Cambios para lo del stand by 
-
-					releaseResources(pw, br, os, so);
-					ServerMain.switchServerOFF();
-				}
-
-
+				releaseResources(pw, br, os, so);
 				break;
 			}
+			//SERVER
+			else if(line.contains("killServer")) {				
+				if(ServerMain.clientCounter==1){
+					System.out.println("\nServer in standby mode");
+					ServerMain.switchServerOFF();
+					releaseResources(pw, br, os, so);
+					break;
+					}
+				
+				}
+			
 
 			//DOCTOR
 			else if (line.contains("addDoctor")) {// Client wants to add a doctor
@@ -503,7 +503,9 @@ public class ClientHandler implements Runnable {
 
 				elderlyManager.addSymptoms(e_id, symptom);
 			}
+			
 		}
+		
 	}
 	//}
 
