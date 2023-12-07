@@ -380,8 +380,7 @@ public class ClientHandler implements Runnable {
 
 
 			}else if(line.contains("searchElderlyById")) {
-
-
+				
 				String id_text = br.readLine();
 				int id = Integer.parseInt(id_text);
 
@@ -438,7 +437,7 @@ public class ClientHandler implements Runnable {
 			}else if(line.contains("storeRecord")) {
 
 				System.out.println(line);
-				//leemos el nombre del fichero
+				//Read filename
 				String file_name = br.readLine();
 				String task_id_text = br.readLine();
 				int task_id = Integer.parseInt(task_id_text);
@@ -455,21 +454,21 @@ public class ClientHandler implements Runnable {
 
 				File archivo = new File(dirfolder, file_name);
 
-				// a partir de aqui he usado el codigo de Java para escribir en un fichero
+				// Using Java to write in a file
 				PrintWriter printwriter = null;
 
 				try {
 					printwriter = new PrintWriter(archivo);
 					String stringleido;
-					//leemos toda la señal (recordar que esta separada por comas)
+					//Read the whole signal (Remind: separated by commas)
 					stringleido = br.readLine();
 
-					//queremos que los datos se escriban con intros
-					//(asi es como está en el txt generado de bitalino)
-					//tenemos que sustituir todas las comas por \n
+					//We want data to be written with \n
+					//(THAT IS HOW TXT IS GENERATED IN BITALINO.JAVA)
+					//Replace commas by \n
 					String signal = convertCommaIntoLines(stringleido);
 
-					//signal ya esta bien en cuanto a formato, asi que lo escribimos en el fichero
+					//Write signal in file
 					printwriter.println(signal);
 
 				} catch (IOException ioe) {
