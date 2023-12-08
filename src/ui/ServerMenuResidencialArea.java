@@ -20,7 +20,7 @@ public class ServerMenuResidencialArea {
 	static BufferedReader br = null;
 	static Socket so = null;
 	private static BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-	//consola
+	
 
 	public static void main(String[] args) throws IOException {
 
@@ -92,11 +92,13 @@ public class ServerMenuResidencialArea {
 		}
 	}
 	private static void stopserver() throws Exception {
+		
 		int contador=0;
 		do {
 			//TODO: meter un wait o un sleep o algo de un segundo 
 			//con esto deberíamos conseguir que esté mandando la instrucción de killServer durante 10 mins
-			//y si no se desconectan todos los clientes te vuelve a preguntar que si quieres pararlo o que la ejecución continúe
+			//y si no se desconectan todos los clientes te vuelve a preguntar que si quieres pararlo o que la ejecución continúa
+			
 			pw.println("killServer");
 			contador++;
 			System.out.println(contador);

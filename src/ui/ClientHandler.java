@@ -279,7 +279,7 @@ public class ClientHandler implements Runnable {
 				}
 
 			}else if(line.contains("getListOfReportsByDoctorFromElder")) {
-				//HACER
+			
 				String id_text = br.readLine();
 				int id_doc = Integer.parseInt(id_text);
 				String id_text2 = br.readLine();
@@ -292,7 +292,7 @@ public class ClientHandler implements Runnable {
 
 
 			}else if(line.contains("getListOfElderlyByDoctorID")) {
-				//HACER
+				
 				int idDoctor = Integer.parseInt(br.readLine());
 				List<Elderly> elderlys = elderlyManager.getListOfElderlyByDoctorID(idDoctor);
 				pw.println(""+elderlys.size());
@@ -512,9 +512,6 @@ public class ClientHandler implements Runnable {
 		String signal = stringleido.replace(",", "\n");
 		return signal;
 	}
-
-
-
 
 
 
