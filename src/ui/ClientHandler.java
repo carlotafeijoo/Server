@@ -434,7 +434,7 @@ public class ClientHandler implements Runnable {
 				System.out.println(task_id);
 				Task task = tasksManager.getTask(task_id);
 				int recordDuration = task.getDuration();
-				System.out.println("/nRecord duration" +recordDuration);
+				System.out.println("\nRecord duration " +recordDuration);
 				pw.println(recordDuration);
 
 
