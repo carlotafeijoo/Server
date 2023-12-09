@@ -112,7 +112,7 @@ public class ServerMenuResidencialArea {
 				releaseResources(pw, br, os, so);
 				System.exit(0);
 			}
-			if (timer >= 600) {
+			if (timer >= 60000) { //10 minutes
 				return;
 			}
 		
