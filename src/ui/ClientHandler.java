@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Timer;
 
 import Interfaces.DoctorManager;
 import Interfaces.ElderlyManager;
@@ -32,6 +33,7 @@ import POJOS.Report;
 import POJOS.Role;
 import POJOS.Task;
 import POJOS.User;
+import exceptions.InputException;
 
 public class ClientHandler implements Runnable {
 
@@ -77,7 +79,7 @@ public class ClientHandler implements Runnable {
 		FileOutputStream fos = null;
 
 
-		System.out.println("Number of clients" + ServerMain.clientCounter);
+		System.out.println("Number of clients: " + ServerMain.clientCounter);
 
 		String line;
 
@@ -85,10 +87,10 @@ public class ClientHandler implements Runnable {
 			//System.out.println(line);
 
 			//System.out.println("Server accessible");
+			
 
 			if (line.contains("stop")) {
-
-				releaseResources(pw, br, os, so);
+	
 				System.out.println("\nConexion with the client ended");
 				ServerMain.clientCounter--;
 				System.out.println("There are " + ServerMain.clientCounter + " clients connected");
@@ -96,17 +98,19 @@ public class ClientHandler implements Runnable {
 				break;
 			}
 			//SERVER
-			else if(line.contains("killServer")) {				
+			else if(line.contains("killServer")) {	
+				
 				if(ServerMain.clientCounter==1){
+					
+					pw.println("exit admin client");
+					
 					System.out.println("\nServer in standby mode");
 					ServerMain.switchServerOFF();
 					releaseResources(pw, br, os, so);
 					break;
 					}
-				
-				}
 			
-
+			}
 			//DOCTOR
 			else if (line.contains("addDoctor")) {// Client wants to add a doctor
 

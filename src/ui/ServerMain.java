@@ -143,6 +143,7 @@ public class ServerMain {
 			sso.close();
 
 			int option = 0;
+
 			
 			do {
 				System.out.println("\nSWITCH OFF MENU ");
@@ -161,9 +162,12 @@ public class ServerMain {
 					break;
 
 				case 2:
-					
 					sso = new ServerSocket(socketPort);
 					serverMainON();
+					System.out.println("\nSERVER ACTIVE");
+					System.out.println("Database connection openned.\n");
+					clientCounter--;
+					
 					break;
 
 				default:
@@ -176,7 +180,7 @@ public class ServerMain {
 
 		} catch (IOException e) {
 			e.printStackTrace();
-		} 
+		}
 		
 	}
 

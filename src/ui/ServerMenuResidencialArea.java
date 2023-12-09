@@ -14,6 +14,7 @@ import exceptions.InputException;
 import POJOS.*;
 
 public class ServerMenuResidencialArea {
+	
 	static OutputStream os = null;
 	static PrintWriter pw = null;
 
@@ -27,8 +28,7 @@ public class ServerMenuResidencialArea {
 		System.out.println("\nADMIN! WELCOME TO THE RESIDENCIAL AREA DATA BASE");
 
 		so = new Socket("localhost", 9009);
-		// el cliente lee lineas pero tambien manda
-		br = new BufferedReader(new InputStreamReader(so.getInputStream())); //sockets cliente
+		br = new BufferedReader(new InputStreamReader(so.getInputStream())); //sockets client
 		os = so.getOutputStream();
 		pw = new PrintWriter(os, true);
 
@@ -58,24 +58,28 @@ public class ServerMenuResidencialArea {
 	}
 
 	public static void mainMenu() {
+			
 		try {
-
+			
 			int option;
 			do {
 				System.out.println("\nMAIN MENU ");
 				System.out.println("1. Stop the server  ");
 				System.out.println("2. Exit ");
 				option = InputException.getInt("Introduce the number choice:  ");
+				pw.println(option);
 
 				switch (option) {
 
 				case 1:
+					//CLOSE CLIENT SOCKET AND APP
 					stopserver();
-					releaseResources(pw, br, os, so);
-					System.exit(0);
+					mainMenu();
+					
 					break;
 
 				case 2:
+					//CLOSE CLIENT
 					System.out.println("THE SERVER EXECUTION WILL CONTINUE");
 					pw.println("stop");
 					releaseResources(pw, br, os, so);
@@ -93,17 +97,28 @@ public class ServerMenuResidencialArea {
 	}
 	private static void stopserver() throws Exception {
 		
-		int contador=0;
-		do {
-			//TODO: meter un wait o un sleep o algo de un segundo 
-			//con esto deberíamos conseguir que esté mandando la instrucción de killServer durante 10 mins
-			//y si no se desconectan todos los clientes te vuelve a preguntar que si quieres pararlo o que la ejecución continúa
-			
+		
+		long start_time = System.currentTimeMillis();
+		long current_time = System.currentTimeMillis();
+		System.out.println(start_time);
+		
+		while(true) {
+				
 			pw.println("killServer");
-			contador++;
-			System.out.println(contador);
+			current_time = System.currentTimeMillis();
+			long timer = current_time - start_time;
+			
+			if (br.readLine().equalsIgnoreCase("exit admin client")) {
+				releaseResources(pw, br, os, so);
+				System.exit(0);
+			}
+			if (timer >= 600) {
+				return;
+			}
+		
+		
 		}
-		while (contador<600);
 	}
-	}
+}
+
 
