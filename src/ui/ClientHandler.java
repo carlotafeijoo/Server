@@ -419,9 +419,7 @@ public class ClientHandler implements Runnable {
 				String eld_id_text = br.readLine();
 				int eld_id = Integer.parseInt(eld_id_text);
 				List<Task> listtasks = elderlyManager.seeTaskANDidbyElderly(eld_id);
-				for (Task t : listtasks) {
-					System.out.println(t);
-				}
+				
 				pw.println(""+listtasks.size());
 
 				for (Task listtask : listtasks) {
