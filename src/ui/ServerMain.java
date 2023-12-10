@@ -66,6 +66,7 @@ public class ServerMain {
 	 * 
 	 * @param args the command-line arguments
 	 */
+
 	public static void main(String[] args) {
 
 		try {
@@ -109,7 +110,6 @@ public class ServerMain {
 	 * @throws ParseException if an error occurs during parsing
 	 */
 
-
 	public static void serverMainON()throws IOException, NoSuchAlgorithmException, ParseException{
 
 		System.out.println("\nSERVER ACTIVE");
@@ -144,6 +144,7 @@ public class ServerMain {
 		}
 
 	}
+
 	/**
 	 * Shuts down the server and provides a menu for further actions.
 	 * 
@@ -174,10 +175,12 @@ public class ServerMain {
 
 				case 1:
 					System.out.println("\nYOU HAVE SWITCHED OFF SERVER APPLICATION");
+					//sso.close();
 					System.exit(0);
 					break;
 
 				case 2:
+					//sso.close();
 					sso = new ServerSocket(socketPort);
 					ServerMain.clientCounter--;					
 					serverMainON();
@@ -193,7 +196,8 @@ public class ServerMain {
 			} while (true);
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("\nThe socket is correctly closed");
 		}
 
 	}

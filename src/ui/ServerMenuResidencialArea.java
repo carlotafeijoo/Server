@@ -2,6 +2,7 @@ package ui;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.security.MessageDigest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -72,7 +73,6 @@ public class ServerMenuResidencialArea {
 	 * Displays the main menu and handles user input.
 	 */
 	public static void mainMenu() {
-
 		try {
 
 			int option;
