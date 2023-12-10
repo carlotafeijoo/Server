@@ -163,11 +163,9 @@ public class ServerMain {
 
 				case 2:
 					sso = new ServerSocket(socketPort);
+					ServerMain.clientCounter--;					
 					serverMainON();
-					System.out.println("\nSERVER ACTIVE");
-					System.out.println("Database connection openned.\n");
-					clientCounter--;
-					
+				
 					break;
 
 				default:
