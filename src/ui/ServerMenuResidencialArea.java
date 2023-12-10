@@ -100,7 +100,6 @@ public class ServerMenuResidencialArea {
 		
 		long start_time = System.currentTimeMillis();
 		long current_time = System.currentTimeMillis();
-		System.out.println(start_time);
 		
 		while(true) {
 			pw.println("killServer");
@@ -111,6 +110,7 @@ public class ServerMenuResidencialArea {
 				System.exit(0);
 			}else {
 			if (timer >= 600000) { //10 minutes
+				System.out.println("Waiting time ended, please try again");
 				return;
 			}
 		
