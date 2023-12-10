@@ -16,8 +16,8 @@ public class JDBCManager {
 		try {
 			// Open the DB connection
 			Class.forName("org.sqlite.JDBC");
-			//String dbPath = "/db/ResidencialArea.db";
-			String dbPath = "ResidencialArea.db";
+			String dbPath = "/db/ResidencialArea.db";
+			//String dbPath = "ResidencialArea.db";
 
 			c = DriverManager.getConnection("jdbc:sqlite:." + dbPath);
 			c.createStatement().execute("PRAGMA foreign_keys=ON");
