@@ -15,11 +15,15 @@ import POJOS.User;
 public class JPAUserManager implements UserManager {
 
 	private EntityManager em;
-
+	/**
+	 * Constructs a new JPAUserManager and initializes the database connection.
+	 */
 	public JPAUserManager() {
 		this.connect();
 	}
-
+	/**
+	 * Establishes a connection to the JPA entity manager and initializes the database with default roles if necessary.
+	 */
 	@Override
 	public void connect() {
 		em = Persistence.createEntityManagerFactory("ResidencialArea-provider").createEntityManager();
@@ -35,19 +39,30 @@ public class JPAUserManager implements UserManager {
 
 		}
 	}
-
+	/**
+	 * Closes the connection to the JPA entity manager.
+	 */
 	@Override
 	public void disconnect() {
 		em.close();
 	}
-
+	/**
+	 * Adds a new user to the database.
+	 * 
+	 * @param u the User object representing the user to be added
+	 */
 	@Override
 	public void newUser(User u) {
 		em.getTransaction().begin();
 		em.persist(u);
 		em.getTransaction().commit();
 	}
-
+	/**
+	 * Deletes a user from the database based on the email and password.
+	 * 
+	 * @param email the email of the user to be deleted
+	 * @param password the password of the user to be deleted
+	 */
 	@Override
 	public void deleteUser(String email, String password) {
 		try {
@@ -68,14 +83,23 @@ public class JPAUserManager implements UserManager {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * Adds a new role to the database.
+	 * 
+	 * @param r the Role object representing the role to be added
+	 */
 	@Override
 	public void newRole(Role r) {
 		em.getTransaction().begin();
 		em.persist(r);
 		em.getTransaction().commit();
 	}
-
+	/**
+	 * Retrieves a role by its name.
+	 * 
+	 * @param name the name of the role
+	 * @return the Role object
+	 */
 	@Override
 	public Role getRole(String name) {
 		//System.out.println("nameee" + name);
@@ -84,7 +108,11 @@ public class JPAUserManager implements UserManager {
 		Role r = (Role) q.getSingleResult();
 		return r;
 	}
-
+	/**
+	 * Retrieves a list of all roles from the database.
+	 * 
+	 * @return a list of Role objects
+	 */
 	@Override
 	public List<Role> getRoles() {
 		Query q = em.createNativeQuery("SELECT * FROM Role", Role.class);
@@ -93,7 +121,13 @@ public class JPAUserManager implements UserManager {
 
 		return roles;
 	}
-
+	/**
+	 * Checks the password of a user.
+	 * 
+	 * @param username the username of the user
+	 * @param passwd the password digest of the user
+	 * @return the User object if the password is correct, otherwise null
+	 */
 	@Override
 	public User checkPassword(String username, byte[] passwd) {
 		User u = null;
@@ -108,7 +142,12 @@ public class JPAUserManager implements UserManager {
 
 		return u;
 	}
-
+	/**
+	 * Checks if a username is already in use.
+	 * 
+	 * @param username the username to be checked
+	 * @return true if the username is already in use, otherwise false
+	 */
 	@Override
 	public boolean checkUsername(String username) {
 		try {
@@ -121,7 +160,13 @@ public class JPAUserManager implements UserManager {
 		}
 		return false;
 	}
-
+	/**
+	 * Updates the email of a user in the database.
+	 * 
+	 * @param newEmail the new email
+	 * @param oldEmail the old email
+	 * @param password the password of the user
+	 */
 	@Override
 	public void updateUserEmail(String newEmail, String oldEmail, String password) {
 		try {
@@ -139,7 +184,13 @@ public class JPAUserManager implements UserManager {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * Updates the password of a user in the database.
+	 * 
+	 * @param email the email of the user
+	 * @param newPassword the new password
+	 * @param oldPassword the old password
+	 */
 	@Override
 	public void updateUserPassword(String email, String newPassword, String oldPassword) {
 		try {

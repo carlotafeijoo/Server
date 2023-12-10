@@ -47,7 +47,7 @@ public class ServerMain {
 	static DataInputStream dis = null;
 	static FileInputStream fis = null;
 	static ServerSocket sso = null;
-	
+
 
 	private static ElderlyManager elderlyManager;
 
@@ -56,14 +56,18 @@ public class ServerMain {
 	private static UserManager userManager;
 
 	private static TaskManager tasksManager;
-	
+
 	private static ReportManager reportManager;
 
-	
+
 	static int socketPort = 9009;
-	
+	/**
+	 * The main method to start the server application.
+	 * 
+	 * @param args the command-line arguments
+	 */
 	public static void main(String[] args) {
-				
+
 		try {
 
 			int option;
@@ -72,7 +76,7 @@ public class ServerMain {
 				System.out.println("1. Start server ");
 				System.out.println("2. Switch off application  ");
 				option = InputException.getInt("Introduce the number choice:  ");
-				
+
 				int clientCounter = 0;
 
 				switch (option) {
@@ -97,14 +101,20 @@ public class ServerMain {
 		}
 
 	}
+	/**
+	 * Starts the server and initializes database connections and the server socket.
+	 * 
+	 * @throws IOException if an I/O error occurs when waiting for a connection
+	 * @throws NoSuchAlgorithmException if a requested cryptographic algorithm is not available
+	 * @throws ParseException if an error occurs during parsing
+	 */
 
-	
 
 	public static void serverMainON()throws IOException, NoSuchAlgorithmException, ParseException{
-			
+
 		System.out.println("\nSERVER ACTIVE");
 		System.out.println("Database connection openned.\n");
-		
+
 		//Server connects to DB
 		JDBCManager jdbcManager = new JDBCManager();
 
@@ -113,47 +123,53 @@ public class ServerMain {
 		doctorManager = new JDBCDoctorManager(jdbcManager);
 		tasksManager = new JDBCTasksManager(jdbcManager);
 		reportManager = new JDBCReportManager(jdbcManager);
-		
+
 		// initialize database JPA
 		userManager = new JPAUserManager();
 
-		
+
 		while (true) {
-			
+
 			Socket so = sso.accept();
-			
+
 			ServerMain.clientCounter++;
-				
+
 			System.out.println("\nClient connected");
-			
+
 			// Server: reads and sends lines
-			 ClientHandler clientHandler = new ClientHandler(so, userManager, doctorManager, elderlyManager, tasksManager, reportManager);
-	         Thread clientThread = new Thread(clientHandler);
-	         clientThread.start();
-  
-        }
+			ClientHandler clientHandler = new ClientHandler(so, userManager, doctorManager, elderlyManager, tasksManager, reportManager);
+			Thread clientThread = new Thread(clientHandler);
+			clientThread.start();
+
+		}
 
 	}
-	
+	/**
+	 * Shuts down the server and provides a menu for further actions.
+	 * 
+	 * @throws IOException if an I/O error occurs when closing the server socket
+	 * @throws NoSuchAlgorithmException if a requested cryptographic algorithm is not available
+	 * @throws ParseException if an error occurs during parsing
+	 */
 	public static void switchServerOFF()throws IOException, NoSuchAlgorithmException, ParseException{
-		
-		
+
+
 		try {
-			
+
 			sso.close();
 
 			int option = 0;
 
-			
+
 			do {
 				System.out.println("\nSWITCH OFF MENU ");
 				System.out.println("\nThere are no clients connected");
 				System.out.println("1. Turn off server application");
 				System.out.println("2. Continue operating server application");
-				
-				
+
+
 				option = InputException.getInt("\nIntroduce the number choice:  ");
-				
+
 				switch (option) {
 
 				case 1:
@@ -165,25 +181,25 @@ public class ServerMain {
 					sso = new ServerSocket(socketPort);
 					ServerMain.clientCounter--;					
 					serverMainON();
-				
+
 					break;
 
 				default:
 					System.out.println("\nPlease introduce option 1 or 2.\n");
 					switchServerOFF();
-					
-					
+
+
 				}
 			} while (true);
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	
-	
+
+
 }
 
 

@@ -9,7 +9,9 @@ import java.sql.Statement;
 public class JDBCManager {
 
 	private Connection c = null;
-
+	/**
+	 * Constructs a new JDBCManager and initializes the database connection.
+	 */
 	public JDBCManager() {
 		try {
 			// Open the DB connection
@@ -29,7 +31,9 @@ public class JDBCManager {
 			System.out.print("Libraries not loaded");
 		}
 	}
-
+	/**
+	 * Closes the database connection.
+	 */
 	public void disconnect() {
 		try {
 			c.close();
@@ -37,11 +41,17 @@ public class JDBCManager {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * Retrieves the database connection.
+	 * 
+	 * @return the database connection
+	 */
 	public Connection getConnection() {
 		return c;
 	}
-
+	/**
+	 * Creates the necessary tables in the database if they do not already exist.
+	 */
 	private void createTables() {
 		// Create Tables
 		try {

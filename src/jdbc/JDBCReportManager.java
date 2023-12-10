@@ -15,47 +15,61 @@ import POJOS.Task;
 
 
 public class JDBCReportManager implements ReportManager {
-	
-	private JDBCManager ReportManager;
 
+	private JDBCManager ReportManager;
+	/**
+	 * Constructs a new JDBCReportManager with the specified JDBCManager.
+	 * 
+	 * @param jdbcManager the JDBCManager to be used
+	 */
 	public JDBCReportManager(JDBCManager jdbcManager) {
 		this.ReportManager = jdbcManager;
 	}
-	
+	/**
+	 * Retrieves a Bitalino report by its ID.
+	 * 
+	 * @param report_id the ID of the report
+	 * @return the Report object
+	 */
 	@Override
 	public Report seeBitalinoReportByID(int report_id) {
-		
+
 		Report report = null;
-		
+
 		try {
 			String sql = "SELECT * FROM Report WHERE report_id = ?";
 			PreparedStatement prep = ReportManager.getConnection().prepareStatement(sql);
 			prep.setInt(1, report_id);
 			ResultSet resultSet = prep.executeQuery();
-			
+
 			while(resultSet.next()) {
 				String file_name = resultSet.getString("file_name");
 				Integer task_id = resultSet.getInt("task_id");
 				Integer elderly_id = resultSet.getInt("elderly_id");
-				
+
 				report = new Report(report_id, file_name, task_id, elderly_id);
-		
-			prep.close();
+
+				prep.close();
 			}	
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return report;
 	}
+	/**
+	 * Adds a new report to the database.
+	 * 
+	 * @param r the Report object representing the report to be added
+	 */
 	@Override
 	public void addReport(Report r) {
 		try {
 			String sql = "INSERT INTO Report (file_name, elderly_id, task_id) VALUES (?,?,?)";
 			// use preparedStmt so nothing damages the database
 			PreparedStatement prep = ReportManager.getConnection().prepareStatement(sql);
-			
+
 			prep.setString(1, r.getFile_name());
 			prep.setInt(2, r.getElderly_id());
 			prep.setInt(3, r.getTask_id());
@@ -65,7 +79,13 @@ public class JDBCReportManager implements ReportManager {
 			exception.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Retrieves a list of reports created by a specific doctor for a specific elderly person.
+	 * 
+	 * @param elderly_id the ID of the elderly person
+	 * @param doctor_id the ID of the doctor
+	 * @return a list of Report objects
+	 */
 	@Override
 	public List<Report> getListOfReportsByDoctorFromElderly(int elderly_id, int doctor_id) {
 		List<Report> reports = new ArrayList<>();

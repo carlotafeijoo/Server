@@ -14,12 +14,21 @@ import POJOS.Task;
 public class JDBCTasksManager implements TaskManager {
 
 	private JDBCManager manager;
-
+	/**
+	 * Constructs a new JDBCTasksManager with the specified JDBCManager.
+	 * 
+	 * @param m the JDBCManager to be used
+	 */
 	public JDBCTasksManager(JDBCManager m) {
 		this.manager = m;
 	}
 
-	// add a new task
+	/**
+	 * Adds a new task to the database.
+	 * 
+	 * @param task the Task object representing the task to be added
+	 * @throws SQLException if a database access error occurs
+	 */
 	@Override
 	public void addTask(Task task) throws SQLException {
 		try {
@@ -39,7 +48,11 @@ public class JDBCTasksManager implements TaskManager {
 		}
 	}
 
-	//BORRARLA O NO?
+	/**
+	 * Retrieves a list of all tasks from the database.
+	 * 
+	 * @return a list of Task objects
+	 */
 	@Override
 	public List<Task> getListOfTasks() {
 		List<Task> tasks = new ArrayList<>();
@@ -62,7 +75,13 @@ public class JDBCTasksManager implements TaskManager {
 		}
 		return tasks;
 	}
-
+	/**
+	 * Retrieves a list of tasks assigned by a specific doctor to a specific elderly person.
+	 * 
+	 * @param doctor_id the ID of the doctor
+	 * @param elderly_id the ID of the elderly person
+	 * @return a list of Task objects
+	 */
 	@Override
 	public List<Task> getListOfTasksByDoctorFromElderly(int doctor_id, int elderly_id) {
 		List<Task> tasks = new ArrayList<>();
@@ -89,14 +108,18 @@ public class JDBCTasksManager implements TaskManager {
 		}
 		return tasks;
 	}
-	
-	
-	//Search task by id
+
+	/**
+	 * Retrieves a task by its ID.
+	 * 
+	 * @param id_task the ID of the task
+	 * @return the Task object
+	 */
 	@Override
 	public Task getTask(int id_task) {
-		
+
 		Task task = null;
-		
+
 		try {
 			String sql = "SELECT * FROM Task WHERE task_id = ?" ;
 			PreparedStatement pr = manager.getConnection().prepareStatement(sql);
@@ -109,9 +132,9 @@ public class JDBCTasksManager implements TaskManager {
 				Integer doctor_id = rs.getInt("doctor_id");
 				Integer duration = rs.getInt("duration");
 				Integer elderly_id = rs.getInt("elderly_id");
-				
+
 				task = new Task(id_task, description, doctor_id, duration, elderly_id);
-				
+
 			}
 			rs.close();
 			pr.close();
@@ -120,6 +143,6 @@ public class JDBCTasksManager implements TaskManager {
 		}
 		return task;
 	}
-	
+
 
 }

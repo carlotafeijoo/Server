@@ -13,11 +13,20 @@ import POJOS.Doctor;
 public class JDBCDoctorManager implements DoctorManager {
 
 	private JDBCManager Doctormanager;
-
+	/**
+	 * Constructs a new JDBCDoctorManager with the specified JDBCManager.
+	 * 
+	 * @param jdbcManager the JDBCManager to be used
+	 */
 	public JDBCDoctorManager(JDBCManager jdbcManager) {
 		this.Doctormanager = jdbcManager;
 	}
-
+	/**
+	 * Adds a new doctor member to the database.
+	 * 
+	 * @param Doctormember the Doctor object representing the doctor to be added
+	 * @throws SQLException if a database access error occurs
+	 */
 	@Override
 	public void addDoctorMember(Doctor Doctormember) throws SQLException {
 		try {
@@ -36,8 +45,11 @@ public class JDBCDoctorManager implements DoctorManager {
 			e.printStackTrace();
 		}
 	}
-
-	// update info from a Doctor member
+	/**
+	 * Updates the information of a doctor member in the database.
+	 * 
+	 * @param Doctormember the Doctor object representing the updated doctor information
+	 */
 	@Override
 	public void updateDoctorMemberInfo(Doctor Doctormember) {
 		try {
@@ -55,9 +67,13 @@ public class JDBCDoctorManager implements DoctorManager {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * Retrieves the doctor ID based on the user ID for login.
+	 * 
+	 * @param User_id the user ID
+	 * @return the doctor ID
+	 */
 	@Override
-	// get Doctor_id from user id -> for login
 	public int searchDoctorIdfromUId(int User_id) {
 		int doctor_id = 0;
 		try {
@@ -75,9 +91,13 @@ public class JDBCDoctorManager implements DoctorManager {
 		}
 
 		return doctor_id;
-
 	}
-
+	/**
+	 * Retrieves a doctor by their ID.
+	 * 
+	 * @param doctor_id the doctor ID
+	 * @return the Doctor object
+	 */
 	@Override
 	public Doctor searchDoctorbyId(int doctor_id) {
 		Doctor Doctor = null;
@@ -104,7 +124,11 @@ public class JDBCDoctorManager implements DoctorManager {
 
 		return Doctor;
 	}
-
+	/**
+	 * Retrieves a list of all doctors from the database.
+	 * 
+	 * @return an ArrayList of Doctor objects representing all the doctors
+	 */
 	@Override
 	public ArrayList<Doctor> searchAllDoctors() {
 		ArrayList<Doctor> listaDoctores = new ArrayList<>();
@@ -132,6 +156,12 @@ public class JDBCDoctorManager implements DoctorManager {
 
 		return listaDoctores;
 	}
+	/**
+	 * Checks if a DNI (username) is already used by a doctor member.
+	 * 
+	 * @param username the DNI (username) to be checked
+	 * @return true if the DNI is already used, otherwise false
+	 */
 	public boolean checkAlreadyUsedDNIDoc(String username) {
 		boolean result = false;
 		try {

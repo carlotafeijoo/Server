@@ -14,15 +14,20 @@ import exceptions.InputException;
 import POJOS.*;
 
 public class ServerMenuResidencialArea {
-	
+
 	static OutputStream os = null;
 	static PrintWriter pw = null;
 
 	static BufferedReader br = null;
 	static Socket so = null;
 	private static BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-	
 
+	/**
+	 * The main method to initialize the client application and connect to the server.
+	 * 
+	 * @param args the command-line arguments
+	 * @throws IOException if an I/O error occurs when creating the socket or getting the input stream
+	 */
 	public static void main(String[] args) throws IOException {
 
 		System.out.println("\nADMIN! WELCOME TO THE RESIDENCIAL AREA DATA BASE");
@@ -35,7 +40,14 @@ public class ServerMenuResidencialArea {
 		mainMenu();
 
 	}
-
+	/**
+	 * Releases the resources associated with the socket and I/O streams.
+	 * 
+	 * @param printWriter the PrintWriter to be closed
+	 * @param br the BufferedReader to be closed
+	 * @param outputStream the OutputStream to be closed
+	 * @param socket the Socket to be closed
+	 */
 	private static void releaseResources(PrintWriter printWriter, BufferedReader br, OutputStream outputStream,
 			Socket socket) {
 		printWriter.close();
@@ -56,11 +68,13 @@ public class ServerMenuResidencialArea {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * Displays the main menu and handles user input.
+	 */
 	public static void mainMenu() {
-			
+
 		try {
-			
+
 			int option;
 			do {
 				System.out.println("\nMAIN MENU ");
@@ -75,7 +89,7 @@ public class ServerMenuResidencialArea {
 					//CLOSE CLIENT SOCKET AND APP
 					stopserver();
 					mainMenu();
-					
+
 					break;
 
 				case 2:
@@ -95,12 +109,20 @@ public class ServerMenuResidencialArea {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * Sends a request to the server to stop and waits for the response. If the response is "exit admin client", 
+	 * the client resources are released and the application exits. If the response is not received within 10 minutes, 
+	 * a message is displayed, and the method returns.
+	 * 
+	 * @throws Exception if an error occurs during the process
+	 */
 	private static void stopserver() throws Exception {
-		
-		
+
+
 		long start_time = System.currentTimeMillis();
 		long current_time = System.currentTimeMillis();
-		
+
 		while(true) {
 			pw.println("killServer");
 			current_time = System.currentTimeMillis();
@@ -109,11 +131,11 @@ public class ServerMenuResidencialArea {
 				releaseResources(pw, br, os, so);
 				System.exit(0);
 			}else {
-			if (timer >= 600000) { //10 minutes
-				System.out.println("Waiting time ended, please try again");
-				return;
-			}
-		
+				if (timer >= 600000) { //10 minutes
+					System.out.println("Waiting time ended, please try again");
+					return;
+				}
+
 			}
 		}
 	}
