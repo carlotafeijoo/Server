@@ -77,6 +77,7 @@ public class ServerMain {
 				System.out.println("1. Start server ");
 				System.out.println("2. Switch off application  ");
 				option = InputException.getInt("Introduce the number choice:  ");
+				System.out.println("\n--------------------------------------------------------------------------------");
 
 				int clientCounter = 0;
 
@@ -135,6 +136,8 @@ public class ServerMain {
 			ServerMain.clientCounter++;
 
 			System.out.println("\nClient connected");
+			System.out.println("\n--------------------------------------------------------------------------------");
+
 
 			// Server: reads and sends lines
 			ClientHandler clientHandler = new ClientHandler(so, userManager, doctorManager, elderlyManager, tasksManager, reportManager);
@@ -168,8 +171,8 @@ public class ServerMain {
 				System.out.println("1. Turn off server application");
 				System.out.println("2. Continue operating server application");
 
-
 				option = InputException.getInt("\nIntroduce the number choice:  ");
+				System.out.println("\n--------------------------------------------------------------------------------");
 
 				switch (option) {
 

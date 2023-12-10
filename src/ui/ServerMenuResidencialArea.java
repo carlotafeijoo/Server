@@ -81,8 +81,9 @@ public class ServerMenuResidencialArea {
 				System.out.println("1. Stop the server  ");
 				System.out.println("2. Exit ");
 				option = InputException.getInt("Introduce the number choice:  ");
+				System.out.println("\n--------------------------------------------------------------------------------");
+				
 				pw.println(option);
-
 				switch (option) {
 
 				case 1:
@@ -101,7 +102,7 @@ public class ServerMenuResidencialArea {
 					break;
 
 				default:
-					break;
+					mainMenu();
 				}
 			} while (true);
 
@@ -127,12 +128,15 @@ public class ServerMenuResidencialArea {
 			pw.println("killServer");
 			current_time = System.currentTimeMillis();
 			long timer = current_time - start_time;
+			
 			if (br.readLine().equalsIgnoreCase("exit admin client")){
 				releaseResources(pw, br, os, so);
 				System.exit(0);
+				
 			}else {
 				if (timer >= 600000) { //10 minutes
 					System.out.println("Waiting time ended, please try again");
+					System.out.println("\n--------------------------------------------------------------------------------");
 					return;
 				}
 

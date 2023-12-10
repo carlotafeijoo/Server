@@ -84,7 +84,8 @@ public class ClientHandler implements Runnable {
 
 
 		System.out.println("Number of clients: " + ServerMain.clientCounter);
-
+		System.out.println("\n--------------------------------------------------------------------------------");
+		
 		String line;
 
 		while ((line = br.readLine()) != null) {
@@ -103,6 +104,7 @@ public class ClientHandler implements Runnable {
 				System.out.println("\nConexion with the client ended");
 				ServerMain.clientCounter--;
 				System.out.println("There are " + ServerMain.clientCounter + " clients connected");
+				System.out.println("\n--------------------------------------------------------------------------------");
 				releaseResources(pw, br, os, so);
 				break;
 			}
@@ -126,6 +128,7 @@ public class ClientHandler implements Runnable {
 					pw.println("exit admin client");
 
 					System.out.println("\nServer in standby mode");
+					System.out.println("\n--------------------------------------------------------------------------------");
 					ServerMain.switchServerOFF();
 					releaseResources(pw, br, os, so);
 					break;
@@ -163,6 +166,8 @@ public class ClientHandler implements Runnable {
 				boolean check = doctorManager.checkAlreadyUsedDNIDoc(username);
 				if (check == true){
 					pw.println("\nRegister uncompleted: email already in use, try to log in instead");
+					System.out.println("\n--------------------------------------------------------------------------------");
+					
 				} else {
 					String password = br.readLine();
 					String doctor_text = br.readLine();
@@ -195,6 +200,7 @@ public class ClientHandler implements Runnable {
 						e.printStackTrace();
 					}
 					pw.println("doctor added");
+					System.out.println("\n--------------------------------------------------------------------------------");
 
 				}
 
@@ -234,6 +240,7 @@ public class ClientHandler implements Runnable {
 
 				}catch(Exception e) {
 					System.out.println("\nUser does not exist");
+					System.out.println("\n--------------------------------------------------------------------------------");
 					e.printStackTrace();
 				}
 
@@ -251,6 +258,7 @@ public class ClientHandler implements Runnable {
 				int id=Integer.parseInt(id_text);
 				int doctor_id =  doctorManager.searchDoctorIdfromUId(id);
 				pw.println(""+doctor_id);
+				System.out.println("\n--------------------------------------------------------------------------------");
 
 			}
 
@@ -267,6 +275,7 @@ public class ClientHandler implements Runnable {
 				int id = Integer.parseInt(id_text);
 				Doctor doctor = doctorManager.searchDoctorbyId(id);
 				pw.println(doctor.toString());
+				System.out.println("\n--------------------------------------------------------------------------------");
 
 			}
 			/**
@@ -283,6 +292,7 @@ public class ClientHandler implements Runnable {
 				System.out.println(doctorObject_string);
 				Doctor doctorToUpdate = new Doctor(doctorObject_string);
 				doctorManager.updateDoctorMemberInfo(doctorToUpdate);
+				System.out.println("\n--------------------------------------------------------------------------------");
 			}
 			/**
 			Processes the client request to retrieve and send the symptoms of an elderly person.
@@ -297,6 +307,7 @@ public class ClientHandler implements Runnable {
 				int eld_id = Integer.parseInt(eld_id_txt);
 				String symp = elderlyManager.seeSymptoms(eld_id);
 				pw.println(symp);
+				System.out.println("\n--------------------------------------------------------------------------------");
 			}
 			/**
 			Processes the client request to retrieve a list of tasks by a doctor from a specific elderly person and send the tasks to the client.
@@ -317,6 +328,7 @@ public class ClientHandler implements Runnable {
 				for (Task listtask : listtasks) {
 					pw.println(listtask);
 				}
+				System.out.println("\n--------------------------------------------------------------------------------");
 			}
 			/**
 			Processes the client request to print a report and send its content to the client.
@@ -356,6 +368,7 @@ public class ClientHandler implements Runnable {
 						texto = texto + stringleido + ",";
 					}
 					pw.println(texto);
+					System.out.println("\n--------------------------------------------------------------------------------");
 
 
 				} catch (IOException ioe) {
@@ -367,6 +380,7 @@ public class ClientHandler implements Runnable {
 						}
 					} catch (IOException ioe) {
 						System.out.println("\nError durante el proceso\t" + ioe);
+						System.out.println("\n--------------------------------------------------------------------------------");
 					}
 					try {
 						if (inputstreamreader != null) {
@@ -374,6 +388,7 @@ public class ClientHandler implements Runnable {
 						}
 					} catch (IOException ioe) {
 						System.out.println("\nError durante el proceso\t" + ioe);
+						System.out.println("\n--------------------------------------------------------------------------------");
 					}
 					try {
 						if (fileinputstream != null) {
@@ -381,6 +396,7 @@ public class ClientHandler implements Runnable {
 						}
 					} catch (IOException ioe) {
 						System.out.println("\nError durante el proceso\t" + ioe);
+						System.out.println("\n--------------------------------------------------------------------------------");
 					}
 				}
 			}/**
@@ -403,6 +419,7 @@ public class ClientHandler implements Runnable {
 				for (Report listreport : listreports) {
 					pw.println(listreport);
 				}
+				System.out.println("\n--------------------------------------------------------------------------------");
 			}
 			/**
 			Processes the client request to retrieve a list of elderly individuals associated with a specific doctor and sends the list to the client.
@@ -420,6 +437,7 @@ public class ClientHandler implements Runnable {
 				for (Elderly elderly : elderlys) {
 					pw.println(elderly);
 				}
+				System.out.println("\n--------------------------------------------------------------------------------");
 			}
 			/**
 			Processes the client request to add a new task.
@@ -438,6 +456,7 @@ public class ClientHandler implements Runnable {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+				System.out.println("\n--------------------------------------------------------------------------------");
 			}
 
 
@@ -466,6 +485,8 @@ public class ClientHandler implements Runnable {
 				System.out.println(check);
 				if (check == true){
 					pw.println("\nRegister uncompleted: DNI already in use, try to log in instead");
+					System.out.println("\n--------------------------------------------------------------------------------");
+				
 				} else {
 					String password = br.readLine();
 					String elderly_text = br.readLine();
@@ -490,6 +511,7 @@ public class ClientHandler implements Runnable {
 						e.printStackTrace();
 					}
 					pw.println("elderly added");
+					System.out.println("\n--------------------------------------------------------------------------------");
 				}
 			}
 			/**
@@ -507,6 +529,7 @@ public class ClientHandler implements Runnable {
 				for (Doctor doctore : doctores) {
 					pw.println(doctore);
 				}
+				System.out.println("\n--------------------------------------------------------------------------------");
 			}
 			/**
 			Processes the client request to search for an elderly person's ID based on a user ID and sends the ID to the client.
@@ -521,6 +544,7 @@ public class ClientHandler implements Runnable {
 				int id=Integer.parseInt(id_text);
 				int elderly_id =  elderlyManager.searchElderlyIdfromUId(id);
 				pw.println(""+elderly_id);
+				System.out.println("\n--------------------------------------------------------------------------------");
 			}
 			/**
 			Processes the client request to search for an elderly person by ID and sends the information to the client.
@@ -541,6 +565,7 @@ public class ClientHandler implements Runnable {
 				}
 				System.out.println("elderly"+elderly.toString());
 				pw.println(elderly.toString());
+				System.out.println("\n--------------------------------------------------------------------------------");
 			}
 			/**
 			Processes the client request to search for an elderly person's name by ID and sends the name to the client.
@@ -561,6 +586,7 @@ public class ClientHandler implements Runnable {
 				}
 				System.out.println("\n" + elderly.getName());
 				pw.println(elderly.getName());
+				System.out.println("\n--------------------------------------------------------------------------------");
 			}
 			/**
 			Processes the client request to retrieve a list of tasks and their IDs associated with a specific elderly person and sends the list to the client.
@@ -581,6 +607,7 @@ public class ClientHandler implements Runnable {
 				for (Task listtask : listtasks) {
 					pw.println(listtask.toString());
 				}
+				System.out.println("\n--------------------------------------------------------------------------------");
 			}
 			/**
 			Processes the client request to search for a task duration by task ID associated with a specific elderly person and sends the duration to the client.
@@ -599,6 +626,7 @@ public class ClientHandler implements Runnable {
 				int recordDuration = task.getDuration();
 				System.out.println("\nRecord duration " +recordDuration);
 				pw.println(recordDuration);
+				System.out.println("\n--------------------------------------------------------------------------------");
 			}
 			/**
 			Processes the client request to store a record and associated data.
@@ -611,6 +639,7 @@ public class ClientHandler implements Runnable {
 			@param line the String to be checked for the presence of the phrase "storeRecord"
 			 */
 			else if(line.contains("storeRecord")) {
+				
 				System.out.println(line);
 				//Read filename
 				String file_name = br.readLine();
@@ -618,27 +647,36 @@ public class ClientHandler implements Runnable {
 				int task_id = Integer.parseInt(task_id_text);
 				String id_elderly_text = br.readLine();
 				int elderly_id = Integer.parseInt(id_elderly_text);
+				
 				Report rep =new Report(file_name, task_id, elderly_id);
 				reportManager.addReport(rep);
+				
 				String diract = System.getProperty("user.dir"); 
 				//String dirfolder = diract +"\\recordstxt";
 				String dirfolder = diract +"//recordstxt";
 				File archivo = new File(dirfolder, file_name);
 				// Using Java to write in a file
 				PrintWriter printwriter = null;
+				
 				try {
 					printwriter = new PrintWriter(archivo);
 					String stringleido;
+					
 					//Read the whole signal (Remind: separated by commas)
 					stringleido = br.readLine();
+					
 					//We want data to be written with \n
 					//(THAT IS HOW TXT IS GENERATED IN BITALINO.JAVA)
 					//Replace commas by \n
+					
 					String signal = convertCommaIntoLines(stringleido);
 					//Write signal in file
 					printwriter.println(signal);
+					System.out.println("\n--------------------------------------------------------------------------------");
 				} catch (IOException ioe) {
 					System.out.println("Error" + ioe);
+					System.out.println("\n--------------------------------------------------------------------------------");
+					
 				} finally {
 					if (printwriter != null) {
 						printwriter.close();
@@ -662,6 +700,7 @@ public class ClientHandler implements Runnable {
 				for (Task listtask : list_tasks) {
 					pw.println(listtask);
 				}
+				System.out.println("\n--------------------------------------------------------------------------------");
 			}
 			/**
 			Processes the client request to add symptoms for a specific elderly person.
@@ -672,9 +711,12 @@ public class ClientHandler implements Runnable {
 			@param line the String to be checked for the presence of the phrase "addSymptoms"
 			 */
 			else if(line.contains("addSymptoms")) {
+				
 				int e_id = Integer.parseInt(br.readLine());
 				String symptom = br.readLine();
 				elderlyManager.addSymptoms(e_id, symptom);
+				System.out.println(e_id + ", " + symptom);
+				System.out.println("\n--------------------------------------------------------------------------------");
 			}
 
 		}
