@@ -109,6 +109,9 @@ public class ClientHandler implements Runnable {
 					releaseResources(pw, br, os, so);
 					break;
 					}
+				else {
+					pw.println("");
+				}
 			
 			}
 			//DOCTOR

@@ -103,20 +103,18 @@ public class ServerMenuResidencialArea {
 		System.out.println(start_time);
 		
 		while(true) {
-				
 			pw.println("killServer");
 			current_time = System.currentTimeMillis();
 			long timer = current_time - start_time;
-			
-			if (br.readLine().equalsIgnoreCase("exit admin client")) {
+			if (br.readLine().equalsIgnoreCase("exit admin client")){
 				releaseResources(pw, br, os, so);
 				System.exit(0);
-			}
-			if (timer >= 60000) { //10 minutes
+			}else {
+			if (timer >= 600000) { //10 minutes
 				return;
 			}
 		
-		
+			}
 		}
 	}
 }
