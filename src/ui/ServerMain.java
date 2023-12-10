@@ -47,7 +47,7 @@ public class ServerMain {
 	static DataInputStream dis = null;
 	static FileInputStream fis = null;
 	static ServerSocket sso = null;
-	
+
 
 	private static ElderlyManager elderlyManager;
 
@@ -56,14 +56,14 @@ public class ServerMain {
 	private static UserManager userManager;
 
 	private static TaskManager tasksManager;
-	
+
 	private static ReportManager reportManager;
 
-	
+
 	static int socketPort = 9009;
-	
+
 	public static void main(String[] args) {
-				
+
 		try {
 
 			int option;
@@ -72,7 +72,7 @@ public class ServerMain {
 				System.out.println("1. Start server ");
 				System.out.println("2. Switch off application  ");
 				option = InputException.getInt("Introduce the number choice:  ");
-				
+
 				int clientCounter = 0;
 
 				switch (option) {
@@ -98,13 +98,13 @@ public class ServerMain {
 
 	}
 
-	
+
 
 	public static void serverMainON()throws IOException, NoSuchAlgorithmException, ParseException{
-			
+
 		System.out.println("\nSERVER ACTIVE");
 		System.out.println("Database connection openned.\n");
-		
+
 		//Server connects to DB
 		JDBCManager jdbcManager = new JDBCManager();
 
@@ -113,77 +113,80 @@ public class ServerMain {
 		doctorManager = new JDBCDoctorManager(jdbcManager);
 		tasksManager = new JDBCTasksManager(jdbcManager);
 		reportManager = new JDBCReportManager(jdbcManager);
-		
+
 		// initialize database JPA
 		userManager = new JPAUserManager();
 
-		
+
 		while (true) {
-			
+
 			Socket so = sso.accept();
-			
+
 			ServerMain.clientCounter++;
-				
+
 			System.out.println("\nClient connected");
-			
+
 			// Server: reads and sends lines
-			 ClientHandler clientHandler = new ClientHandler(so, userManager, doctorManager, elderlyManager, tasksManager, reportManager);
-	         Thread clientThread = new Thread(clientHandler);
-	         clientThread.start();
-  
-        }
+			ClientHandler clientHandler = new ClientHandler(so, userManager, doctorManager, elderlyManager, tasksManager, reportManager);
+			Thread clientThread = new Thread(clientHandler);
+			clientThread.start();
+
+		}
 
 	}
-	
+
 	public static void switchServerOFF()throws IOException, NoSuchAlgorithmException, ParseException{
-		
-		
+
+
 		try {
-			
+
 			sso.close();
 
 			int option = 0;
 
-			
+
 			do {
 				System.out.println("\nSWITCH OFF MENU ");
 				System.out.println("\nThere are no clients connected");
 				System.out.println("1. Turn off server application");
 				System.out.println("2. Continue operating server application");
-				
-				
+
+
 				option = InputException.getInt("\nIntroduce the number choice:  ");
-				
+
 				switch (option) {
 
 				case 1:
 					System.out.println("\nYOU HAVE SWITCHED OFF SERVER APPLICATION");
+					//sso.close();
 					System.exit(0);
 					break;
 
 				case 2:
+					//sso.close();
 					sso = new ServerSocket(socketPort);
 					ServerMain.clientCounter--;					
 					serverMainON();
-				
+
 					break;
 
 				default:
 					System.out.println("\nPlease introduce option 1 or 2.\n");
 					switchServerOFF();
-					
-					
+
+
 				}
 			} while (true);
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("\nThe socket is correctly closed");
 		}
-		
+
 	}
 
-	
-	
+
+
 }
 
 

@@ -2,6 +2,7 @@ package ui;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.security.MessageDigest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,14 +15,14 @@ import exceptions.InputException;
 import POJOS.*;
 
 public class ServerMenuResidencialArea {
-	
+
 	static OutputStream os = null;
 	static PrintWriter pw = null;
 
 	static BufferedReader br = null;
 	static Socket so = null;
 	private static BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-	
+
 
 	public static void main(String[] args) throws IOException {
 
@@ -58,9 +59,9 @@ public class ServerMenuResidencialArea {
 	}
 
 	public static void mainMenu() {
-			
+
 		try {
-			
+
 			int option;
 			do {
 				System.out.println("\nMAIN MENU ");
@@ -75,7 +76,7 @@ public class ServerMenuResidencialArea {
 					//CLOSE CLIENT SOCKET AND APP
 					stopserver();
 					mainMenu();
-					
+
 					break;
 
 				case 2:
@@ -91,16 +92,16 @@ public class ServerMenuResidencialArea {
 				}
 			} while (true);
 
-		} catch (Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	private static void stopserver() throws Exception {
-		
-		
+
+
 		long start_time = System.currentTimeMillis();
 		long current_time = System.currentTimeMillis();
-		
+
 		while(true) {
 			pw.println("killServer");
 			current_time = System.currentTimeMillis();
@@ -109,11 +110,11 @@ public class ServerMenuResidencialArea {
 				releaseResources(pw, br, os, so);
 				System.exit(0);
 			}else {
-			if (timer >= 600000) { //10 minutes
-				System.out.println("Waiting time ended, please try again");
-				return;
-			}
-		
+				if (timer >= 600000) { //10 minutes
+					System.out.println("Waiting time ended, please try again");
+					return;
+				}
+
 			}
 		}
 	}
